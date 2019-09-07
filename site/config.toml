@@ -1,7 +1,7 @@
 baseURL = "https://blog.skouf.com/"
 languageCode = "en-us"
 title = "blog.skouf.com"
-theme = "ezhil"
+theme = "skouf"
 
 # Enable syntax highlighting.
 pygmentsstyle = "vs"
@@ -18,8 +18,6 @@ googleAnalytics = "UA-76961630-4"
 	recentPostsCount = 10
 	# Content types which are excluded from recent posts and archive page (Optional). Defaults to ["page"]
 	excludedTypes = ["page"]
-	# Content types which are excludes Disqus comments (Optional). Defaults to ["page"]
-	disableDisqusTypes = ["page"]
 	# If social media links are enabled then enable this to fetch icons from CDN instead of hosted on your site.
 	featherIconsCDN = true
 
