@@ -1,15 +1,12 @@
-FROM alpine:3.8
+FROM debian:stable-slim
 
 ARG VERSION=0.58.1
-ENV PACKAGE hugo_${VERSION}_Linux-64bit.tar.gz
-
-RUN apk update && apk add \
-	git\
-	openssh\
-	&& rm -rf /var/cache/apk/*
+ENV PACKAGE hugo_extended_${VERSION}_Linux-64bit.tar.gz
 
 ADD https://github.com/gohugoio/hugo/releases/download/v${VERSION}/${PACKAGE} /tmp
-RUN tar xzvf "/tmp/${PACKAGE}" hugo -C /usr/local/bin \
+RUN tar xzvf "/tmp/${PACKAGE}" hugo \
 	&& rm -fr "/tmp/${PACKAGE}"
+
+ENV PATH="/:${PATH}"
 
 WORKDIR /site

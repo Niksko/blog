@@ -3,8 +3,8 @@
 
 ### Hugo ###
 # Generated files by hugo
-/public/
-/resources/_gen/
+site/public/
+site/resources/_gen/
 
 # Executable may be added to repository
 hugo.exe

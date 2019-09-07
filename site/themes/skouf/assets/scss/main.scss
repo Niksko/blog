@@ -1,0 +1,264 @@
+@import "normalize";
+@import "breakpoints";
+
+$page-background: #F1F5F7;
+$header-color: rgb(106, 244, 162);
+$font-stack: 'Open Sans', sans-serif;
+$dark-text-color: rgb(71, 86, 92);
+$header-text-color: #00571A;
+$border-color: #E2E2E2;
+$link-color: #31A6D6;
+$visited-link-color: #3061A5;
+
+$key-width: 80px;
+$key-side-margin: 16px;
+$vertical-margin: 4px;
+$section-vertical-margin: 1.6em;
+$section-vertical-padding: 2em;
+
+body {
+  background: $page-background;
+  font-family: $font-stack;
+  color: $dark-text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  header {
+    background: $header-color;
+    width: 100%;
+    padding: 8px 0 12px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    @include respond-to(tablet) {
+      margin-bottom: 0.66em;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-basis: 700px;
+      padding: 0 16px;
+
+      @include respond-to(laptop-l) {
+        padding-top: 50px;
+        padding-bottom: 35px;
+      }
+
+      h1 {
+        color: $header-text-color;
+        font-size: 1.5em;
+        margin: 0.33em 0;
+
+        @include respond-to(tablet) {
+          font-size: 2em;
+          margin: 0.66em 0;
+        }
+      }
+
+      #label {
+        color: $header-text-color;
+        font-weight: bolder;
+        font-size: 0.9em;
+
+        @include respond-to(tablet) {
+          margin-bottom: 0.5em;
+          font-size: 1em
+        }
+      }
+    }
+  }
+
+  main {
+    max-width: 700px;
+    margin: 0 16px;
+
+    > section {
+      margin: 0;
+      padding-bottom: 0.4em;
+      border-bottom: 1px $border-color solid;
+
+      @include respond-to(laptop-l) {
+        padding-bottom: 1.5em;
+        padding-top: 1.5em;
+      }
+
+      .summary {
+          @include respond-to(laptop-l) {
+            padding-bottom: 1.2em;
+          }
+      }
+
+      h2 {
+        font-size: 1em;
+
+        @include respond-to(laptop-l) {
+          font-size: 1.2em;
+          padding-bottom: 15px;
+        }
+      }
+
+      p {
+        margin: 0.6em 0;
+      }
+
+      ul {
+        -webkit-padding-start: 30px;
+        -moz-padding-start: 30px;
+      }
+
+      a {
+        color: $link-color;
+      }
+
+      a:visited {
+        color: $visited-link-color;
+      }
+
+      a:hover {
+        color: $visited-link-color;
+      }
+
+      .label-with-content {
+        @include respond-to(laptop-l) {
+          margin-bottom: 30px;
+        }
+
+        .label {
+          font-weight: 600;
+          padding-bottom: 6px;
+
+          @include respond-to(laptop-l) {
+            padding-bottom: 15px;
+          }
+        }
+
+        .content > .horizontal-content > div {
+          padding: 2px 0;
+        }
+      }
+
+      .key-value {
+        display: flex;
+        margin-top: $vertical-margin;
+        margin-bottom: $vertical-margin;
+        width: 100%;
+
+        .key {
+          font-weight: 600;
+          flex: 0 0 auto;
+          width: $key-width;
+        }
+        .value {
+          width: 100%;
+        }
+      }
+
+      .horizontal-content {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+        justify-content: space-between;
+
+        .work-position,
+        .work-dates,
+        .work-website {
+          width: 100%;
+        }
+
+        @include respond-to(mobile-m) {
+          .work-position,
+          .work-dates,
+          .work-website {
+            width: auto;
+          }
+        }
+
+        @include respond-to(tablet) {
+          div {
+            width: auto;
+          }
+
+          div:first-child {
+            margin-right: $key-side-margin;
+          }
+
+          div:last-child {
+            margin-left: $key-side-margin;
+          }
+
+          div:not(:first-child):not(:last-child) {
+            margin-left: $key-side-margin;
+            margin-right: $key-side-margin;
+          }
+        }
+      }
+
+      .vertical-content {
+        display: flex;
+        flex-flow: column wrap;
+
+        > div {
+          padding: 6px 0;
+        }
+      }
+    }
+
+    #education {
+      .institution {
+        font-weight: 600;
+      }
+
+      .education-entry > div {
+        padding: 2px 0;
+      }
+    }
+
+    #skills {
+      ul {
+        -webkit-margin-before: 0.5em;
+        -webkit-margin-after: 0.5em;
+      }
+
+      .vertical-content {
+        @include respond-to(mobile-l) {
+          height: 400px;
+        }
+      }
+    }
+
+    #interests {
+      .vertical-content {
+        @include respond-to(mobile-l) {
+          height: 140px;
+        }
+
+        @include respond-to(tablet) {
+          height: 100px;
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  body {
+    background: white
+  }
+
+  a {
+    color: $dark-text-color;
+  }
+
+  a:visited {
+    color: $dark-text-color;
+  }
+
+  a:hover {
+    color: $dark-text-color;
+  }
+}
