@@ -75,6 +75,7 @@ body {
 
   main {
     max-width: 700px;
+    min-width: 700px;
     margin: 0 16px;
 
     > section {
@@ -102,7 +103,7 @@ body {
         }
       }
 
-      p {
+      div {
         margin: 0.6em 0;
       }
 

@@ -2,10 +2,10 @@
 title: "Blog Migration"
 date: 2019-09-07T05:43:18Z
 draft: true
+description: "Moving my blog from Medium to Hugo"
 ---
-
 It's finally time to take my blog off of medium and host it myself
-
+<!--more-->
 Things I didn't like about medium:
 
 * Paywall is a big one. It's annoying as shit personally, so why should I subject others to it?

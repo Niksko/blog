@@ -5,39 +5,29 @@
 	<header>
 		 {{ partial "head.html" . }}
 	</header>
-  <div id="content" class="container">
-    <div class="recent-posts section">
+  <main id="content" class="container">
+    <section class="recent-posts" id="basics">
       <h2 class="section-header">
         Recent posts
       </h2>
-      <div class="posts">
-        {{- $.Scratch.Set "counter" 0 -}}
-        {{- range .Data.Pages -}}
-        {{- if (in (.Site.Params.excludedTypes | default (slice "page")) .Type) -}}
-        {{- else -}}
-        {{- if lt ($.Scratch.Get "counter") (.Site.Params.RecentPostsCount | default 10) -}}
+      <section id="summary" class="posts summary">
+        {{ range where .Site.RegularPages "Section" "posts" }}
         <div class="post">
           <div class="meta">{{ dateFormat "Jan 2, 2006" .Date }}</div>
           <a class="title" href="{{ .RelPermalink }}">{{.Title}}</a> &mdash;
           <span class="description">
-            {{ if isset .Params "description" }}
-              {{ .Description }}
-            {{ else if gt (len .RawContent) 120 }}
-              {{ slicestr .RawContent 0 120 }}...
-            {{ else }}
-              {{ .RawContent }}
-            {{ end }}
+            {{ .Description }}
           </span>
+          <div>
+            {{ .Summary }}
+          </div>
         </div>
-        {{- $.Scratch.Set "counter" (add ($.Scratch.Get "counter") 1) -}}
-        {{- end -}}
-        {{- end -}}
         {{- end -}}
 
         <a href="/posts">All articles →</a>
-      </div>
-    </div>
-  </div>
+      </section>
+    </section>
+  </main>
 	{{ partial "footer.html" . }}
 </body>
 </html>

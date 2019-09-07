@@ -16,8 +16,6 @@ googleAnalytics = "UA-76961630-4"
 	subtitle = "The personal blog of Nik Skoufis"
 	# Number of posts to show in recent posts list (Optional). Defaults to 10.
 	recentPostsCount = 10
-	# Content types which are excluded from recent posts and archive page (Optional). Defaults to ["page"]
-	excludedTypes = ["page"]
 	# If social media links are enabled then enable this to fetch icons from CDN instead of hosted on your site.
 	featherIconsCDN = true
 
