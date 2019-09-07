@@ -7,3 +7,17 @@ services:
     entrypoint: hugo
     volumes:
       - ./site:/site
+
+  local:
+    build:
+      context: .
+    command:
+      - hugo
+      - server
+      - --bind
+      - 0.0.0.0
+      - --buildDrafts
+    volumes:
+      - ./site:/site
+    ports:
+      - 1313:1313

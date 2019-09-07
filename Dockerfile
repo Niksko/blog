@@ -13,4 +13,3 @@ RUN tar xzvf "/tmp/${PACKAGE}" hugo -C /usr/local/bin \
 	&& rm -fr "/tmp/${PACKAGE}"
 
 WORKDIR /site
-EXPOSE 1313
