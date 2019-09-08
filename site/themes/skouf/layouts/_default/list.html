@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 {{ partial "header.html" . }}
-
 <body>
-	<div class="container wrapper list">
-		{{ partial "head.html" . }}
+  <header>
+    {{ partial "head.html" . }}
+  </header>
+	<main id="content" class="container">
+		<section class="recent-posts">
+      {{ if isset .Data "Term" }}
+        <h2 class="section-header">Entries tagged - "{{.Data.Term}}"</h2>
+      {{ else }}
+        <h2 class="section-header">All articles</h2>
+      {{ end }}
 
-		{{ if isset .Data "Term" }}
-			<h1>Entries tagged - "{{.Data.Term}}"</h1>
-		{{ else }}
-			<h1 class="page-title">All articles</h1>
-		{{ end }}
-
-		<ul class="posts">
-			{{- range .Data.Pages -}}
-			{{- if (in (.Site.Params.excludedTypes | default (slice "page")) .Type) -}}
-			{{- else -}}
-			<li class="post">
-				<a href="{{ .RelPermalink }}">{{.Title}}</a> <span class="meta">{{ dateFormat "Jan 2, 2006" .Date }}</span>
-			</li>
-			{{- end -}}
-			{{- end -}}
-		</ul>
-	</div>
+      <section class="posts">
+        {{- range .Data.Pages -}}
+        {{- if (in (.Site.Params.excludedTypes | default (slice "page")) .Type) -}}
+        {{- else -}}
+        {{ partial "post_preview.html" . }}
+        {{- end -}}
+        {{- end -}}
+      </section>
+    </section>
+  </main>
 
 	{{ partial "footer.html" . }}
 </body>

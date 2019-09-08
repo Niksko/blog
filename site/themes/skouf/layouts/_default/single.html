@@ -2,19 +2,20 @@
 <html>
 {{ partial "header.html" . }}
 <body>
-	<div class="container wrapper post">
-		{{ partial "head.html" . }}
-
-		<div class="post-header">
-			<h1 class="title">{{ .Title }}</h1>
+  <header>
+    {{ partial "head.html" . }}
+  </header>
+  <main id="content" class="container">
+		<section class="section-header">
+			<h2 class="title">{{ .Title }}</h2>
 			<div class="meta">Posted at &mdash; {{ dateFormat "Jan 2, 2006" .Date }}</div>
-		</div>
+		</section>
 
 		<div class="markdown">
 			{{ .Content }}
 		</div>
 
-	</div>
+	</main>
 	{{ partial "footer.html" . }}
 </body>
 </html>
