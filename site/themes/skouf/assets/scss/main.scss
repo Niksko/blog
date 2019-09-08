@@ -3,6 +3,7 @@
 
 $page-background: #F1F5F7;
 $header-color: rgb(106, 244, 162);
+$content-width: 800px;
 $font-stack: 'Open Sans', sans-serif;
 $dark-text-color: rgb(71, 86, 92);
 $header-text-color: #00571A;
@@ -41,7 +42,7 @@ body {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      flex-basis: 700px;
+      flex-basis: $content-width;
       padding: 0 16px;
 
       @include respond-to(laptop-l) {
@@ -74,8 +75,8 @@ body {
   }
 
   main {
-    max-width: 700px;
-    min-width: 700px;
+    max-width: $content-width;
+    min-width: $content-width;
     margin: 0 16px;
 
     > section {

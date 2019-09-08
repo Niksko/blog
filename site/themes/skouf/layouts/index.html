@@ -10,7 +10,7 @@
       <h2 class="section-header">
         Recent posts
       </h2>
-      <section id="summary" class="posts summary">
+      <section class="posts">
         {{ range where .Site.RegularPages "Section" "posts" }}
         <div class="post">
           <div class="meta">{{ dateFormat "Jan 2, 2006" .Date }}</div>
@@ -18,7 +18,7 @@
           <span class="description">
             {{ .Description }}
           </span>
-          <div>
+          <div class="summary">
             {{ .Summary }}
           </div>
         </div>
