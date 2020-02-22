@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+@import './modules/variables';
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+}
+a {
+  color: $color-link;
+  transition: .3s all;
+
+  &:hover {
+    opacity: .6;
+    text-decoration: none;
+  }
+}
+
+.wrap {
+  overflow: hidden;
+}
+
+.main {
+  margin: 0 auto;
+  max-width: 1080px;
+  color: $text-color-main;
+
+  &.main--single {
+    max-width: 760px;
+  }
+
+  section.articles {
+    article {
+      p {
+        color: $text-color-main-light;
+      }
+    }
+  }
+}
+
+@import './modules/header';
+@import './modules/footer';
+@import './modules/list';
+@import './modules/single';
+@import './modules/other';

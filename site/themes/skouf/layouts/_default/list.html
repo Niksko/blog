@@ -1,30 +1,32 @@
 <!DOCTYPE html>
-<html>
-{{ partial "header.html" . }}
+<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en{{ end }}">
+{{ partial "head" . }}
 <body>
-  <header>
-    {{ partial "head.html" . }}
-  </header>
-	<main id="content" class="container">
-		<section class="recent-posts">
-      {{ if isset .Data "Term" }}
-        <h2 class="section-header">Entries tagged - "{{.Data.Term}}"</h2>
-      {{ else }}
-        <h2 class="section-header">All articles</h2>
-      {{ end }}
-
-      <section class="posts">
-        {{- range .Data.Pages -}}
-        {{- if (in (.Site.Params.excludedTypes | default (slice "page")) .Type) -}}
-        {{- else -}}
-        {{ partial "post_preview.html" . }}
-        {{- end -}}
-        {{- end -}}
+  <div id="wrap" class="wrap">
+    {{ partial "header" . }}
+    <main class="main">
+      <section class="articles">
+        <h2>Recent Post</h2>
+        <div class="pure-g">
+          {{ range (.Paginator 12).Pages }}
+            {{ .Render "li" }}
+          {{ end }}
+        </div>
       </section>
-    </section>
-  </main>
-
-	{{ partial "footer.html" . }}
+      {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+        <nav class="pagination">
+          {{ if .Paginator.HasPrev }}
+          <a class="pagination__link pagination__link--prev" href="{{ .Paginator.Prev.URL }}">&lt; Prev</a>
+          {{ end }}
+          <span class="pagination__current">{{ .Paginator.PageNumber}} / {{ .Paginator.TotalPages }} Page</span>
+          {{ if .Paginator.HasNext }}
+          <a class="pagination__link pagination__link--next" href="{{ .Paginator.Next.URL }}">Next &gt;</a>
+          {{ end }}
+        </nav>
+        {{ end }}
+    </main>
+    {{ partial "footer" . }}
+  </div>
+{{ partial "js" . }}
 </body>
-
 </html>
