@@ -21,7 +21,6 @@
 
 .post-content {
   margin-bottom: 3em;
-  line-height: 1.6em;
   text-align: justify;
 
   img {
@@ -71,6 +70,14 @@
     a {
       font-size: .8em;
     }
+  }
+
+  @include respond-to(tablet) {
+    line-height: 1.4em;
+  }
+
+  @include respond-to(laptop) {
+    line-height: 1.6em;
   }
 }
 

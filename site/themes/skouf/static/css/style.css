@@ -165,7 +165,6 @@ a {
 
 .post-content {
   margin-bottom: 3em;
-  line-height: 1.6em;
   text-align: justify; }
   .post-content img {
     border: 1px solid #eee;
@@ -199,6 +198,12 @@ a {
     padding: 30px; }
     .post-content blockquote a {
       font-size: .8em; }
+  @media (min-width: 767px) {
+    .post-content {
+      line-height: 1.4em; } }
+  @media (min-width: 1024px) {
+    .post-content {
+      line-height: 1.6em; } }
 
 .post-hr {
   border-top: 1px solid #eee;
