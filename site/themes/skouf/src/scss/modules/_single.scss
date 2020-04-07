@@ -37,7 +37,8 @@
   h2,
   h3,
   h4 {
-    margin-top: 3em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
   }
 
   h2 {
@@ -74,10 +75,21 @@
 
   @include respond-to(tablet) {
     line-height: 1.4em;
+    h2,
+    h3,
+    h4 {
+      margin-top: 1.5em;
+      margin-bottom: 2em;
+    }
   }
 
   @include respond-to(laptop) {
     line-height: 1.6em;
+    h2,
+    h3,
+    h4 {
+      margin-bottom: 2.5em;
+    }
   }
 }
 

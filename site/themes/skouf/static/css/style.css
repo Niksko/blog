@@ -176,7 +176,8 @@ a {
   .post-content h2,
   .post-content h3,
   .post-content h4 {
-    margin-top: 3em; }
+    margin-top: 1.5em;
+    margin-bottom: 1.5em; }
   .post-content h2 {
     border-left: 5px solid #6af4a2;
     padding-left: .5em; }
@@ -200,10 +201,19 @@ a {
       font-size: .8em; }
   @media (min-width: 767px) {
     .post-content {
-      line-height: 1.4em; } }
+      line-height: 1.4em; }
+      .post-content h2,
+      .post-content h3,
+      .post-content h4 {
+        margin-top: 1.5em;
+        margin-bottom: 2em; } }
   @media (min-width: 1024px) {
     .post-content {
-      line-height: 1.6em; } }
+      line-height: 1.6em; }
+      .post-content h2,
+      .post-content h3,
+      .post-content h4 {
+        margin-bottom: 2.5em; } }
 
 .post-hr {
   border-top: 1px solid #eee;
