@@ -29,8 +29,8 @@ a {
 
 .header {
   margin-bottom: 1em;
-  padding-bottom: 2em;
-  padding-top: 1em;
+  padding-bottom: 0.5em;
+  padding-top: 0.2em;
   text-align: center;
   background-color: #6af4a2; }
   .header a {
@@ -38,6 +38,11 @@ a {
     text-decoration: none; }
   .header p {
     color: #008C47; }
+  @media (min-width: 1024px) {
+    .header {
+      padding-bottom: 2em;
+      padding-top: 1em;
+      margin-bottom: 3em; } }
 
 .site-title {
   display: block;
