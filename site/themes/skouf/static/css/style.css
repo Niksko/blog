@@ -153,7 +153,12 @@ a {
 .post,
 .post-aside,
 .post-nav {
-  padding: 0 5%; }
+  padding: 0 7.5%; }
+  @media (min-width: 767px) {
+    .post,
+    .post-aside,
+    .post-nav {
+      padding: 0 5%; } }
 
 .post {
   color: #444; }

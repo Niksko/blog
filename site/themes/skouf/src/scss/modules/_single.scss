@@ -3,7 +3,11 @@
 .post,
 .post-aside,
 .post-nav {
-  padding: 0 5%;
+  padding: 0 7.5%;
+
+  @include respond-to(tablet) {
+    padding: 0 5%;
+  }
 }
 
 .post {
