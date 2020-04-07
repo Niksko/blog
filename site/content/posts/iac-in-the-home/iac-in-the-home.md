@@ -61,6 +61,8 @@ The end result was my fork of the Typhoon repo implementing these features. Afte
 
 Below is all the configuration it takes:
 
+{{< gist niksko 66f3f948387b9dc46b0b500745759ee2 "main.tf" >}}
+
 Pretty concise and simple, don’t you think?
 
 ## Conclusion
