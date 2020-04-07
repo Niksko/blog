@@ -30,7 +30,7 @@
   img {
     border: 1px solid #eee;
     display: block;
-    margin: 2em auto 3em;
+    margin: 1em auto 1.5em;
     max-width: 100%;
   }
 
@@ -76,13 +76,20 @@
   }
 
   figure {
+    margin-top: .5em;
+    margin-bottom: 1.5em;
     figcaption {
+      text-align: center;
       overflow-wrap: break-word;
       font-size: 80%;
     }
   }
 
   @include respond-to(tablet) {
+    figure {
+      margin-top: 1em;
+      margin-bottom: 2em;
+    }
     line-height: 1.4em;
     h2,
     h3,

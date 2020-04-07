@@ -177,7 +177,7 @@ a {
   .post-content img {
     border: 1px solid #eee;
     display: block;
-    margin: 2em auto 3em;
+    margin: 1em auto 1.5em;
     max-width: 100%; }
   .post-content p {
     margin-bottom: 1.5em; }
@@ -206,12 +206,19 @@ a {
     padding: 30px; }
     .post-content blockquote a {
       font-size: .8em; }
-  .post-content figure figcaption {
-    overflow-wrap: break-word;
-    font-size: 80%; }
+  .post-content figure {
+    margin-top: .5em;
+    margin-bottom: 1.5em; }
+    .post-content figure figcaption {
+      text-align: center;
+      overflow-wrap: break-word;
+      font-size: 80%; }
   @media (min-width: 767px) {
     .post-content {
       line-height: 1.4em; }
+      .post-content figure {
+        margin-top: 1em;
+        margin-bottom: 2em; }
       .post-content h2,
       .post-content h3,
       .post-content h4 {
