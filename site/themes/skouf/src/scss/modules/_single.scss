@@ -77,6 +77,13 @@
     }
   }
 
+  figure {
+    figcaption {
+      overflow-wrap: break-word;
+      font-size: 80%;
+    }
+  }
+
   @include respond-to(tablet) {
     line-height: 1.4em;
     h2,

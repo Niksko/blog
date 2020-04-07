@@ -207,6 +207,9 @@ a {
     padding: 30px; }
     .post-content blockquote a {
       font-size: .8em; }
+  .post-content figure figcaption {
+    overflow-wrap: break-word;
+    font-size: 80%; }
   @media (min-width: 767px) {
     .post-content {
       line-height: 1.4em; }
