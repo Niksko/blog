@@ -3,12 +3,16 @@
 .footer {
   background-color: $header-footer-bg;
   color: $text-color-header;
-  margin-top: 5em;
+  margin-top: 2em;
   padding: 1em 0 3em;
   text-align: center;
 
   small {
     font-size: 1em;
+  }
+
+  @include respond-to(tablet) {
+    margin-top: 4em;
   }
 }
 
