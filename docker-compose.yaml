@@ -1,12 +1,16 @@
 ---
 version: '3.7'
 services:
-  theme:
+  theme: &theme
     image: node:12.16.1-stretch-slim
     volumes:
       - ./themes/skouf:/app
     working_dir: /app
     entrypoint: sh
+
+  build-theme:
+    <<: *theme
+    entrypoint: yarn exec gulp style
 
   hugo:
     build:
