@@ -109,8 +109,11 @@ a {
   padding: 0 5%; }
 
 .card {
-  margin-bottom: 2%;
+  margin-bottom: 4%;
   padding: 2%; }
+  @media (min-width: 767px) {
+    .card {
+      margin-bottom: 2%; } }
   .card a {
     color: inherit;
     display: block;
@@ -140,6 +143,12 @@ a {
               transform: translate(-50%, -50%);
       -webkit-transition: .3s all;
       transition: .3s all; }
+
+.card:not(:last-child) {
+  border-bottom: solid 1px lightgrey; }
+  @media (min-width: 767px) {
+    .card:not(:last-child) {
+      border-bottom: none; } }
 
 .pagination {
   font-size: 1.2em;

@@ -5,7 +5,10 @@
 }
 
 .card {
-  margin-bottom: 2%;
+  margin-bottom: 4%;
+  @include respond-to(tablet) {
+    margin-bottom: 2%;
+  }
   padding: 2%;
 
   a {
@@ -46,6 +49,14 @@
       transform: translate(-50%, -50%);
       transition: .3s all;
     }
+  }
+}
+
+.card:not(:last-child) {
+  border-bottom: solid 1px lightgrey;
+
+  @include respond-to(tablet) {
+    border-bottom: none;
   }
 }
 
