@@ -165,8 +165,6 @@ a {
 
 .post {
   color: #444; }
-  .post__title {
-    font-size: 1.6em; }
   .post__date {
     color: #c2c6cc;
     text-align: right; }
