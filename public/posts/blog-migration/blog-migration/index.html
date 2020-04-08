@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Blog migration - blog.skouf.com</title>
+  <meta name="generator" content="Hugo 0.58.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Nik Skoufis">
+  
+  <meta name="description" content="It&rsquo;s finally time to take my blog off of Medium and host it myself.">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="blog.skouf.com">
+  <meta property="og:title" content="Blog migration">
+  <meta property="og:url" content="https://blog.skouf.com/posts/blog-migration/blog-migration/">
+  
+  <meta property="og:image" content="https://blog.skouf.com/image/theme/og.png">
+  
+  
+  <meta property="og:description" content="It&rsquo;s finally time to take my blog off of Medium and host it myself.">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@niksko">
+  <meta name="twitter:title" content="Blog migration">
+  <meta name="twitter:url" content="https://blog.skouf.com/posts/blog-migration/blog-migration/">
+  
+  <meta name="twitter:description" content="It&rsquo;s finally time to take my blog off of Medium and host it myself.">
+  
+  
+  <meta name="twitter:image:src" content="https://blog.skouf.com/image/theme/og.png">
+  
+  <link rel="shortcut icon" href="https://blog.skouf.com/image/theme/favicon.ico">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" href="https://blog.skouf.com/index.xml" type="application/rss+xml" title="blog.skouf.com">
+</head>
+
+<body>
+  <div id="wrap" class="wrap">
+    <header class="header">
+  <div class="site-title"><a href="/">blog.skouf.com</a></div>
+  <p class="site-desc">The personal blog of Nik Skoufis</p>
+  
+</header>
+
+    <main class="main main--single">
+      
+      <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+        <h1 class="post__title">Blog migration</h1>
+        <p class="post__date">
+          <time itemprop="datePublished" datetime="2020-04-08T02:30:18Z">2020.04.08</time>
+        </p>
+        <div class="post-content">
+          
+
+<h2 id="growing-tired-of-medium">Growing tired of Medium</h2>
+
+<p>This has been a while coming.
+To be frank, I&rsquo;m sick of Medium as a content platform.</p>
+
+<p>I resent the annoying full-page popups asking you to sign in.
+I&rsquo;m sick of these as a reader of other publications, and I&rsquo;d be horrified if my readers were ever subject to them.
+To add to their annoyance, I noticed a bizarre and infuriating dark pattern the other day.
+Dismissing the &lsquo;you have four articles left this month&rsquo; popover caused an un-dismissable signup screen to be displayed.
+If you just ignore the popup, you can read the article.
+Not cool.</p>
+
+<p>Aside from corporate greed, Medium isn&rsquo;t really built for the sort of content I tend to write.
+Up until now, I&rsquo;ve largely blogged about technical subjects.
+This means lots of code snippets, which aren&rsquo;t as easy to integrate into Medium as I&rsquo;d like.
+There&rsquo;s no native code formatting, so I have to embed Github gists.
+They work fine, but it&rsquo;s annoying and much more tedious than just writing code snippets inline.</p>
+
+<h2 id="the-new-blog">The new blog</h2>
+
+<p>The new blog hosting platform needed a few things:</p>
+
+<ul>
+<li>As discussed above, I wanted better support for code blocks.</li>
+<li>I wanted more control over the design and layout of the blog, down to writing custom CSS, JS and HTML.
+This is partly for controlling the styling, so that things look pretty and consistent.
+But it also affords me the option of doing more interesting posts with, for example, embedded Javascript, custom CSS, and even more exotic things.</li>
+<li>This should be a given, but it needs to be responsive and look good on mobile.</li>
+<li>Tagged content, or some sort of post taxonomy.
+Up until now I&rsquo;ve written about tech stuff.
+I have a bunch of other interests that I might like to write about, and I think it would be nice to be able to filter posts by topic or tag.</li>
+<li>The ability to be hosted for free.
+I managed to get on to Medium with a custom domain before they started charging for it.
+I&rsquo;d like to keep it that way.</li>
+</ul>
+
+<p>In the end I settled on <a href="https://gohugo.io/">Hugo</a>.
+It ticked all of the points from above, as well as the following niceties:</p>
+
+<ul>
+<li>Hugo is widely used, which means there&rsquo;s lots of tutorials and Stackoverflow articles.
+Invaluable when you&rsquo;re getting your head around a new framework.</li>
+<li>Hugo is <em>very</em> powerful.
+Part of what steered me in the direction of Hugo was contributing to <a href="https://istio.io/">the docs for the Istio project</a>.
+These docs look great, and look nothing like a simple blog.
+They also have great customizations like the code block that allows you to copy directly and change theme.
+These are all testaments to Hugo&rsquo;s power.</li>
+<li>Hugo has a large library of themes, which serve as really good starting points for customization.
+I&rsquo;m not really a front-end dev, so having a starting point cuts down on my frustration.
+I&rsquo;m a lot more adept at taking an existing stylesheet and tweaking it where I don&rsquo;t like it, which is what I ended up doing.</li>
+</ul>
+
+<h2 id="the-migration-process">The migration process</h2>
+
+<p>Migrating the content was fairly easy.
+Hugo content is written in markdown, so getting all of the content over was as simply as copy-pasting text and downloading images.
+The harder part of the migration was setting up Hugo and modifying the theme.</p>
+
+        </div>
+      </article>
+      
+      <hr class="post-hr">
+      
+      <nav class="post-nav">
+        <ol class="pure-g">
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+          </li>
+          
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+            <a href="https://blog.skouf.com/posts/log-4-net-rolling-file-appender/log-4-net-rolling-file-appender/">
+              <span class="post-nav-label">Previous</span>
+              <span class="post-nav-title">
+                Log4net rolling file appender with multiple projects
+              </span>
+            </a>
+          </li>
+          
+        </ol>
+        <div class="post-nav-back">
+          <a class="pure-button" href="/">Back</a>
+        </div>
+      </nav>
+    
+    </main>
+    <footer class="footer">
+  <section class="author">
+    <h2>Author</h2>
+    <div class="pure-g">
+      <div class="author__image pure-u-1-5 pure-u-md-1-8">
+        <img src="https://blog.skouf.com/image/theme/author.png" alt="">
+      </div>
+      <div class="author__info pure-u-4-5 pure-u-md-7-8">
+        
+        <h3>Nik Skoufis</h3>
+        
+        
+        <p>Software developer, hardware hacker, food lover</p>
+        
+        <ul class="author__links">
+          
+          <li>
+            <a href="https://github.com/niksko" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxMDI0IiB3aWR0aD0iMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTEyIDBDMjI5LjI1IDAgMCAyMjkuMjUgMCA1MTJjMCAyMjYuMjUgMTQ2LjY4OCA0MTguMTI1IDM1MC4xNTYgNDg1LjgxMiAyNS41OTQgNC42ODggMzQuOTM4LTExLjEyNSAzNC45MzgtMjQuNjI1IDAtMTIuMTg4LTAuNDY5LTUyLjU2Mi0wLjcxOS05NS4zMTJDMjQyIDkwOC44MTIgMjExLjkwNiA4MTcuNSAyMTEuOTA2IDgxNy41Yy0yMy4zMTItNTkuMTI1LTU2Ljg0NC03NC44NzUtNTYuODQ0LTc0Ljg3NS00Ni41MzEtMzEuNzUgMy41My0zMS4xMjUgMy41My0zMS4xMjUgNTEuNDA2IDMuNTYyIDc4LjQ3IDUyLjc1IDc4LjQ3IDUyLjc1IDQ1LjY4OCA3OC4yNSAxMTkuODc1IDU1LjYyNSAxNDkgNDIuNSA0LjY1NC0zMyAxNy45MDQtNTUuNjI1IDMyLjUtNjguMzc1QzMwNC45MDYgNzI1LjQzOCAxODUuMzQ0IDY4MS41IDE4NS4zNDQgNDg1LjMxMmMwLTU1LjkzOCAxOS45NjktMTAxLjU2MiA1Mi42NTYtMTM3LjQwNi01LjIxOS0xMy0yMi44NDQtNjUuMDk0IDUuMDYyLTEzNS41NjIgMCAwIDQyLjkzOC0xMy43NSAxNDAuODEyIDUyLjUgNDAuODEyLTExLjQwNiA4NC41OTQtMTcuMDMxIDEyOC4xMjUtMTcuMjE5IDQzLjUgMC4xODggODcuMzEyIDUuODc1IDEyOC4xODggMTcuMjgxIDk3LjY4OC02Ni4zMTIgMTQwLjY4OC01Mi41IDE0MC42ODgtNTIuNSAyOCA3MC41MzEgMTAuMzc1IDEyMi41NjIgNS4xMjUgMTM1LjUgMzIuODEyIDM1Ljg0NCA1Mi42MjUgODEuNDY5IDUyLjYyNSAxMzcuNDA2IDAgMTk2LjY4OC0xMTkuNzUgMjQwLTIzMy44MTIgMjUyLjY4OCAxOC40MzggMTUuODc1IDM0Ljc1IDQ3IDM0Ljc1IDk0Ljc1IDAgNjguNDM4LTAuNjg4IDEyMy42MjUtMC42ODggMTQwLjUgMCAxMy42MjUgOS4zMTIgMjkuNTYyIDM1LjI1IDI0LjU2MkM4NzcuNDM4IDkzMCAxMDI0IDczOC4xMjUgMTAyNCA1MTIgMTAyNCAyMjkuMjUgNzk0Ljc1IDAgNTEyIDB6Ii8+PC9zdmc+" alt="">
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/niksko" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1MDAiIGlkPSJzdmcyIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzIGlkPSJkZWZzNCIvPjxnIGlkPSJsYXllcjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTU1Mi4zNjIxOCkiPjxyZWN0IGhlaWdodD0iNTAwIiBpZD0icmVjdDI5OTAtMSIgcng9IjI1MCIgcnk9IjI1MCIgc3R5bGU9ImZpbGw6IzU1YWNlZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgd2lkdGg9IjUwMCIgeD0iMCIgeT0iNTUyLjM2MjE4Ii8+PGcgaWQ9ImxheWVyMS05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTQ5LjAwNTE1LDgwLjI5NDM3MikiLz48ZyBpZD0ibGF5ZXIxLTYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01NzUuNzE0MjksMzkuOTk5OTk5KSIvPjxnIGlkPSJsYXllcjEtOTMiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTk5Mjg5NDUsMCwwLDAuOTk5Mjg5NDUsNDc0LjcwMDIsLTQwLjgxOTI4KSIvPjxwYXRoIGQ9Im0gMzA5Ljg1LDY3Mi4zMTIxOCBjIC0zNS40NzA3OSwwLjg5ODc5IC02My45MjUsMjkuOTMxMzggLTYzLjkyNSw2NS42MjUgMCw1LjEzODI3IDAuNTUxMjIsMTAuMTYxNTYgMS42NzUsMTQuOTc1IC01NC41NjU2NywtMi43NDEyNiAtMTAyLjk0Mjg3LC0yOC44Nzc0OSAtMTM1LjMyNSwtNjguNiAtNS42NTE0Nyw5LjY5MTkxIC04LjksMjAuOTgxNTggLTguOSwzMy4wMjUgMCwyMi43NzQ2NyAxMS42MDgwOSw0Mi44NTQzOCAyOS4yMjUsNTQuNjI1IC0xMC43NTcyMiwtMC4zNDQyOCAtMjAuODk2MDYsLTMuMzA3NTggLTI5Ljc1LC04LjIyNSAtMC4wMDUsMC4yNzI4MiAwLDAuNTcwNjkgMCwwLjg1IDAsMzEuODA0MDIgMjIuNjM3OSw1OC4zMDg4IDUyLjY3NSw2NC4zNSAtNS41MDg1MiwxLjQ5NDA2IC0xMS4zMTA3NSwyLjMgLTE3LjMsMi4zIC00LjIzNTM0LDAgLTguMzQyMDMsLTAuNDAxOTggLTEyLjM1LC0xLjE3NSA4LjM2MDIyLDI2LjA4MTA5IDMyLjU3NTA2LDQ1LjA3Mzg1IDYxLjMsNDUuNiAtMjIuNDY5MzcsMTcuNjEwNDMgLTUwLjczNTM0LDI4LjEgLTgxLjUsMjguMSAtNS4yOTQxNiwwIC0xMC41MzY3NSwtMC4yODkzOCAtMTUuNjc1LC0wLjkgMjkuMDYyNzIsMTguNjM2ODMgNjMuNTUyODIsMjkuNSAxMDAuNjI1LDI5LjUgMTIwLjc2NTUyLDAgMTg2LjgsLTEwMC4wNDA1OCAxODYuOCwtMTg2LjggMCwtMi44NDUyIC0wLjA1MTcsLTUuNzA1NzcgLTAuMTc1LC04LjUyNSAxMi44MjI5NCwtOS4yMzcyIDIzLjk1NDU0LC0yMC44MDc3NiAzMi43NSwtMzMuOTc1IC0xMS43NjQxLDUuMjI5MjIgLTI0LjQxNTg2LDguNzcxNDYgLTM3LjcsMTAuMzUgMTMuNTYzNDYsLTguMTE5OSAyMy45NzA2MSwtMjAuOTgxNjYgMjguODc1LC0zNi4zMjUgLTEyLjY4NjUyLDcuNTI4NzcgLTI2LjczOTkzLDEzLjAwMDg1IC00MS43LDE1Ljk1IC0xMS45NzE5NywtMTIuNzU3OTggLTI5LjA0MTM3LC0yMC43MjUgLTQ3LjkyNSwtMjAuNzI1IC0wLjU2NjQ2LDAgLTEuMTM2OTgsLTAuMDE0MyAtMS43LDAgeiIgaWQ9InJlY3QyOTg5IiBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIi8+PC9nPjwvc3ZnPg==" alt="">
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://www.facebook.com/skoufis" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1MDAiIGlkPSJzdmcyIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzIGlkPSJkZWZzNCIvPjxnIGlkPSJsYXllcjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTU1Mi4zNjIxOCkiPjxyZWN0IGhlaWdodD0iNTAwIiBpZD0icmVjdDM3NTgtMSIgcng9IjI1MCIgcnk9IjI1MCIgc3R5bGU9ImZpbGw6IzQ1NjE5ZDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgd2lkdGg9IjUwMCIgeD0iMCIgeT0iNTUyLjM2MjE4Ii8+PHBhdGggZD0iTSAyODkuNjg3NSA2MCBDIDIyMS45MDMxNyA2MCAxOTkuNTMxMjUgOTEuMTAwNTcgMTk5LjUzMTI1IDE0NC40Mzc1IEwgMTk5LjUzMTI1IDE4Ni42NTYyNSBMIDE1NSAxODYuNjU2MjUgTCAxNTUgMjUwLjAzMTI1IEwgMTk5LjUzMTI1IDI1MC4wMzEyNSBMIDE5OS41MzEyNSA0NDAgTCAyODEuNjU2MjUgNDQwIEwgMjgxLjY1NjI1IDI1MC4wMzEyNSBMIDMzNy40Njg3NSAyNTAuMDMxMjUgTCAzNDQuOTY4NzUgMTg2LjY1NjI1IEwgMjgxLjY1NjI1IDE4Ni42NTYyNSBMIDI4MS42NTYyNSAxNDkgQyAyODEuNjU2MjUgMTMxLjk3OTY2IDI4NS4zOTE0OCAxMjMuMzQzNzUgMzExLjgxMjUgMTIzLjM0Mzc1IEwgMzQ0Ljk2ODc1IDEyMy4zNDM3NSBMIDM0NC45Njg3NSA2MCBMIDI4OS42ODc1IDYwIHogIiBpZD0icmVjdDI5ODktMSIgc3R5bGU9ImZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCw1NTIuMzYyMTgpIi8+PC9nPjwvc3ZnPg==" alt="">
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  <small>©blog.skouf.com</small>
+</footer>
+
+  </div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-76961630-4', 'auto');
+	ga('send', 'pageview');
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blog.skouf.com</title>
+    <link>https://blog.skouf.com/</link>
+    <description>Recent content on blog.skouf.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Apr 2020 02:30:18 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.skouf.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Blog migration</title>
+      <link>https://blog.skouf.com/posts/blog-migration/blog-migration/</link>
+      <pubDate>Wed, 08 Apr 2020 02:30:18 +0000</pubDate>
+      
+      <guid>https://blog.skouf.com/posts/blog-migration/blog-migration/</guid>
+      <description>It&amp;rsquo;s finally time to take my blog off of Medium and host it myself.</description>
+    </item>
+    
+    <item>
+      <title>Log4net rolling file appender with multiple projects</title>
+      <link>https://blog.skouf.com/posts/log-4-net-rolling-file-appender/log-4-net-rolling-file-appender/</link>
+      <pubDate>Mon, 03 Apr 2017 23:12:23 +1100</pubDate>
+      
+      <guid>https://blog.skouf.com/posts/log-4-net-rolling-file-appender/log-4-net-rolling-file-appender/</guid>
+      <description>&lt;p&gt;The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Monterey K104 restoration</title>
+      <link>https://blog.skouf.com/posts/monterey-k104-restoration/</link>
+      <pubDate>Sat, 10 Sep 2016 23:12:23 +1100</pubDate>
+      
+      <guid>https://blog.skouf.com/posts/monterey-k104-restoration/</guid>
+      <description>A detailed step-by-step of restoring a keyboard older than I am. Not for the faint-of-keyboard.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://blog.skouf.com/posts/blog-migration/blog-migration/</loc>
+    <lastmod>2020-04-08T02:30:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.skouf.com/</loc>
+    <lastmod>2020-04-08T02:30:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.skouf.com/posts/</loc>
+    <lastmod>2020-04-08T02:30:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.skouf.com/posts/log-4-net-rolling-file-appender/log-4-net-rolling-file-appender/</loc>
+    <lastmod>2017-04-03T23:12:23+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.skouf.com/posts/monterey-k104-restoration/</loc>
+    <lastmod>2016-09-10T23:12:23+11:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.skouf.com/tags/</loc>
+  </url>
+  
+</urlset>
