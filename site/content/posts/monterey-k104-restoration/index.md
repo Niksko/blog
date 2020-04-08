@@ -26,7 +26,7 @@ What a find!
 Apparently this board has been spotted with a few other types of switches (including non-mechanical ones), but these blue Alps are some of the rarer switches.
 And rarity aside, I really like heavy clicky switches, so this was about as perfect an outcome as I could hope for.
 
-# Cleaning
+## Cleaning
 
 The next step in getting this keyboard in working order was a thorough clean.
 Sadly I didn’t have the foresight to take photos pre-cleaning, but suffice to say this thing was filthy!
@@ -43,7 +43,7 @@ Finally, I gave the outer case a good scrub with some soapy water and I vacuumed
 
 {{< figure src="./cleaned.jpg" caption="All cleaned up with keycaps pulled." alt="An image of a keyboard with the keycaps removed. The stems of the keycaps are light blue." >}}
 
-# Cable coiling 101
+## Cable coiling 101
 
 As you can see in the above photo, the original cable that came with the keyboard was nicely coiled.
 Since I was aiming for a pretty faithful restoration, I also wanted a cable that was coiled.
@@ -79,7 +79,7 @@ The result of these difficulties has left me with a cable that is coiled, but no
 
 {{< figure src="./off-mandrel.jpg" caption="Removed from mandrel. Note the slightly uneven coiling." alt="An image of an unevenly coiled cable resting on a wooden bench top." >}}
 
-# Protocol conversion
+## Protocol conversion
 
 The next step in getting this keyboard to a state where it was usable was to convert it to USB.
 This keyboard was manufactured in 1989, which predates the USB protocol by about seven years.
@@ -206,7 +206,7 @@ Thankfully I didn’t have to find out if this is easy or not.)
 
 {{< figure src="./bridged-pad.jpg" caption="Slightly ugly solder job to bridge the connection" alt="A macro image of the same board as the previous photo. The gap between to two solder blobs has been bridge with a blob of solder." >}}
 
-# Final thoughts
+## Final thoughts
 
 Overall, I was incredibly happy with how this project turned out.
 
