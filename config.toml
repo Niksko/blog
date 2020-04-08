@@ -1,4 +1,4 @@
-baseURL = "niksko.github.io/blog/"
+baseURL = "blog.skouf.com"
 languageCode = "en-us"
 title = "blog.skouf.com"
 theme = "skouf"
