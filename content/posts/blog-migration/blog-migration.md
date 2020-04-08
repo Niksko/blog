@@ -57,5 +57,47 @@ It ticked all of the points from above, as well as the following niceties:
 
 Migrating the content was fairly easy.
 Hugo content is written in markdown, so getting all of the content over was as simply as copy-pasting text and downloading images.
-The harder part of the migration was setting up Hugo and modifying the theme.
+Figuring out how to store my images alongside my markdown proved a little challenging, but in the end the key was to use `index.md` files, which cause Hugo to treat images at the same level as part of a [Page Bundle](https://gohugo.io/content-management/page-bundles/).
 
+The harder part of the migration was setting up Hugo and modifying the theme.
+I picked the [Hestia pure](https://themes.gohugo.io/hestia-pure/) theme to base my modifications on.
+It presented a clean and minimal look, and had most of the features I needed.
+A few licks of green paint, and many many tweaks to the CSS and the templates and I was up and running.
+
+At some point I should probably do a complete rewrite, as the CSS is ugly.
+It mixes bootstrap style BEM classes with my custom media queries that I spatter around the place, but for the moment, it will do.
+
+Finally, it was a matter of switching off the Medium blog and shifting the DNS over to Github pages.
+In a final screw-you, it was confusing and difficult to figure out how to disable the Medium blog.
+In the end, 'deleting' the 'publication' was the right move.
+Apparently deactivating my account wasn't enough.
+Thankfully, all that's needed to get a custom domain to work with Github pages is to point a `CNAME` record at `<your-username>.github.io`.
+
+## Future work
+
+As of now, the blog is up and running.
+However there's still some work I'd like to do in the future:
+
+* Optimizing images.
+  At the moment I'm not doing any image processing or optimization.
+  Image heavy pages are likely slow to load.
+  In the future I'd like to set up automation to generate multiple image sizes and serve them to different clients.
+  Even fancier would be using the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to only load images once the user scrolls their viewport down.
+* The publishing flow needs a little work.
+  If you [check out the repo behind this blog](https://github.com/Niksko/blog), you'll see that I've got some docker-compose services for portability and convenience.
+  However it's still a little cumbersome to have to run the right ones at the right times, and to remember to run them before pushing.
+  Ideally I would have a pre-push hook that regenerates the theme as well as the site, and then makes sure there are no changes.
+  This would ensure that before pushing on master, the page has been regenerated.
+  This is probably the first thing I'll tackle.
+* The dev workflow also needs some work.
+  A single script to start up the local Hugo server, as well as the Gulp watcher, would speed up the authoring and dev workflows.
+* The stuff in the template I neglected to change...
+  I think are a few pages that I didn't get around to spruicing up.
+  The 404 page comes to mind.
+* The tags/taxonomies.
+  I mentioned this as a goal above, and it's easily doable with Hugo.
+  I just don't have any non-tech articles yet, so it's not a high priority.
+  It needs some styling of the pages that list the articles (I think), which is why I've put it off.
+
+Hopefully despite all of those changes, you like the look of the new blog!
+If you notice any glaring issues, let me know via the social media links below.
