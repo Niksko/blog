@@ -14,7 +14,6 @@ publishDir = "docs"
   keywords = ""
   twitter = "niksko"
   github = "niksko"
-  facebook = "skoufis"
   googleanalytics = "UA-76961630-4"
 
 # Enable tags.
