@@ -21,6 +21,16 @@
     </item>
     
     <item>
+      <title>Infrastructure as code in the home</title>
+      <link>/posts/iac-in-the-home/</link>
+      <pubDate>Wed, 25 Apr 2018 23:12:23 +1100</pubDate>
+      
+      <guid>/posts/iac-in-the-home/</guid>
+      <description>&lt;p&gt;Infrastructure as Code (herein IaC) is ubiquitous when managing large infrastructure deployments.
+But when we don’t have hundreds of machines to manage, is IaC still useful?&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Log4net rolling file appender with multiple projects</title>
       <link>/posts/log-4-net-rolling-file-appender/log-4-net-rolling-file-appender/</link>
       <pubDate>Mon, 03 Apr 2017 23:12:23 +1100</pubDate>

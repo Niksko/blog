@@ -2,7 +2,7 @@
 title: "Infrastructure as code in the home"
 date: 2018-04-25T23:12:23+11:00
 image: "overview.png"
-draft: true
+draft: false
 ---
 
 Infrastructure as Code (herein IaC) is ubiquitous when managing large infrastructure deployments.
