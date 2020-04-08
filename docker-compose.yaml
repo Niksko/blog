@@ -12,6 +12,7 @@ services:
     build:
       context: .
     entrypoint: hugo
+    user: 1000:100
     volumes:
       - .:/site
 
