@@ -2,6 +2,7 @@ baseURL = "blog.skouf.com"
 languageCode = "en-us"
 title = "blog.skouf.com"
 theme = "skouf"
+publishDir = "docs"
 
 [author]
   author = 'Nik Skoufis'
