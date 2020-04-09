@@ -6,19 +6,10 @@
     <description>Recent content on blog.skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Apr 2020 00:43:25 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 02:30:18 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Infrastructure as code in the home - one year on</title>
-      <link>/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/</link>
-      <pubDate>Thu, 09 Apr 2020 00:43:25 +0000</pubDate>
-      
-      <guid>/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/</guid>
-      <description>One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&amp;rsquo;t and what has changed over the last year.</description>
-    </item>
     
     <item>
       <title>Blog migration</title>
@@ -27,6 +18,15 @@
       
       <guid>/posts/blog-migration/blog-migration/</guid>
       <description>It&amp;rsquo;s finally time to take my blog off of Medium and host it myself.</description>
+    </item>
+    
+    <item>
+      <title>Infrastructure as code in the home - one year on</title>
+      <link>/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/</link>
+      <pubDate>Mon, 08 Apr 2019 00:43:25 +0000</pubDate>
+      
+      <guid>/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/</guid>
+      <description>One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&amp;rsquo;t and what has changed over the last year.</description>
     </item>
     
     <item>
