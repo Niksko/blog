@@ -2,6 +2,8 @@ languageCode = "en-us"
 title = "blog.skouf.com"
 theme = "skouf"
 publishDir = "docs"
+pygmentsUseClasses = true
+pygmentsCodefences = true
 
 [author]
   author = 'Nik Skoufis'
