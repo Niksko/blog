@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Istio TLS policies - ugly bits and undocumented bits</title>
+      <link>/posts/istio-tls-policies/</link>
+      <pubDate>Wed, 12 Jun 2019 00:43:25 +0000</pubDate>
+      
+      <guid>/posts/istio-tls-policies/</guid>
+      <description>One of the selling points of deploying Istio in your Kubernetes cluster is that it provides mechanisms to enforce authentication between pods communicating with other services within the cluster. The documentation of these leaves a lot to be desired, as we discovered when we first started playing with these features while gearing up to roll out Istio more widely.</description>
+    </item>
+    
+    <item>
       <title>Infrastructure as code in the home - one year on</title>
       <link>/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/</link>
       <pubDate>Wed, 09 Jan 2019 00:43:25 +0000</pubDate>
