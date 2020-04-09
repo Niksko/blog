@@ -2,33 +2,36 @@
 <html lang="en-us">
 <head>
   <meta charset="utf-8">
-  <title>blog.skouf.com</title>
+  <title>Log4net rolling file appender with multiple projects - blog.skouf.com</title>
   <meta name="generator" content="Hugo 0.58.1" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
-  <meta name="description" content="The personal blog of Nik Skoufis">
+  <meta name="description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this.">
   
   <meta name="keywords" content="">
   <meta property="og:site_name" content="blog.skouf.com">
-  <meta property="og:title" content="blog.skouf.com">
-  <meta property="og:url" content="/">
+  <meta property="og:title" content="Log4net rolling file appender with multiple projects">
+  <meta property="og:url" content="/posts/log-4-net-rolling-file-appender/">
   
-  <meta property="og:image" content="image/theme/og.png">
+  <meta property="og:image" content="log4net-logo.jpg">
   
   
-  <meta property="og:description" content="The personal blog of Nik Skoufis">
+  <meta property="og:description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this.">
   
   <meta property="og:type" content="blog">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="@niksko">
-  <meta name="twitter:title" content="blog.skouf.com">
-  <meta name="twitter:url" content="/">
+  <meta name="twitter:title" content="Log4net rolling file appender with multiple projects">
+  <meta name="twitter:url" content="/posts/log-4-net-rolling-file-appender/">
   
-  <meta name="twitter:description" content="The personal blog of Nik Skoufis">
+  <meta name="twitter:description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this.">
   
   
-  <meta name="twitter:image:src" content="image/theme/og.png">
+  <meta name="twitter:image:src" content="log4net-logo.jpg">
   
   <link rel="shortcut icon" href="image/theme/favicon.ico">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -42,106 +45,89 @@
 <body>
   <div id="wrap" class="wrap">
     <header class="header">
-  
-  <h1><a href="">blog.skouf.com</a></h1>
+  <div class="site-title"><a href="/">blog.skouf.com</a></div>
   <p class="site-desc">The personal blog of Nik Skoufis</p>
   
 </header>
 
-    <main class="main">
-      <section class="articles">
-        <h2>Recent posts</h2>
-        <div class="pure-g">
-          
-            <article class="card pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-  <a class="card__thumb" href="/posts/blog-migration/blog-migration/">
-    <img src="/image/theme/placeholder.png" alt="">
-  </a>
-  <a href="/posts/blog-migration/blog-migration/">
-    <h3>Blog migration</h3>
-  </a>
-  <span>
-    <time datetime=" 2020-04-08T02:30:18Z">2020.04.08</time>
-  </span>
-  <p >It&rsquo;s finally time to take my blog off of Medium and host it myself....</p>
-</article>
-
-          
-            <article class="card pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-  <a class="card__thumb" href="/posts/istio-tls-policies/">
-    <img src="/posts/istio-tls-policies/sailboat.jpg" alt="">
-  </a>
-  <a href="/posts/istio-tls-policies/">
-    <h3>Istio TLS policies - ugly bits and undocumented bits</h3>
-  </a>
-  <span>
-    <time datetime=" 2019-06-12T00:43:25Z">2019.06.12</time>
-  </span>
-  <p >One of the selling points of deploying Istio in your Kubernetes cluster is that it provides mechanisms to enforce authentication between pods communicating with other services within the cluster. The documentation of these leaves a lot to be desired, as we discovered when we first started playing with these features while gearing up to roll out Istio more widely....</p>
-</article>
-
-          
-            <article class="card pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-  <a class="card__thumb" href="/posts/iac-in-the-home-one-year-on/">
-    <img src="/posts/iac-in-the-home-one-year-on/servers.jpg" alt="">
-  </a>
-  <a href="/posts/iac-in-the-home-one-year-on/">
-    <h3>Infrastructure as code in the home - one year on</h3>
-  </a>
-  <span>
-    <time datetime=" 2019-01-09T00:43:25Z">2019.01.09</time>
-  </span>
-  <p >One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&rsquo;t and what has changed over the last year....</p>
-</article>
-
-          
-            <article class="card pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-  <a class="card__thumb" href="/posts/iac-in-the-home/">
-    <img src="/posts/iac-in-the-home/overview.png" alt="">
-  </a>
-  <a href="/posts/iac-in-the-home/">
-    <h3>Infrastructure as code in the home</h3>
-  </a>
-  <span>
-    <time datetime=" 2018-04-25T23:12:23&#43;11:00">2018.04.25</time>
-  </span>
-  <p ><p>Infrastructure as Code (herein IaC) is ubiquitous when managing large infrastructure deployments.
-But when we don’t have hundreds of machines to manage, is IaC still useful?</p>...</p>
-</article>
-
-          
-            <article class="card pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-  <a class="card__thumb" href="/posts/log-4-net-rolling-file-appender/">
-    <img src="/posts/log-4-net-rolling-file-appender/log4net-logo.jpg" alt="">
-  </a>
-  <a href="/posts/log-4-net-rolling-file-appender/">
-    <h3>Log4net rolling file appender with multiple projects</h3>
-  </a>
-  <span>
-    <time datetime=" 2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
-  </span>
-  <p ><p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
-If I can save another poor soul some time, then it will be well worth writing this.</p>...</p>
-</article>
-
-          
-            <article class="card pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
-  <a class="card__thumb" href="/posts/monterey-k104-restoration/">
-    <img src="/posts/monterey-k104-restoration/first-image.jpg" alt="">
-  </a>
-  <a href="/posts/monterey-k104-restoration/">
-    <h3>Monterey K104 restoration</h3>
-  </a>
-  <span>
-    <time datetime=" 2016-09-10T23:12:23&#43;11:00">2016.09.10</time>
-  </span>
-  <p >A detailed step-by-step of restoring a keyboard older than I am. Not for the faint-of-keyboard....</p>
-</article>
-
-          
-        </div>
-      </section>
+    <main class="main main--single">
       
+      <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+        <h1 class="post__title">Log4net rolling file appender with multiple projects</h1>
+        <p class="post__date">
+          <time itemprop="datePublished" datetime="2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
+        </p>
+        <div class="post-content">
+          <p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this.</p>
+
+<p>At the moment we’re developing a large web application with an <em>almost</em> micro-service architecture.
+What this means is that we have multiple separate applications running on the same machine, and all of them need to produce log files.
+We’re using <a href="https://logging.apache.org/log4net/">Apache log4net</a> as our logging framework.</p>
+
+<p>If you Google for sample rolling file appender configurations, what you might see is something like this (<a href="https://stackoverflow.com/questions/1165084/log4net-rolling-daily-filename-with-date-in-the-file-name">taken from this StackOverflow question</a>):</p>
+
+<script type="application/javascript" src="https://gist.github.com/niksko/5de9f20ca39bfb9b55948ae9f6b907ee.js?file=web.config.xml"></script>
+
+
+<p>We’ve defined a log file appender that will create daily logs in the <code>logs\</code> directory with the date in the name of the log file.
+This works fine for a single application logging to a file.</p>
+
+<p>Now let’s say you want to include the name of the service that created the log in the logfile name, so that you can differentiate between different sources of log data.
+Here’s how you might naively think to do this:</p>
+
+<script type="application/javascript" src="https://gist.github.com/niksko/ae49d29af8440c155c46966f536faaaa.js?file=web.config.wrong.xml"></script>
+
+
+<p>This looks fine, and might appear to work at first.
+In fact, it does work some of the time.
+However as soon as you have multiple applications trying to log at the same time, you run into issues.
+What this leads to is strange problems where a you will seem to get log output sometimes, but not other times.</p>
+
+<p>The solution is quite simple.
+You can’t simply change the <code>value</code> attribute of <code>datePattern</code>, you have to change the <code>file</code> node’s <code>value</code> as well:</p>
+
+<script type="application/javascript" src="https://gist.github.com/niksko/0b6ceab982b855dd6c9ffd5687f64b2e.js?file=web.config.right.xml"></script>
+
+
+<p>Problem solved!
+You’ll now get log output from all of your applications, even if they output log data at almost the same instant.</p>
+
+<p>The issue with the naive approach is that even though your files will in theory have different names, log4net appears to lock the entire logs folder (even with the locking model set to minimal), which prevents the creation of or appending to the other log files.
+The solution is to force log4net to only lock the specific file that will be used by each application, thus allowing each application to lock its own logfile and write to it without interfering with the others.</p>
+        </div>
+      </article>
+      
+      <hr class="post-hr">
+      
+      <nav class="post-nav">
+        <ol class="pure-g">
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+            <a href="/posts/iac-in-the-home/">
+              <span class="post-nav-label">Next<span>
+              <span class="post-nav-title">
+                Infrastructure as code in the home
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+            <a href="/posts/monterey-k104-restoration/">
+              <span class="post-nav-label">Previous</span>
+              <span class="post-nav-title">
+                Monterey K104 restoration
+              </span>
+            </a>
+          </li>
+          
+        </ol>
+        <div class="post-nav-back">
+          <a class="pure-button" href="/">Back</a>
+        </div>
+      </nav>
+    
     </main>
     <footer class="footer">
   <section class="author">

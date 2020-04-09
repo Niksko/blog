@@ -2,6 +2,7 @@
 title: "Log4net rolling file appender with multiple projects"
 date: 2017-04-03T23:12:23+11:00
 draft: false
+image: "log4net-logo.jpg"
 ---
 
 The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.

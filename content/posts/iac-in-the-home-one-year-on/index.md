@@ -3,10 +3,13 @@ title: "Infrastructure as code in the home - one year on"
 date: 2019-01-09T00:43:25Z
 draft: false
 summary: "One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn't and what has changed over the last year."
+image: "servers.jpg"
 ---
 
 _It's been almost a year since I published my original article on running my Kubernetes setup at home.
 Have a read of [the original]({{< ref "posts/iac-in-the-home/index" >}}) for context._
+
+{{< figure src="./servers.jpg" caption="This is not what my home server looks like. Photo by [Taylor Vick](https://unsplash.com/@tvick) on [Unsplash](https://unsplash.com)." alt="An image of a server rack, with the mesh doors closed. Many colored ethernet cables connect different components." >}}
 
 I've now been running Kubernetes at home for almost a year.
 Some things have worked well, others have not, and I've just finished a round of cleanup, maintenance, and re-acquainting myself with the system.
