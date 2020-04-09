@@ -1,19 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/posts/blog-migration/blog-migration/</loc>
-    <lastmod>2020-04-08T02:30:18+00:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2020-04-09T00:43:25+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-04-08T02:30:18+00:00</lastmod>
+    <loc>/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/</loc>
+    <lastmod>2020-04-09T00:43:25+00:00</lastmod>
   </url>
   
   <url>
     <loc>/posts/</loc>
+    <lastmod>2020-04-09T00:43:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/blog-migration/blog-migration/</loc>
     <lastmod>2020-04-08T02:30:18+00:00</lastmod>
   </url>
   

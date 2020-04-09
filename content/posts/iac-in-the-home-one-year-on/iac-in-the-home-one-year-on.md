@@ -1,7 +1,7 @@
 ---
 title: "Infrastructure as code in the home - one year on"
 date: 2020-04-09T00:43:25Z
-draft: true
+draft: false
 summary: "One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn't and what has changed over the last year."
 ---
 

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Infrastructure as code in the home - one year on - blog.skouf.com</title>
+  <meta name="generator" content="Hugo 0.58.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Nik Skoufis">
+  
+  <meta name="description" content="One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&rsquo;t and what has changed over the last year.">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="blog.skouf.com">
+  <meta property="og:title" content="Infrastructure as code in the home - one year on">
+  <meta property="og:url" content="/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/">
+  
+  <meta property="og:image" content="image/theme/og.png">
+  
+  
+  <meta property="og:description" content="One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&rsquo;t and what has changed over the last year.">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@niksko">
+  <meta name="twitter:title" content="Infrastructure as code in the home - one year on">
+  <meta name="twitter:url" content="/posts/iac-in-the-home-one-year-on/iac-in-the-home-one-year-on/">
+  
+  <meta name="twitter:description" content="One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&rsquo;t and what has changed over the last year.">
+  
+  
+  <meta name="twitter:image:src" content="image/theme/og.png">
+  
+  <link rel="shortcut icon" href="image/theme/favicon.ico">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="alternate" href="index.xml" type="application/rss+xml" title="blog.skouf.com">
+</head>
+
+<body>
+  <div id="wrap" class="wrap">
+    <header class="header">
+  <div class="site-title"><a href="/">blog.skouf.com</a></div>
+  <p class="site-desc">The personal blog of Nik Skoufis</p>
+  
+</header>
+
+    <main class="main main--single">
+      
+      <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+        <h1 class="post__title">Infrastructure as code in the home - one year on</h1>
+        <p class="post__date">
+          <time itemprop="datePublished" datetime="2020-04-09T00:43:25Z">2020.04.09</time>
+        </p>
+        <div class="post-content">
+          
+
+<p><em>It&rsquo;s been almost a year since I published my original article on running my Kubernetes setup at home.
+Have a read of <a href="/posts/iac-in-the-home/">the original</a> for context.</em></p>
+
+<p>I&rsquo;ve now been running Kubernetes at home for almost a year.
+Some things have worked well, others have not, and I&rsquo;ve just finished a round of cleanup, maintenance, and re-acquainting myself with the system.
+I thought it might be time for some reflection.</p>
+
+<h2 id="recapping-goals-from-last-time">Recapping goals from last time</h2>
+
+<p>Looking back on my last post on this topic, I had a few explicit goals.</p>
+
+<ul>
+<li>Disposability.
+In other words, being able to tear down the system and start again quite easily if something breaks.</li>
+<li>Change management.
+Not letting small changes accumulate to the point where it&rsquo;s hard to understand the machine&rsquo;s state.</li>
+<li>Flexibility.
+The ability to re-provision the server with a new OS if desired.</li>
+</ul>
+
+<p>I&rsquo;ve managed to achieve some of these, but not others.</p>
+
+<p>On the first goal of disposability, I failed to account for the fact that the system I had designed was, in fact, incredibly complicated.
+With Matchbox, Terraform, Ignition configs and probably more gotchas, when it came to making changes, there was a lot to re-acquaint myself with.
+So on that front, the setup I chose probably wasn&rsquo;t the best choice.
+Automated headless provisioning is certainly very cool, and I learned a lot about PXE/iPXE/TFTP/DNS/DCHP in the process.
+However it was really hard to remember how everything worked 10 months later.
+I probably would have been far better served by something quite a lot simpler - perhaps just a USB stick that will bootstrap to Kubernetes.</p>
+
+<p>On the second goal of change management, I feel it&rsquo;s gone reasonably well.
+Using Kubernetes to run applications means no manual fiddling with the filesystem.
+The only times I&rsquo;ve had to SSH in are to add new devices (see below), and to troubleshoot issues I&rsquo;ve had.
+However aside from adding a new hard drive, it&rsquo;s mostly been to observe the state of the machine and not to fiddle.
+So I&rsquo;m giving myself a tick on that one.</p>
+
+<p>On the last goal of flexibility, it probably wasn&rsquo;t a great goal to begin with.
+I certainly could just wipe everything and start again on a new OS if I wanted to, but it&rsquo;s a bit of a moot point.
+I&rsquo;m happy enough with Kubernetes and the current performance of the server that I won&rsquo;t be moving any time soon.
+Couple this with the entire exercise being more about learning that practicality, we&rsquo;ll call this one a wash and move on.</p>
+
+<h2 id="things-that-have-proved-difficult">Things that have proved difficult</h2>
+
+<p>Some things have proved incredibly difficult to get right.
+Partly due to my own inexperience, but also due to bugs and weird quirks.
+Here are a few of the issues I&rsquo;ve run in to.</p>
+
+<h3 id="ingress">Ingress</h3>
+
+<p>Ingress was confusing to set up when using a single node, and running on bare metal.</p>
+
+<p>Ingress allows the outside world to talk to applications in your cluster
+It&rsquo;s usually handled via a load balancer from a cloud provider (eg. and AWS ELB).
+However, if you have a bare metal cluster, you need to use a reverse proxy like Nginx.
+This is easy enough to configure via a Helm chart, but it requires some custom configuration.
+Because I have the additional constraint of only a single node, Nginx has to bind to non-standard ports so as not to conflict with the bound ports used for the K8s API.
+Not particularly bad, but I spent an afternoon baffled as to why my service and pod appeared to be working, and yet I couldn&rsquo;t access the service running in the pod.
+Eventually I realised I was hitting the wrong port the whole time.</p>
+
+<h3 id="storage">Storage</h3>
+
+<p>Configuring storage has sucked.
+A lot.
+The ideal state is to have dynamic provisioning of persistent volumes, but this is pretty hard to do unless you&rsquo;re using cloud provider backed storage or a cluster filesystem.</p>
+
+<p>First I tried <a href="https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Frook%2Frook">Rook</a>, a storage provider that works on top of the <a href="https://medium.com/r/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FCeph_%28software%29">Ceph storage cluster software</a>.
+After a very confusing time getting it set up, it seem to work ok.
+Then I tried adding a new drive to the system, expecting things to Just Work.
+This apparently wasn&rsquo;t supported in the version of Rook I was using (admittedly, my own fault for using something still in beta).
+So I had to rip everything down and start again.</p>
+
+<p>Then I had Rook working, but when I came time to mount an RWX PVC from multiple pods, I ran into the issue that apparently this <a href="https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Frook%2Frook%2Fissues%2F2300">just doesn&rsquo;t work right now</a>.
+So then I had to tear Rook down and start again.</p>
+
+<p>This time I used the <a href="https://medium.com/r/?url=https%3A%2F%2Fgithub.com%2Fkubernetes-incubator%2Fexternal-storage%2Ftree%2Fmaster%2Fnfs">NFS external storage provider</a>.
+But this refused to work in a configuration with multiple nfs providers (one per drive) attached to the same provisioner and storage class.
+Old documentation suggested this would work by creating a race to fulfill the storage, however in practice it seems that one provisioner would acquire a lock, and the other one would just do nothing.
+Eventually I settled on a single NFS provisioner (because this allows for dynamic provisioning of PVs) with a btrfs filesystem that spanned multiple drives (<a href="https://medium.com/r/?url=https%3A%2F%2Fbtrfs.wiki.kernel.org%2Findex.php%2FUsing_Btrfs_with_Multiple_Devices">instructions on setting this up</a>).
+Adding a new systemd mount unit and another one shot to perform a btrfs scan, and I finally have multiple pods mounting a single RWX claim with dynamic provisioning.</p>
+
+<p>An aside here: LVM would be great here, but sadly this doesn&rsquo;t seem to be supported by CoreOS at the moment, nor as part of Ignition.
+This might be a solution in the future.
+That said, support for dynamic provisioning of local storage is still Coming Soon, so you&rsquo;d still need an NFS mount to facilitate this.</p>
+
+<h3 id="upgrades">Upgrades</h3>
+
+<p>As I mentioned above, disposability was a goal, but it hasn&rsquo;t gone as intended.
+Firstly, the system of Matchbox, DnsMasq and Terraform is too complicated for me to remember 10 months on.
+So re-provisioning from scratch is probably out of the question right now.
+There&rsquo;s also the issue that I would lose all of my data, since it&rsquo;s only a cluster of one machine.</p>
+
+<p>Thankfully, it appears that CoreOS upgrades are seamless.
+I figured my OS was probably pretty old, but a simple reboot and I could see that the version number had updated to a more recent release, and the cluster came up with no ill effects.</p>
+
+<p>Sadly, when I attempted to install Tectonic (after refreshing my memory on the whole Matchbox/Terraform/DnsMasq stuff), I found that Tectonic will not allow you to enter the same MAC address for the master and worker nodes.
+This is annoying, because it seems as if Tectonic would have allowed me to do in-place Kubernetes version upgrades, instead of having to nuke things and start again.</p>
+
+<p>For the moment I&rsquo;ve parked this.
+I&rsquo;m happy that I&rsquo;ve got an up-to-date OS, and updating to the latest Kubernetes to get all the goodies that come with it will have to wait.
+I&rsquo;m optimistic though, and the documentation has certainly become more comprehensive and easy to read since I last touched it.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>It&rsquo;s been a fun year or so running this cluster, and I&rsquo;m looking to keep the setup I&rsquo;ve got.
+There have been a few issues along the way, but they&rsquo;ve all been great learning experiences.
+Hopefully I&rsquo;ll have another update in a year or so.</p>
+
+        </div>
+      </article>
+      
+      <hr class="post-hr">
+      
+      <nav class="post-nav">
+        <ol class="pure-g">
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+          </li>
+          
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+            <a href="/posts/blog-migration/blog-migration/">
+              <span class="post-nav-label">Previous</span>
+              <span class="post-nav-title">
+                Blog migration
+              </span>
+            </a>
+          </li>
+          
+        </ol>
+        <div class="post-nav-back">
+          <a class="pure-button" href="/">Back</a>
+        </div>
+      </nav>
+    
+    </main>
+    <footer class="footer">
+  <section class="author">
+    <h2>Author</h2>
+    <div class="pure-g">
+      <div class="author__image pure-u-1-5 pure-u-md-1-8">
+        <img src="/image/theme/author.png" alt="">
+      </div>
+      <div class="author__info pure-u-4-5 pure-u-md-7-8">
+        
+        <h3>Nik Skoufis</h3>
+        
+        
+        <p>Software developer, hardware hacker, food lover</p>
+        
+        <ul class="author__links">
+          
+          <li>
+            <a href="https://github.com/niksko" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxMDI0IiB3aWR0aD0iMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTEyIDBDMjI5LjI1IDAgMCAyMjkuMjUgMCA1MTJjMCAyMjYuMjUgMTQ2LjY4OCA0MTguMTI1IDM1MC4xNTYgNDg1LjgxMiAyNS41OTQgNC42ODggMzQuOTM4LTExLjEyNSAzNC45MzgtMjQuNjI1IDAtMTIuMTg4LTAuNDY5LTUyLjU2Mi0wLjcxOS05NS4zMTJDMjQyIDkwOC44MTIgMjExLjkwNiA4MTcuNSAyMTEuOTA2IDgxNy41Yy0yMy4zMTItNTkuMTI1LTU2Ljg0NC03NC44NzUtNTYuODQ0LTc0Ljg3NS00Ni41MzEtMzEuNzUgMy41My0zMS4xMjUgMy41My0zMS4xMjUgNTEuNDA2IDMuNTYyIDc4LjQ3IDUyLjc1IDc4LjQ3IDUyLjc1IDQ1LjY4OCA3OC4yNSAxMTkuODc1IDU1LjYyNSAxNDkgNDIuNSA0LjY1NC0zMyAxNy45MDQtNTUuNjI1IDMyLjUtNjguMzc1QzMwNC45MDYgNzI1LjQzOCAxODUuMzQ0IDY4MS41IDE4NS4zNDQgNDg1LjMxMmMwLTU1LjkzOCAxOS45NjktMTAxLjU2MiA1Mi42NTYtMTM3LjQwNi01LjIxOS0xMy0yMi44NDQtNjUuMDk0IDUuMDYyLTEzNS41NjIgMCAwIDQyLjkzOC0xMy43NSAxNDAuODEyIDUyLjUgNDAuODEyLTExLjQwNiA4NC41OTQtMTcuMDMxIDEyOC4xMjUtMTcuMjE5IDQzLjUgMC4xODggODcuMzEyIDUuODc1IDEyOC4xODggMTcuMjgxIDk3LjY4OC02Ni4zMTIgMTQwLjY4OC01Mi41IDE0MC42ODgtNTIuNSAyOCA3MC41MzEgMTAuMzc1IDEyMi41NjIgNS4xMjUgMTM1LjUgMzIuODEyIDM1Ljg0NCA1Mi42MjUgODEuNDY5IDUyLjYyNSAxMzcuNDA2IDAgMTk2LjY4OC0xMTkuNzUgMjQwLTIzMy44MTIgMjUyLjY4OCAxOC40MzggMTUuODc1IDM0Ljc1IDQ3IDM0Ljc1IDk0Ljc1IDAgNjguNDM4LTAuNjg4IDEyMy42MjUtMC42ODggMTQwLjUgMCAxMy42MjUgOS4zMTIgMjkuNTYyIDM1LjI1IDI0LjU2MkM4NzcuNDM4IDkzMCAxMDI0IDczOC4xMjUgMTAyNCA1MTIgMTAyNCAyMjkuMjUgNzk0Ljc1IDAgNTEyIDB6Ii8+PC9zdmc+" alt="">
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/niksko" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1MDAiIGlkPSJzdmcyIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzIGlkPSJkZWZzNCIvPjxnIGlkPSJsYXllcjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTU1Mi4zNjIxOCkiPjxyZWN0IGhlaWdodD0iNTAwIiBpZD0icmVjdDI5OTAtMSIgcng9IjI1MCIgcnk9IjI1MCIgc3R5bGU9ImZpbGw6IzU1YWNlZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgd2lkdGg9IjUwMCIgeD0iMCIgeT0iNTUyLjM2MjE4Ii8+PGcgaWQ9ImxheWVyMS05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTQ5LjAwNTE1LDgwLjI5NDM3MikiLz48ZyBpZD0ibGF5ZXIxLTYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01NzUuNzE0MjksMzkuOTk5OTk5KSIvPjxnIGlkPSJsYXllcjEtOTMiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTk5Mjg5NDUsMCwwLDAuOTk5Mjg5NDUsNDc0LjcwMDIsLTQwLjgxOTI4KSIvPjxwYXRoIGQ9Im0gMzA5Ljg1LDY3Mi4zMTIxOCBjIC0zNS40NzA3OSwwLjg5ODc5IC02My45MjUsMjkuOTMxMzggLTYzLjkyNSw2NS42MjUgMCw1LjEzODI3IDAuNTUxMjIsMTAuMTYxNTYgMS42NzUsMTQuOTc1IC01NC41NjU2NywtMi43NDEyNiAtMTAyLjk0Mjg3LC0yOC44Nzc0OSAtMTM1LjMyNSwtNjguNiAtNS42NTE0Nyw5LjY5MTkxIC04LjksMjAuOTgxNTggLTguOSwzMy4wMjUgMCwyMi43NzQ2NyAxMS42MDgwOSw0Mi44NTQzOCAyOS4yMjUsNTQuNjI1IC0xMC43NTcyMiwtMC4zNDQyOCAtMjAuODk2MDYsLTMuMzA3NTggLTI5Ljc1LC04LjIyNSAtMC4wMDUsMC4yNzI4MiAwLDAuNTcwNjkgMCwwLjg1IDAsMzEuODA0MDIgMjIuNjM3OSw1OC4zMDg4IDUyLjY3NSw2NC4zNSAtNS41MDg1MiwxLjQ5NDA2IC0xMS4zMTA3NSwyLjMgLTE3LjMsMi4zIC00LjIzNTM0LDAgLTguMzQyMDMsLTAuNDAxOTggLTEyLjM1LC0xLjE3NSA4LjM2MDIyLDI2LjA4MTA5IDMyLjU3NTA2LDQ1LjA3Mzg1IDYxLjMsNDUuNiAtMjIuNDY5MzcsMTcuNjEwNDMgLTUwLjczNTM0LDI4LjEgLTgxLjUsMjguMSAtNS4yOTQxNiwwIC0xMC41MzY3NSwtMC4yODkzOCAtMTUuNjc1LC0wLjkgMjkuMDYyNzIsMTguNjM2ODMgNjMuNTUyODIsMjkuNSAxMDAuNjI1LDI5LjUgMTIwLjc2NTUyLDAgMTg2LjgsLTEwMC4wNDA1OCAxODYuOCwtMTg2LjggMCwtMi44NDUyIC0wLjA1MTcsLTUuNzA1NzcgLTAuMTc1LC04LjUyNSAxMi44MjI5NCwtOS4yMzcyIDIzLjk1NDU0LC0yMC44MDc3NiAzMi43NSwtMzMuOTc1IC0xMS43NjQxLDUuMjI5MjIgLTI0LjQxNTg2LDguNzcxNDYgLTM3LjcsMTAuMzUgMTMuNTYzNDYsLTguMTE5OSAyMy45NzA2MSwtMjAuOTgxNjYgMjguODc1LC0zNi4zMjUgLTEyLjY4NjUyLDcuNTI4NzcgLTI2LjczOTkzLDEzLjAwMDg1IC00MS43LDE1Ljk1IC0xMS45NzE5NywtMTIuNzU3OTggLTI5LjA0MTM3LC0yMC43MjUgLTQ3LjkyNSwtMjAuNzI1IC0wLjU2NjQ2LDAgLTEuMTM2OTgsLTAuMDE0MyAtMS43LDAgeiIgaWQ9InJlY3QyOTg5IiBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIi8+PC9nPjwvc3ZnPg==" alt="">
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  <small>©blog.skouf.com</small>
+</footer>
+
+  </div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-76961630-4', 'auto');
+	ga('send', 'pageview');
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
