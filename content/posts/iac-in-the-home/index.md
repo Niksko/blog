@@ -44,7 +44,7 @@ Next step was to set up the required networking components. For all the moving p
 
 There were many issues at this stage. Using VirtualBox to debug the network connectivity issues was both a help and a hindrance. On the one hand I was able to try and debug connectivity issues without using the real hardware. This involves changing inputs on my monitor and plugging a keyboard back and forth. But there turned out to be small issues in the end that worked in VirtualBox and not on the hardware. In the end, switching off the firewall on my desktop solved my problems and allowed the server to provision.
 
-{{< figure src="./overview.png" caption="Image from the Matchbox project: https://coreos.com/matchbox/docs/latest/matchbox.html. This explains the Matchbox flow better than I ever could." >}}
+{{< figure src="overview.png" caption="Image from the Matchbox project: https://coreos.com/matchbox/docs/latest/matchbox.html. This explains the Matchbox flow better than I ever could." >}}
 
 ## Terraform configuration
 

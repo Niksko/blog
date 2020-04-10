@@ -7,7 +7,7 @@ The documentation of these leaves a lot to be desired, as we discovered when we 
 draft: false
 ---
 
-{{< figure src="./sailboat.jpg" caption="Photo by [Alina Pkhakadze](https://unsplash.com/@alinap) on [Unsplash](https://unsplash.com)" alt="An image of a sailboat on the water on a stormy day." >}}
+{{< figure src="sailboat.jpg" caption="Photo by [Alina Pkhakadze](https://unsplash.com/@alinap) on [Unsplash](https://unsplash.com)" alt="An image of a sailboat on the water on a stormy day." >}}
 
 _Note: this information was accurate as of Istio 1.1._
 _The pace of development for the Istio project is swift, so some of this might be out of date by the time you read this._

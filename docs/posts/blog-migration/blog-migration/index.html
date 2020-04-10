@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Blog migration - blog.skouf.com</title>
-  <meta name="generator" content="Hugo 0.58.1" />
+  <meta name="generator" content="Hugo 0.68.3" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
@@ -55,30 +55,22 @@
           <time itemprop="datePublished" datetime="2020-04-08T02:30:18Z">2020.04.08</time>
         </p>
         <div class="post-content">
-          
-
-<h2 id="growing-tired-of-medium">Growing tired of Medium</h2>
-
+          <h2 id="growing-tired-of-medium">Growing tired of Medium</h2>
 <p>This has been a while coming.
 To be frank, I&rsquo;m sick of Medium as a content platform.</p>
-
 <p>I resent the annoying full-page popups asking you to sign in.
 I&rsquo;m sick of these as a reader of other publications, and I&rsquo;d be horrified if my readers were ever subject to them.
 To add to their annoyance, I noticed a bizarre and infuriating dark pattern the other day.
 Dismissing the &lsquo;you have four articles left this month&rsquo; popover caused an un-dismissable signup screen to be displayed.
 If you just ignore the popup, you can read the article.
 Not cool.</p>
-
 <p>Aside from corporate greed, Medium isn&rsquo;t really built for the sort of content I tend to write.
 Up until now, I&rsquo;ve largely blogged about technical subjects.
 This means lots of code snippets, which aren&rsquo;t as easy to integrate into Medium as I&rsquo;d like.
 There&rsquo;s no native code formatting, so I have to embed Github gists.
 They work fine, but it&rsquo;s annoying and much more tedious than just writing code snippets inline.</p>
-
 <h2 id="the-new-blog">The new blog</h2>
-
 <p>The new blog hosting platform needed a few things:</p>
-
 <ul>
 <li>As discussed above, I wanted better support for code blocks.</li>
 <li>I wanted more control over the design and layout of the blog, down to writing custom CSS, JS and HTML.
@@ -92,10 +84,8 @@ I have a bunch of other interests that I might like to write about, and I think 
 I managed to get on to Medium with a custom domain before they started charging for it.
 I&rsquo;d like to keep it that way.</li>
 </ul>
-
 <p>In the end I settled on <a href="https://gohugo.io/">Hugo</a>.
 It ticked all of the points from above, as well as the following niceties:</p>
-
 <ul>
 <li>Hugo is widely used, which means there&rsquo;s lots of tutorials and Stackoverflow articles.
 Invaluable when you&rsquo;re getting your head around a new framework.</li>
@@ -108,32 +98,24 @@ These are all testaments to Hugo&rsquo;s power.</li>
 I&rsquo;m not really a front-end dev, so having a starting point cuts down on my frustration.
 I&rsquo;m a lot more adept at taking an existing stylesheet and tweaking it where I don&rsquo;t like it, which is what I ended up doing.</li>
 </ul>
-
 <h2 id="the-migration-process">The migration process</h2>
-
 <p>Migrating the content was fairly easy.
 Hugo content is written in markdown, so getting all of the content over was as simply as copy-pasting text and downloading images.
 Figuring out how to store my images alongside my markdown proved a little challenging, but in the end the key was to use <code>index.md</code> files, which cause Hugo to treat images at the same level as part of a <a href="https://gohugo.io/content-management/page-bundles/">Page Bundle</a>.</p>
-
 <p>The harder part of the migration was setting up Hugo and modifying the theme.
 I picked the <a href="https://themes.gohugo.io/hestia-pure/">Hestia pure</a> theme to base my modifications on.
 It presented a clean and minimal look, and had most of the features I needed.
 A few licks of green paint, and many many tweaks to the CSS and the templates and I was up and running.</p>
-
 <p>At some point I should probably do a complete rewrite, as the CSS is ugly.
 It mixes bootstrap style BEM classes with my custom media queries that I spatter around the place, but for the moment, it will do.</p>
-
 <p>Finally, it was a matter of switching off the Medium blog and shifting the DNS over to Github pages.
 In a final screw-you, it was confusing and difficult to figure out how to disable the Medium blog.
 In the end, &lsquo;deleting&rsquo; the &lsquo;publication&rsquo; was the right move.
 Apparently deactivating my account wasn&rsquo;t enough.
 Thankfully, all that&rsquo;s needed to get a custom domain to work with Github pages is to point a <code>CNAME</code> record at <code>&lt;your-username&gt;.github.io</code>.</p>
-
 <h2 id="future-work">Future work</h2>
-
 <p>As of now, the blog is up and running.
 However there&rsquo;s still some work I&rsquo;d like to do in the future:</p>
-
 <ul>
 <li>Optimizing images.
 At the moment I&rsquo;m not doing any image processing or optimization.
@@ -156,7 +138,6 @@ I mentioned this as a goal above, and it&rsquo;s easily doable with Hugo.
 I just don&rsquo;t have any non-tech articles yet, so it&rsquo;s not a high priority.
 It needs some styling of the pages that list the articles (I think), which is why I&rsquo;ve put it off.</li>
 </ul>
-
 <p>Hopefully despite all of those changes, you like the look of the new blog!
 If you notice any glaring issues, let me know via the social media links below.</p>
 

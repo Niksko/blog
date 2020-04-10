@@ -8,7 +8,7 @@ draft: false
 
 This was the first photo I saw of the keyboard:
 
-{{< figure src="./first-image.jpg" caption="My first impression of this keyboard." alt="An image of a large, old keyboard. It has keyboard shortcuts for a program printed out and taped to the top of it." >}}
+{{< figure src="first-image.jpg" caption="My first impression of this keyboard." alt="An image of a large, old keyboard. It has keyboard shortcuts for a program printed out and taped to the top of it." >}}
 
 I received this photo from a local not-for-profit that takes donations of old PC hardware and builds computers for people who need them but can’t afford them.
 After deciding that I really wanted an IBM Model M keyboard (prized for its clicky buckling springs), I had been sending emails around to places that specialize in old hardware in the hopes of finding one.
@@ -41,7 +41,7 @@ After half an hour soaking in the cleaning solution they came up brilliantly.
 I also removed that Microsoft word shortcuts cheat sheet (thankfully only secured with blu-tack), a strange metallic logo that seemed to be from some long defunct computer retailer and a few other stickers and bits of debris.
 Finally, I gave the outer case a good scrub with some soapy water and I vacuumed out the inside of the case, just to get it really sparkling.
 
-{{< figure src="./cleaned.jpg" caption="All cleaned up with keycaps pulled." alt="An image of a keyboard with the keycaps removed. The stems of the keycaps are light blue." >}}
+{{< figure src="cleaned.jpg" caption="All cleaned up with keycaps pulled." alt="An image of a keyboard with the keycaps removed. The stems of the keycaps are light blue." >}}
 
 ## Cable coiling 101
 
@@ -73,11 +73,11 @@ Here’s the issues I ran into:
 
 The result of these difficulties has left me with a cable that is coiled, but not tightly like the original (or like other professional cable coilings I’ve seen), not very evenly in diameter, and that has spread quite a bit in the few weeks since I coiled it.
 
-{{< figure src="./coiled-ready.jpg" caption="Cable coiled and ready to be heated." alt="An image of a black cable coiled around a knitting needle, resting on a wooden bench top. There is a roll of green electrical tape sitting nearby" >}}
+{{< figure src="coiled-ready.jpg" caption="Cable coiled and ready to be heated." alt="An image of a black cable coiled around a knitting needle, resting on a wooden bench top. There is a roll of green electrical tape sitting nearby" >}}
 
-{{< figure src="./hairdrier.jpg" caption="Heating with my trusty workshop hairdrier." alt="An image of the coiled cable from the previous image being heated by a hairdrier" >}}
+{{< figure src="hairdrier.jpg" caption="Heating with my trusty workshop hairdrier." alt="An image of the coiled cable from the previous image being heated by a hairdrier" >}}
 
-{{< figure src="./off-mandrel.jpg" caption="Removed from mandrel. Note the slightly uneven coiling." alt="An image of an unevenly coiled cable resting on a wooden bench top." >}}
+{{< figure src="off-mandrel.jpg" caption="Removed from mandrel. Note the slightly uneven coiling." alt="An image of an unevenly coiled cable resting on a wooden bench top." >}}
 
 ## Protocol conversion
 
@@ -86,7 +86,7 @@ This keyboard was manufactured in 1989, which predates the USB protocol by about
 As a consequence, this keyboard originally had a DIN connector and spoke either the AT or XT keyboard protocol (depending on the position of a switch on the back).
 Thankfully, converting old keyboards to USB is a solved problem.
 
-{{< figure src="./manufacture-date.jpg" caption="Manufactured January 1989." alt="A close up image of two moulded plastic dials, which indicate when the keyboard was manufactured. They indicate January of 1989" >}}
+{{< figure src="manufacture-date.jpg" caption="Manufactured January 1989." alt="A close up image of two moulded plastic dials, which indicate when the keyboard was manufactured. They indicate January of 1989" >}}
 
 I decided to make use of [Soarer’s converter](https://deskthority.net/workshop-f7/xt-at-ps2-terminal-to-usb-converter-with-nkro-t2510.html) for this project.
 Soarer’s is a well known and well established set of software and firmware, and it’s pretty easy to get started with.
@@ -109,12 +109,12 @@ Thankfully the following facts made fitting things really easy:
 The first item of business with this protocol conversion was to determine which wires corresponded to which pins on the DIN connector.
 This involved lopping off the connector and making use of my quite ancient multi-meter.
 
-{{< figure src="./ancient-multimeter.jpg" caption="Ancient multi-meter. The box says 'Dick Smith' (now defunct)." alt="A close up image of an analog multimeter, with a red and a black test lead emerging from two ports." >}}
+{{< figure src="ancient-multimeter.jpg" caption="Ancient multi-meter. The box says 'Dick Smith' (now defunct)." alt="A close up image of an analog multimeter, with a red and a black test lead emerging from two ports." >}}
 
 I used the wiring guide shown below to match the pins from the DIN connector to their relevant signals.
 Almost all Soarer’s converter pinouts are shown using the Teensy, but thankfully I was able to find [a deskauthority post](https://deskthority.net/workshop-f7/how-to-use-a-pro-micro-as-a-cheap-controller-converter-like-soarer-s-t8448.html?sid=d92c3b6bc1e3ccdf770ee22934d452e2) which details the corresponding pins on a Pro Micro I was using.
 
-{{< figure src="./din-pinout.png" caption="DIN connector AT wiring guide." alt="A black and white diagram of the pin numbers and functions for the DIN 41524 and the Mini-DIN 6 connectors. A caption reads 'View on socket built into the Computer'" >}}
+{{< figure src="din-pinout.png" caption="DIN connector AT wiring guide." alt="A black and white diagram of the pin numbers and functions for the DIN 41524 and the Mini-DIN 6 connectors. A caption reads 'View on socket built into the Computer'" >}}
 
 Once I had figured out which wires were which and where they were all going, it was time to strip them all and tin them.
 This isn’t going to be a tutorial on soldering, but generally when soldering you flow some solder onto the bare wire before attempting to solder it to anything.
@@ -124,14 +124,14 @@ Another crucial element when soldering is making sure that you have decent mecha
 Otherwise you’re putting all of the stress on the solder and it’s likely to fail.
 To this effort I decided to twist the tinned wires into little hooks before attaching them to the Pro Micro.
 
-{{< figure src="./tinned-wires.jpg" caption="Tinned and hooked wires" alt="A macro photo of four wires that have been tinned with solder and hooked, being held in a third-hand. In the background is a microcontroller on a breakout board." >}}
+{{< figure src="tinned-wires.jpg" caption="Tinned and hooked wires" alt="A macro photo of four wires that have been tinned with solder and hooked, being held in a third-hand. In the background is a microcontroller on a breakout board." >}}
 
 Next step was the soldering.
 It was pretty nerve-wracking, but ultimately I think I did a pretty neat and clean job.
 
-{{< figure src="./one-wire-attached.jpg" caption="One wire attached (I think this is the clock)." alt="A macro image of a microcontroller with one of the wires from the previous image soldered to it via a through-hole." >}}
+{{< figure src="one-wire-attached.jpg" caption="One wire attached (I think this is the clock)." alt="A macro image of a microcontroller with one of the wires from the previous image soldered to it via a through-hole." >}}
 
-{{< figure src="./all-wires-soldered.jpg" caption="All the wires soldered on." alt="A macro image of the same microcontroller as the previous image, with four wires soldered to it." >}}
+{{< figure src="all-wires-soldered.jpg" caption="All the wires soldered on." alt="A macro image of the same microcontroller as the previous image, with four wires soldered to it." >}}
 
 Now, a brief interlude on flashing Soarer’s firmware.
 I actually performed this step before I had soldered the Pro Micro to the keyboard, but this was mostly because I wanted to mess around with it late one night but I wasn’t ready to break out the soldering iron just yet.
@@ -164,9 +164,9 @@ At this point I still didn’t actually know if the board even worked.
 I had guessed it would, simply because externally and internally it looked to be in very good condition.
 Thankfully when I plugged it in for the first time, the green num-lock light lit up, and I knew all this effort hadn’t been for nothing.
 
-{{< figure src="./first-signs-of-life.jpg" caption="The first sign of life - a lit up num-lock light" alt="A macro image of the mainboard of a keyboard, centered on a rectangular prism shaped LED. The LED is lit up and green colored." >}}
+{{< figure src="first-signs-of-life.jpg" caption="The first sign of life - a lit up num-lock light" alt="A macro image of the mainboard of a keyboard, centered on a rectangular prism shaped LED. The LED is lit up and green colored." >}}
 
-{{< figure src="./first-letters.jpg" caption="The first key-presses of a revived K104" alt="A macro image of a computer screen opened to a terminal. There are some random letters at the prompt." >}}
+{{< figure src="first-letters.jpg" caption="The first key-presses of a revived K104" alt="A macro image of a computer screen opened to a terminal. There are some random letters at the prompt." >}}
 
 Success!
 The num-lock light turned on and at that point I was pretty confident that everything had gone to plan.
@@ -202,9 +202,9 @@ Soarer’s converter apparently supports four additional input devices which can
 Suggestions include things like pedals or footswitches, but I can’t see any reason why you couldn’t wire a switch directly to one of the auxilliary inputs and remap it to the desired key in configuration.
 Thankfully I didn’t have to find out if this is easy or not.)
 
-{{< figure src="./unbridged-pad.jpg" caption="Un-bridged solder pad. Very strange." alt="A macro image of a printed circuit board. There are many soldered component legs. In the middle is a small copper pad, with two disconnected blobs of solder." >}}
+{{< figure src="unbridged-pad.jpg" caption="Un-bridged solder pad. Very strange." alt="A macro image of a printed circuit board. There are many soldered component legs. In the middle is a small copper pad, with two disconnected blobs of solder." >}}
 
-{{< figure src="./bridged-pad.jpg" caption="Slightly ugly solder job to bridge the connection" alt="A macro image of the same board as the previous photo. The gap between to two solder blobs has been bridge with a blob of solder." >}}
+{{< figure src="bridged-pad.jpg" caption="Slightly ugly solder job to bridge the connection" alt="A macro image of the same board as the previous photo. The gap between to two solder blobs has been bridge with a blob of solder." >}}
 
 ## Final thoughts
 
@@ -234,4 +234,4 @@ It’s sharply clicky, has great resistance, and it sounds amazing.
 I think the sound is a combination of some resonance in the stabilizers on the larger keys, but possibly also resonance from the extra space inside the case and from the metal key plate.
 It’s really wonderful to type on, and I really hope there are no complaints from my coworkers (none so far thankfully).
 
-{{< figure src="./finished-keyboard.jpg" caption="Keyboard on my desk at work." alt="An image of the restored keyboard on a wood-finish desk." >}}
+{{< figure src="finished-keyboard.jpg" caption="Keyboard on my desk at work." alt="An image of the restored keyboard on a wood-finish desk." >}}
