@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>IaC in the home - two years on - blog.skouf.com</title>
+  <meta name="generator" content="Hugo 0.58.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Nik Skoufis">
+  
+  <meta name="description" content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="blog.skouf.com">
+  <meta property="og:title" content="IaC in the home - two years on">
+  <meta property="og:url" content="/posts/iac-in-the-home-two-years-on/">
+  
+  <meta property="og:image" content="container-ship.jpg">
+  
+  
+  <meta property="og:description" content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@niksko">
+  <meta name="twitter:title" content="IaC in the home - two years on">
+  <meta name="twitter:url" content="/posts/iac-in-the-home-two-years-on/">
+  
+  <meta name="twitter:description" content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.">
+  
+  
+  <meta name="twitter:image:src" content="container-ship.jpg">
+  
+  <link rel="shortcut icon" href="/image/theme/favicon.ico">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="alternate" href="index.xml" type="application/rss+xml" title="blog.skouf.com">
+</head>
+
+<body>
+  <div id="wrap" class="wrap">
+    <header class="header">
+  <div class="site-title"><a href="/">blog.skouf.com</a></div>
+  <p class="site-desc">The personal blog of Nik Skoufis</p>
+  
+</header>
+
+    <main class="main main--single">
+      
+      <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+        <h1 class="post__title">IaC in the home - two years on</h1>
+        <p class="post__date">
+          <time itemprop="datePublished" datetime="2020-04-11T02:25:23Z">2020.04.11</time>
+        </p>
+        <div class="post-content">
+          
+
+<p><em>This is the third post in a series about how I manage my home Kubernetes cluster.
+For context, read <a href="/posts/iac-in-the-home/">the original post</a> and <a href="/posts/iac-in-the-home-one-year-on/">the followup at one year</a>.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+    
+        <img 
+          sizes="(min-width: 35em) 1200px, 100vw"
+            srcset='
+              
+                /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_500x0_resize_q75_box.jpg 500w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_800x0_resize_q75_box.jpg 800w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_1200x0_resize_q75_box.jpg 1200w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_1500x0_resize_q75_box.jpg 1500w 
+              '
+              
+                  src="/posts/iac-in-the-home-two-years-on/container-ship.jpg" 
+               alt="A black and white image of a container ship, viewed from the rear."><figcaption>
+                
+                <p>
+                    Photo by <a href="https://unsplash.com/@runfilm">torben</a> on <a href="https://unsplash.com">Unsplash</a>
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+
+<p>I&rsquo;ve now been running my home Kubernetes &ldquo;cluster&rdquo; (inverted commas, because there&rsquo;s only one node) for two years.
+A fair bit has changed since I wrote the last post, so I thought it might be time for an update.</p>
+
+<p>On a personal note, I started working in a team building a Kubernetes platform full time.
+This was an incredibly exciting move for me, and has shifted my career in an exciting new direction.
+Running Kubernetes at home helped me to get a running start in my new role, and probably contributed to me getting the role in the first place.
+I guess all of this pain has some upsides.</p>
+
+<p>Needless to say, working in that team has shaped and altered my views on best practice for running a cluster.
+It&rsquo;s also improved my Kubernetes understanding greatly.
+Because of this, I&rsquo;ve made a range of changes to my home cluster, expanding both its functionality and its maintainability.
+The sections below go in to more detail about how and why the changes were made, and document any speedbumps along the way.</p>
+
+<h2 id="metallb">MetalLB</h2>
+
+<p>Kubernetes is geared towards large-scale deployments for running many workloads.
+It&rsquo;s meant to be run on a public cloud.
+This means that the options for setting up load balancing outside of the public cloud providers aren&rsquo;t ideal.
+I used to run everything via a <code>NodePort</code>, but this means you need the port in your URLs when requesting services inside the cluster.
+And you can&rsquo;t use ports 80 or 443 because these are taken by the Kubernetes API server.</p>
+
+<p><a href="https://metallb.universe.tf/">MetalLB</a> provides a load balancer for bare-metal Kubernetes clusters, solving this problem.
+I&rsquo;m operating MetalLB in &lsquo;Layer 2 mode&rsquo;, which means MetalLB will participate in address resolution of IPv4 addresses via the standard ARP protocol.
+What this means practically is that I&rsquo;ve assigned an IPv4 address block on my home network to MetalLB, and it will advertise these address for me, and associate them with Kubernetes <code>LoadBalancer</code> objects.
+From the outside, it simply looks like my server advertises multiple addresses.
+This removes the port conflict on 80 and 443, freeing those up for use for cluster services.</p>
+
+<p>Combining this new IP address for load balancing with some DNS entries in my router means that I can now access services easily in a browser, without having to remember which port I bound them to.</p>
+
+<h2 id="istio">Istio</h2>
+
+<p><a href="https://istio.io/">Istio</a> is a service mesh, that enables smarter networking within a cluster.
+It&rsquo;s complete and total overkill for a home Kubernetes cluster.
+I&rsquo;m running it anyway, because it&rsquo;s cool tech and it&rsquo;s relevant to my work.</p>
+
+<p>The installation of Istio has come a long way since I first installed it.
+At first, my instructions included cloning the source repo, making modifications, running incantations, and all the sorts of things you can&rsquo;t remember six months later.
+Thankfully the Istio contributors have prioritised usability in recent releases, and the installation process is now relatively straightforward.</p>
+
+<p>While writing this post, I updated to Istio 1.5 - the latest release at the time.
+After updating my <code>istioctl</code> tool, I ran <code>istioctl operator init</code>.
+This detected the existing install of the Istio operator in my cluster, and upgraded it to the latest version automatically.</p>
+
+<p>Upgrading Istio turned out to be a bit of a bad idea, because the API for defining control planes appears to have changed.
+The old resource had <code>kind: IstioControlPlane</code>, where as the new resource is <code>kind: IstioOperator</code>.
+This meant that removing the old control plane configuration did nothing, instead of removing the old control plane as I&rsquo;d hoped.
+It also appears that the Istio operator now looks in the <code>istio-system</code> namespace for control plane configuration objects, rather than in its own <code>istio-operator</code> namespace.</p>
+
+<p>As is often the case, tearing everything down with a <code>kubectl delete ns istio-system --grace-period=0 --force</code> solved things.
+Reapplying my control plane configuration with the new resource kind gave me a new control plane
+Even better, my new control plane is just the <code>default</code> profile.
+Istio&rsquo;s Secret Discovery Service graduated to stable, which was the last &lsquo;experimental&rsquo; feature I was using (requiring extra control plane configuration to enable).</p>
+
+<p>After an Istio upgrade, you generally need to bounce your sidecar-injected pods to force them to get re-injected with the latest version of the Istio sidecar.
+After doing this, my services weren&rsquo;t resolving in the browser, with an <code>ERR_CONNECTION_RESET</code>.
+Fixing this required re-applying my certificate objects, which lived in the <code>istio-system</code> namespace, as discussed in the next section.
+After this, all my services seemed to be in working order.
+The Istio upgrade process gets easier every time!</p>
+
+<h2 id="certificates">Certificates</h2>
+
+<p>Browser warnings, red padlocks, or just grey padlocks are annoying.
+Wouldn&rsquo;t it be nice to have nice, SSL secured services, within our home cluster?
+And on top of that, can we get SSL certificates without exposing my home cluster to the internet?</p>
+
+<p>My solution to this is to hook up my home cluster into Cloudflare, which is what I use for my DNS.
+<a href="https://github.com/jetstack/cert-manager">cert-manager</a> set up inside Kubernetes allows me to create certificate files alongside the deployments of my applications.
+Using the Cloudflare API, cert-manager is able to automatically fulfil the <a href="https://letsencrypt.org/docs/challenge-types/#dns-01-challenge">DNS-01</a> challenge that Let&rsquo;s Encrypt uses.
+This means that I can safely provision certificates for services in my home network.</p>
+
+<p>The final step is to configure Istio to use the certificates that cert-manager provisions.
+This is the only flaw with this set up, which I hope can be fixed in the future.
+Currently, the secrets for the certificate must be created in the <code>istio-system</code> namespace, alongside the Istio Ingress Gateway.
+There&rsquo;s an <a href="https://github.com/jetstack/cert-manager/issues/2522">open issue</a> on the cert-manager project that discusses this and considers workarounds, as well as linking off to the relevant Istio issues.
+For now, we have to create the certificates in the <code>istio-system</code> namespace (and remember to re-deploy if we delete the namespace).</p>
+
+<p>Along with a DNS entry (something I haven&rsquo;t put in my cluster&hellip; yet), I can now access my cluster services at friendly domains like <a href="https://deluge.home.skouf.com">https://deluge.home.skouf.com</a>.</p>
+
+<h2 id="migration-from-container-linux-to-flatcar-linux">Migration from Container Linux to Flatcar Linux</h2>
+
+<p>When I set up my server, I wanted a lightweight operating system that was designed for running containers.
+Container Linux fit the bill, and has served me well.</p>
+
+<p>Unfortunately, in January of 2018, CoreOS (the creators of Container Linux) <a href="https://www.cnbc.com/2018/01/30/red-hat-buys-coreos-for-250-mililon.html">were bought by Red Hat</a>.
+As such, Container Linux was folded into Red Hat&rsquo;s existing Atomic project, and <a href="https://coreos.com/os/eol/">Container Linux is set to reach end of life as of May 26th 2020</a>.</p>
+
+<p><a href="https://www.flatcar-linux.org/">Flatcar Linux</a> is a friendly fork of Container Linux, and is largely compatible with Container Linux.
+Flatcar made upgrading from Container Linux really easy, so Flatcar became the obvious choice for underlying OS.
+<a href="https://docs.flatcar-linux.org/os/update-from-container-linux/">Flatcar has a guide on directly updating from Container Linux</a>, as well as a script that runs everything for you.</p>
+
+<p>Running this script took about 10 seconds, and after a reboot, everything seemed to come back up.
+However the message upon sshing in seemed like things hadn&rsquo;t worked.</p>
+
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+    
+        <img 
+          sizes="(min-width: 35em) 1200px, 100vw"
+            srcset='
+              
+                /posts/iac-in-the-home-two-years-on/before-upgrade_hufc29107df2dd8facea0ed8b6fe830af9_15540_500x0_resize_q75_box.jpg 500w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/before-upgrade_hufc29107df2dd8facea0ed8b6fe830af9_15540_800x0_resize_q75_box.jpg 800w
+              
+              
+              '
+              
+                  src="/posts/iac-in-the-home-two-years-on/before-upgrade.jpg" 
+               alt="A screenshot of a terminal. The text indicates that we are running Container Linux."><figcaption>
+                
+                <p>
+                    Pre-upgrade message indicating an old version of Container Linux.
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+    
+        <img 
+          sizes="(min-width: 35em) 1200px, 100vw"
+            srcset='
+              
+                /posts/iac-in-the-home-two-years-on/latest-container-linux_huc57cb7ba7bc5200b8d4bacff3cb731c0_27759_500x0_resize_q75_box.jpg 500w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/latest-container-linux_huc57cb7ba7bc5200b8d4bacff3cb731c0_27759_800x0_resize_q75_box.jpg 800w
+              
+              
+              '
+              
+                  src="/posts/iac-in-the-home-two-years-on/latest-container-linux.jpg" 
+               alt="A screenshot of a terminal. The text indicates that we are still running Container Linux, but now at a newer version. There is also a warning about the end-of-life of Container Linux."><figcaption>
+                
+                <p>
+                    After updating to the latest Container Linux, we now get this end-of-life warning.
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+</p>
+
+<p>After some poking around with the <code>update_engine_client</code> tool, I ended up running the script again.
+This time I was pretty confident that I was updating to Flatcar.
+The version I was updating to, <code>2345.3.1</code>, is the latest version of Flatcar; this version doesn&rsquo;t exist in Container Linux.
+Evidently, I was just a little out of date with my Container Linux install, and needed to update first for a smooth experience.</p>
+
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+    
+        <img 
+          sizes="(min-width: 35em) 1200px, 100vw"
+            srcset='
+              
+                /posts/iac-in-the-home-two-years-on/update-progress_hu54983a320732d54270526148e722809b_56231_500x0_resize_q75_box.jpg 500w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/update-progress_hu54983a320732d54270526148e722809b_56231_800x0_resize_q75_box.jpg 800w
+              
+              
+              '
+              
+                  src="/posts/iac-in-the-home-two-years-on/update-progress.jpg" 
+               alt="A screenshot of a terminal. The text indicates that the update engine is in the process of downloading a new update."><figcaption>
+                
+                <p>
+                    The update engine performing the update to <code>2345.3.1</code>.
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+    
+        <img 
+          sizes="(min-width: 35em) 1200px, 100vw"
+            srcset='
+              
+                /posts/iac-in-the-home-two-years-on/upgrade-successful_huc6e94e930e48ce65e0b433013d61676b_15453_500x0_resize_q75_box.jpg 500w
+              
+              
+                  , /posts/iac-in-the-home-two-years-on/upgrade-successful_huc6e94e930e48ce65e0b433013d61676b_15453_800x0_resize_q75_box.jpg 800w
+              
+              
+              '
+              
+                  src="/posts/iac-in-the-home-two-years-on/upgrade-successful.jpg" 
+               alt="A screenshot of a terminal. The text indicates that the machine now runs Flatcar Linux."><figcaption>
+                
+                <p>
+                    The upgrade was a success!
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+</p>
+
+<p>You&rsquo;ll notice the images above have <code>Update Strategy: No Reboots</code>.
+I&rsquo;m sure I did this to maintain uptime, but it&rsquo;s probably not a great idea.
+While I was fiddling with things, I decided to enable a maintenance window for applying updates.</p>
+
+<p><a href="https://docs.flatcar-linux.org/os/update-strategies/#auto-updates-with-a-maintenance-window">Flatcar Linux have docs on this</a>, though I had to install a <a href="https://github.com/flatcar-linux/locksmith/blob/flatcar-master/systemd/locksmithd.service">locksmithd systemd unit</a> and fiddle with some configuration files to get it working.
+Now my system will update itself every Monday at 10am.
+I chose this time because my server makes a few noises after rebooting, and I didn&rsquo;t want to wake people up.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>And so ends another year of running Kubernetes at home.
+The cluster is in great shape, and has experienced relatively few issues over the last 12 months.
+I&rsquo;m spending around an evening every six months or so doing upkeep and maintenance, which seems reasonable to me.
+Considering that I&rsquo;m learning a lot along the way, I&rsquo;m really happy with the setup.</p>
+
+<p>See you in a year!</p>
+
+        </div>
+      </article>
+      
+      <hr class="post-hr">
+      
+      <nav class="post-nav">
+        <ol class="pure-g">
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+          </li>
+          
+          
+          <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+            <a href="/posts/blog-migration/blog-migration/">
+              <span class="post-nav-label">Previous</span>
+              <span class="post-nav-title">
+                Blog migration
+              </span>
+            </a>
+          </li>
+          
+        </ol>
+        <div class="post-nav-back">
+          <a class="pure-button" href="/">Back</a>
+        </div>
+      </nav>
+    
+    </main>
+    <footer class="footer">
+  <section class="author">
+    <h2>Author</h2>
+    <div class="pure-g">
+      <div class="author__image pure-u-1-5 pure-u-md-1-8">
+        <img src="/image/theme/author.jpg" alt="">
+      </div>
+      <div class="author__info pure-u-4-5 pure-u-md-7-8">
+        
+        <h3>Nik Skoufis</h3>
+        
+        
+        <p>Software developer, hardware hacker, food lover</p>
+        
+        <ul class="author__links">
+          
+          <li>
+            <a href="https://github.com/niksko" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxMDI0IiB3aWR0aD0iMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTEyIDBDMjI5LjI1IDAgMCAyMjkuMjUgMCA1MTJjMCAyMjYuMjUgMTQ2LjY4OCA0MTguMTI1IDM1MC4xNTYgNDg1LjgxMiAyNS41OTQgNC42ODggMzQuOTM4LTExLjEyNSAzNC45MzgtMjQuNjI1IDAtMTIuMTg4LTAuNDY5LTUyLjU2Mi0wLjcxOS05NS4zMTJDMjQyIDkwOC44MTIgMjExLjkwNiA4MTcuNSAyMTEuOTA2IDgxNy41Yy0yMy4zMTItNTkuMTI1LTU2Ljg0NC03NC44NzUtNTYuODQ0LTc0Ljg3NS00Ni41MzEtMzEuNzUgMy41My0zMS4xMjUgMy41My0zMS4xMjUgNTEuNDA2IDMuNTYyIDc4LjQ3IDUyLjc1IDc4LjQ3IDUyLjc1IDQ1LjY4OCA3OC4yNSAxMTkuODc1IDU1LjYyNSAxNDkgNDIuNSA0LjY1NC0zMyAxNy45MDQtNTUuNjI1IDMyLjUtNjguMzc1QzMwNC45MDYgNzI1LjQzOCAxODUuMzQ0IDY4MS41IDE4NS4zNDQgNDg1LjMxMmMwLTU1LjkzOCAxOS45NjktMTAxLjU2MiA1Mi42NTYtMTM3LjQwNi01LjIxOS0xMy0yMi44NDQtNjUuMDk0IDUuMDYyLTEzNS41NjIgMCAwIDQyLjkzOC0xMy43NSAxNDAuODEyIDUyLjUgNDAuODEyLTExLjQwNiA4NC41OTQtMTcuMDMxIDEyOC4xMjUtMTcuMjE5IDQzLjUgMC4xODggODcuMzEyIDUuODc1IDEyOC4xODggMTcuMjgxIDk3LjY4OC02Ni4zMTIgMTQwLjY4OC01Mi41IDE0MC42ODgtNTIuNSAyOCA3MC41MzEgMTAuMzc1IDEyMi41NjIgNS4xMjUgMTM1LjUgMzIuODEyIDM1Ljg0NCA1Mi42MjUgODEuNDY5IDUyLjYyNSAxMzcuNDA2IDAgMTk2LjY4OC0xMTkuNzUgMjQwLTIzMy44MTIgMjUyLjY4OCAxOC40MzggMTUuODc1IDM0Ljc1IDQ3IDM0Ljc1IDk0Ljc1IDAgNjguNDM4LTAuNjg4IDEyMy42MjUtMC42ODggMTQwLjUgMCAxMy42MjUgOS4zMTIgMjkuNTYyIDM1LjI1IDI0LjU2MkM4NzcuNDM4IDkzMCAxMDI0IDczOC4xMjUgMTAyNCA1MTIgMTAyNCAyMjkuMjUgNzk0Ljc1IDAgNTEyIDB6Ii8+PC9zdmc+" alt="">
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/niksko" target="_blank">
+              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1MDAiIGlkPSJzdmcyIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzIGlkPSJkZWZzNCIvPjxnIGlkPSJsYXllcjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTU1Mi4zNjIxOCkiPjxyZWN0IGhlaWdodD0iNTAwIiBpZD0icmVjdDI5OTAtMSIgcng9IjI1MCIgcnk9IjI1MCIgc3R5bGU9ImZpbGw6IzU1YWNlZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgd2lkdGg9IjUwMCIgeD0iMCIgeT0iNTUyLjM2MjE4Ii8+PGcgaWQ9ImxheWVyMS05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTQ5LjAwNTE1LDgwLjI5NDM3MikiLz48ZyBpZD0ibGF5ZXIxLTYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01NzUuNzE0MjksMzkuOTk5OTk5KSIvPjxnIGlkPSJsYXllcjEtOTMiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTk5Mjg5NDUsMCwwLDAuOTk5Mjg5NDUsNDc0LjcwMDIsLTQwLjgxOTI4KSIvPjxwYXRoIGQ9Im0gMzA5Ljg1LDY3Mi4zMTIxOCBjIC0zNS40NzA3OSwwLjg5ODc5IC02My45MjUsMjkuOTMxMzggLTYzLjkyNSw2NS42MjUgMCw1LjEzODI3IDAuNTUxMjIsMTAuMTYxNTYgMS42NzUsMTQuOTc1IC01NC41NjU2NywtMi43NDEyNiAtMTAyLjk0Mjg3LC0yOC44Nzc0OSAtMTM1LjMyNSwtNjguNiAtNS42NTE0Nyw5LjY5MTkxIC04LjksMjAuOTgxNTggLTguOSwzMy4wMjUgMCwyMi43NzQ2NyAxMS42MDgwOSw0Mi44NTQzOCAyOS4yMjUsNTQuNjI1IC0xMC43NTcyMiwtMC4zNDQyOCAtMjAuODk2MDYsLTMuMzA3NTggLTI5Ljc1LC04LjIyNSAtMC4wMDUsMC4yNzI4MiAwLDAuNTcwNjkgMCwwLjg1IDAsMzEuODA0MDIgMjIuNjM3OSw1OC4zMDg4IDUyLjY3NSw2NC4zNSAtNS41MDg1MiwxLjQ5NDA2IC0xMS4zMTA3NSwyLjMgLTE3LjMsMi4zIC00LjIzNTM0LDAgLTguMzQyMDMsLTAuNDAxOTggLTEyLjM1LC0xLjE3NSA4LjM2MDIyLDI2LjA4MTA5IDMyLjU3NTA2LDQ1LjA3Mzg1IDYxLjMsNDUuNiAtMjIuNDY5MzcsMTcuNjEwNDMgLTUwLjczNTM0LDI4LjEgLTgxLjUsMjguMSAtNS4yOTQxNiwwIC0xMC41MzY3NSwtMC4yODkzOCAtMTUuNjc1LC0wLjkgMjkuMDYyNzIsMTguNjM2ODMgNjMuNTUyODIsMjkuNSAxMDAuNjI1LDI5LjUgMTIwLjc2NTUyLDAgMTg2LjgsLTEwMC4wNDA1OCAxODYuOCwtMTg2LjggMCwtMi44NDUyIC0wLjA1MTcsLTUuNzA1NzcgLTAuMTc1LC04LjUyNSAxMi44MjI5NCwtOS4yMzcyIDIzLjk1NDU0LC0yMC44MDc3NiAzMi43NSwtMzMuOTc1IC0xMS43NjQxLDUuMjI5MjIgLTI0LjQxNTg2LDguNzcxNDYgLTM3LjcsMTAuMzUgMTMuNTYzNDYsLTguMTE5OSAyMy45NzA2MSwtMjAuOTgxNjYgMjguODc1LC0zNi4zMjUgLTEyLjY4NjUyLDcuNTI4NzcgLTI2LjczOTkzLDEzLjAwMDg1IC00MS43LDE1Ljk1IC0xMS45NzE5NywtMTIuNzU3OTggLTI5LjA0MTM3LC0yMC43MjUgLTQ3LjkyNSwtMjAuNzI1IC0wLjU2NjQ2LDAgLTEuMTM2OTgsLTAuMDE0MyAtMS43LDAgeiIgaWQ9InJlY3QyOTg5IiBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIi8+PC9nPjwvc3ZnPg==" alt="">
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+    </div>
+  </section>
+  <small>©blog.skouf.com</small>
+</footer>
+
+  </div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-76961630-4', 'auto');
+	ga('send', 'pageview');
+</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
