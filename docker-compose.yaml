@@ -10,7 +10,7 @@ services:
 
   build-theme:
     <<: *theme
-    entrypoint: yarn exec gulp style
+    entrypoint: bash -c "yarn && yarn exec gulp style"
 
   hugo:
     build:
