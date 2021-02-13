@@ -295,3 +295,15 @@ a {
 
 .booklink-box {
   margin: 40px 0; }
+
+div.recipe {
+  margin-top: 0.2em; }
+  div.recipe h2 {
+    margin: 0.4em 0;
+    border-left: 0;
+    padding-left: 0;
+    text-align: justify; }
+  div.recipe h3 {
+    margin: 0.4em 0; }
+  div.recipe .active-time, div.recipe .total-time {
+    color: rgba(0, 0, 0, 0.54); }

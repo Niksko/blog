@@ -1,0 +1,10 @@
+<div class="recipe">
+    <hr class="post-hr">
+    <h2>Recipe: {{ .Get "name" }}</h2>
+    <div class="total-time">Total time: {{ .Get "total-time" }}</div>
+    <div class="active-time">Active time: {{ .Get "active-time" }}</div>
+    {{ if (.Get "yield") }}
+    <div class="yield">Yield: {{ .Get "yield" }}</div>
+    {{ end }}
+    {{ .Inner }}
+</div>
