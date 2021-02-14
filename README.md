@@ -64,7 +64,7 @@ They are intended to be used in a nested fashion.
 Example:
 
 ```
-{{< recipe name="Name of the recip" total-time="Total recipe time" active-time="Active recipe time" yield="(optional) yield of recipe">}}
+{{< recipe name="Name of the recip" total-time="Total recipe time" active-time="Active recipe time" yield="(optional) yield of recipe" credit="(optional) credit for recipe">}}
   {{% ingredients %}} // Note the {{% %}} delimiters to ensure that the content is rendered as markdown
   * First ingredient
   * Second ingredient
