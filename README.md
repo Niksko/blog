@@ -63,5 +63,7 @@ We currently use a stylesheet embedded into the theme for our highlighting, see 
 
 ## Deployment
 
+Build the site to the `/docs` directory with `docker-compose run hugo`.
+
 Github is configured to serve this as a page out of the `/docs` directory on the `master`.
 Pushing to `master` will update the live site.
