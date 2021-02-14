@@ -7,10 +7,11 @@ summary: "How to make a tangy, delicious, smoky, umami rich ferment from red pep
 
 A few years ago, I was roasting peppers late at night for a recipe I was going to make the next day.
 After charring the peppers in the oven, I put them in a bowl and covered them tightly with plastic wrap to make peeling
-off the charred skins easier. Since it was late, I went to sleep and tended to them the next morning.
+off the charred skins easier.
+Since it was late, I went to sleep and tended to them the next morning.
 
-When I dragged myself out of bed, I found that the peppers had given up quite a large amount of liquid in the covered
-bowl.
+When went to deal with them the next morning, I found that the peppers had given up quite a large amount of liquid in
+the covered bowl.
 The liquid was sweet from the peppers, with a lovely smoky flavor from the charred skin.
 It seemed a shame to waste it, so I set it aside.
 After peeling the peppers and de-seeding and de-stemming them, I had a decent amount of leftover 'pepper discard'.
@@ -38,6 +39,7 @@ by dishes I've eaten. It's nice to have something that I can say came straight o
   
   If you're using a gas stove: light one of the larger burners, and one at a time, char the peppers. Put the peppers
   right on top of the flame, and when the underside near the flame is blackened, rotate the pepper to a new side.
+  Keep turning until the pepper is charred all over, then reserve to a bowl.
   Repeat with all of your peppers.
   
   If you're using an oven set to grill: let the grill preheat until it's nice and hot. Place the peppers on a foil-lined
