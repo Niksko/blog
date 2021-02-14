@@ -16,3 +16,8 @@ div.recipe {
     color: $text-color-main-light;
   }
 }
+
+
+.post-content > div.recipe:last-child > .post-hr:last-child {
+  display: none;
+}

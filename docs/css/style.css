@@ -307,3 +307,6 @@ div.recipe {
     margin: 0.4em 0; }
   div.recipe .active-time, div.recipe .total-time, div.recipe .credit, div.recipe .yield {
     color: rgba(0, 0, 0, 0.54); }
+
+.post-content > div.recipe:last-child > .post-hr:last-child {
+  display: none; }
