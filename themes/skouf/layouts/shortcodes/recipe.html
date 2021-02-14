@@ -7,7 +7,7 @@
     <div class="yield">Yield: {{ .Get "yield" }}</div>
     {{ end }}
     {{ if (.Get "credit") }}
-      <div class="credit">Credit: {{ .Get "credit" }}</div>
+      <div class="credit">Credit: {{ .Get "credit" | markdownify }}</div>
     {{ end }}
     {{ .Inner }}
 </div>

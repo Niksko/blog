@@ -305,5 +305,5 @@ div.recipe {
     text-align: justify; }
   div.recipe h3 {
     margin: 0.4em 0; }
-  div.recipe .active-time, div.recipe .total-time {
+  div.recipe .active-time, div.recipe .total-time, div.recipe .credit, div.recipe .yield {
     color: rgba(0, 0, 0, 0.54); }
