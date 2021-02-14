@@ -43,22 +43,23 @@ If I can save another poor soul some time, then it will be well worth writing th
 </head>
 
 <body>
-  <div id="wrap" class="wrap">
-    <header class="header">
+<div id="wrap" class="wrap">
+  <header class="header">
   <div class="site-title"><a href="/">blog.skouf.com</a></div>
   <p class="site-desc">The personal blog of Nik Skoufis</p>
   
 </header>
 
-    <main class="main main--single">
-      
-      <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
-        <h1 class="post__title">Log4net rolling file appender with multiple projects</h1>
-        <p class="post__date">
-          <time itemprop="datePublished" datetime="2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
-        </p>
-        <div class="post-content">
-          <p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+  <main class="main main--single">
+    
+    <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+      <h1 class="post__title">Log4net rolling file appender with multiple projects</h1>
+<p class="post__date">
+  <time itemprop="datePublished" datetime="2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
+</p>
+
+      <div class="post-content">
+        <p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
 If I can save another poor soul some time, then it will be well worth writing this.</p>
 
 <p>At the moment we’re developing a large web application with an <em>almost</em> micro-service architecture.
@@ -95,41 +96,42 @@ You’ll now get log output from all of your applications, even if they output l
 
 <p>The issue with the naive approach is that even though your files will in theory have different names, log4net appears to lock the entire logs folder (even with the locking model set to minimal), which prevents the creation of or appending to the other log files.
 The solution is to force log4net to only lock the specific file that will be used by each application, thus allowing each application to lock its own logfile and write to it without interfering with the others.</p>
-        </div>
-      </article>
-      
-      <hr class="post-hr">
-      
-      <nav class="post-nav">
-        <ol class="pure-g">
-          
-          <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
-            <a href="/posts/iac-in-the-home/">
+      </div>
+    </article>
+    
+    <hr class="post-hr">
+    
+<nav class="post-nav">
+  <ol class="pure-g">
+    
+      <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
+        <a href="/posts/iac-in-the-home/">
               <span class="post-nav-label">Next<span>
               <span class="post-nav-title">
                 Infrastructure as code in the home
               </span>
-            </a>
-          </li>
-          
-          
-          <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
-            <a href="/posts/monterey-k104-restoration/">
-              <span class="post-nav-label">Previous</span>
-              <span class="post-nav-title">
+        </a>
+      </li>
+    
+    
+      <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
+        <a href="/posts/monterey-k104-restoration/">
+          <span class="post-nav-label">Previous</span>
+          <span class="post-nav-title">
                 Monterey K104 restoration
               </span>
-            </a>
-          </li>
-          
-        </ol>
-        <div class="post-nav-back">
-          <a class="pure-button" href="/">Back</a>
-        </div>
-      </nav>
+        </a>
+      </li>
     
-    </main>
-    <footer class="footer">
+  </ol>
+  <div class="post-nav-back">
+    <a class="pure-button" href="/">Back</a>
+  </div>
+</nav>
+
+
+  </main>
+  <footer class="footer">
   <section class="author">
     <h2>Author</h2>
     <div class="pure-g">
@@ -166,7 +168,7 @@ The solution is to force log4net to only lock the specific file that will be use
   <small>©blog.skouf.com</small>
 </footer>
 
-  </div>
+</div>
 
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
