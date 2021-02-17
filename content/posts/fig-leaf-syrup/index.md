@@ -58,8 +58,10 @@ Below is a simple but refreshing lemonade that shows off the unique flavor of th
   * water
   * ice
   * (optional) mint for garnish
+  * (optional) lemon wheel for garnish
   {{% /ingredients %}}
   {{% method %}}
+  If you're garnishing with a lemon wheel, cut the wheel now before you juice the rest of the lemon.
   Measure fig leaf syrup and freshly squeezed lemon juice, and combine in a large glass.
   Add salt solution or salt and stir to dissolve.
   Add ice, and dilute with water (still or sparkling) to taste.
