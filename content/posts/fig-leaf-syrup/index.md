@@ -9,7 +9,7 @@ summary: "A unique and versatile syrup, and a refreshing, summery lemonade"
 Turns out, fig leaves have a wonderful flavor to them.
 There are plenty of recipes out there for using fig leaves as a wrapping for steaming fish, meat, and rice.
 But this interesting recipe (courtesy of [Lillie O'Brien's *Five Seasons of Jam*](https://www.goodreads.com/book/show/39295501-five-seasons-of-jam))
-uses this interesting ingredient to make a syrup for use in drinks, cocktails and desserts.
+uses this novel ingredient to make a syrup for use in drinks, cocktails and desserts.
 
 {{< figure src="leaves.jpg" caption="Freshly picked fig leaves" alt="An image of some fig leaves sitting on a white stone kitchen counter" >}}
 
