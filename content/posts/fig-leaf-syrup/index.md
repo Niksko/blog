@@ -16,7 +16,7 @@ uses this interesting ingredient to make a syrup for use in drinks, cocktails an
 If you've never tasted a fig leaf, you're not alone.
 Take a fresh fig leaf, tear it in half, and smell.
 The aroma is kind of like a green coconut.
-There's a sort of sweetness to it, it's vegetal and nutty, and gives me definite tropical vibe.
+There's a sort of sweetness to it, it's vegetal and nutty, and gives me definite tropical vibes.
 Those characteristics screamed 'refreshing' to me, so I decided a summery lemonade would be a good use for the fig leaf's
 unique flavor.
 
