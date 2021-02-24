@@ -16,3 +16,6 @@ hugo.linux
 
 # Ignore log files
 *.log
+
+### Macos files
+.DS_Store
