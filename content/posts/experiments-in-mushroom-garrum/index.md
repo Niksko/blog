@@ -54,6 +54,10 @@ For these 3 hour garrums, all we need is a sous-vide circulator, and the supplem
 I was able to [find the enzymes at my local chain pharmacy](https://www.chemistwarehouse.com.au/buy/61345/creon-10000bpu-capsules-100),
 and sous-vide circulators are increasingly becoming part of many home cooks' cupboards.
 
+Preston deserves incredible praise for his ingenuity and lateral thinking in bringing this technique to the masses.
+I'm incredibly excited for the flavors and dishes that people will be able to create by applying this technique in new
+and interesting ways to novel ingredients.
+
 Preston has covered the original method as well as [some of his other quick garrum experiments on his blog](https://www.culinarycrush.biz/all/will-it-garum),
 but I wanted to add some of my own data to the mix.
 For my experimentation, I chose mushrooms.
