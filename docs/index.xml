@@ -6,7 +6,16 @@
     <description>Recent content on blog.skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Feb 2021 12:00:14 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Aug 2021 00:58:34 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enabling graceful node shutdown on EKS in Kubernetes 1.21</title>
+      <link>/posts/enabling-graceful-node-shutdown/</link>
+      <pubDate>Mon, 02 Aug 2021 00:58:34 +0000</pubDate>
+      
+      <guid>/posts/enabling-graceful-node-shutdown/</guid>
+      <description>Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.</description>
+    </item>
+    
     <item>
       <title>Experiments in mushroom garrum</title>
       <link>/posts/experiments-in-mushroom-garrum/</link>
