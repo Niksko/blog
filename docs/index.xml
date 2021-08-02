@@ -2,109 +2,109 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog.skouf.com</title>
-    <link>/</link>
+    <link>https://blog.skouf.com/</link>
     <description>Recent content on blog.skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Aug 2021 00:58:34 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Aug 2021 00:58:34 +0000</lastBuildDate><atom:link href="https://blog.skouf.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Enabling graceful node shutdown on EKS in Kubernetes 1.21</title>
-      <link>/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</link>
+      <link>https://blog.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</link>
       <pubDate>Mon, 02 Aug 2021 00:58:34 +0000</pubDate>
       
-      <guid>/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</guid>
+      <guid>https://blog.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</guid>
       <description>Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.</description>
     </item>
     
     <item>
       <title>Experiments in mushroom garrum</title>
-      <link>/posts/experiments-in-mushroom-garrum/</link>
+      <link>https://blog.skouf.com/posts/experiments-in-mushroom-garrum/</link>
       <pubDate>Sat, 27 Feb 2021 12:00:14 +0000</pubDate>
       
-      <guid>/posts/experiments-in-mushroom-garrum/</guid>
+      <guid>https://blog.skouf.com/posts/experiments-in-mushroom-garrum/</guid>
       <description>Recently I&amp;rsquo;ve been experimenting with a new technique for making incredibly fast garrums. This article documents some of my findings when experimenting with making garrum from mushrooms.</description>
     </item>
     
     <item>
       <title>Lacto-fermented red pepper juice</title>
-      <link>/posts/lacto-pepper-juice/</link>
+      <link>https://blog.skouf.com/posts/lacto-pepper-juice/</link>
       <pubDate>Wed, 24 Feb 2021 22:30:51 +0000</pubDate>
       
-      <guid>/posts/lacto-pepper-juice/</guid>
+      <guid>https://blog.skouf.com/posts/lacto-pepper-juice/</guid>
       <description>How to make a tangy, delicious, smoky, umami rich ferment from red peppers</description>
     </item>
     
     <item>
       <title>Fig leaf syrup and fig leaf lemonade</title>
-      <link>/posts/fig-leaf-syrup/</link>
+      <link>https://blog.skouf.com/posts/fig-leaf-syrup/</link>
       <pubDate>Sun, 14 Feb 2021 01:00:56 +0000</pubDate>
       
-      <guid>/posts/fig-leaf-syrup/</guid>
+      <guid>https://blog.skouf.com/posts/fig-leaf-syrup/</guid>
       <description>A unique and versatile syrup, and a refreshing, summery lemonade</description>
     </item>
     
     <item>
       <title>IaC in the home - two years on</title>
-      <link>/posts/iac-in-the-home-two-years-on/</link>
+      <link>https://blog.skouf.com/posts/iac-in-the-home-two-years-on/</link>
       <pubDate>Sat, 11 Apr 2020 02:25:23 +0000</pubDate>
       
-      <guid>/posts/iac-in-the-home-two-years-on/</guid>
+      <guid>https://blog.skouf.com/posts/iac-in-the-home-two-years-on/</guid>
       <description>After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.</description>
     </item>
     
     <item>
       <title>Blog migration</title>
-      <link>/posts/blog-migration/blog-migration/</link>
+      <link>https://blog.skouf.com/posts/blog-migration/blog-migration/</link>
       <pubDate>Wed, 08 Apr 2020 02:30:18 +0000</pubDate>
       
-      <guid>/posts/blog-migration/blog-migration/</guid>
+      <guid>https://blog.skouf.com/posts/blog-migration/blog-migration/</guid>
       <description>It&amp;rsquo;s finally time to take my blog off of Medium and host it myself.</description>
     </item>
     
     <item>
       <title>Istio TLS policies - ugly bits and undocumented bits</title>
-      <link>/posts/istio-tls-policies/</link>
+      <link>https://blog.skouf.com/posts/istio-tls-policies/</link>
       <pubDate>Wed, 12 Jun 2019 00:43:25 +0000</pubDate>
       
-      <guid>/posts/istio-tls-policies/</guid>
+      <guid>https://blog.skouf.com/posts/istio-tls-policies/</guid>
       <description>One of the selling points of deploying Istio in your Kubernetes cluster is that it provides mechanisms to enforce authentication between pods communicating with other services within the cluster. The documentation of these leaves a lot to be desired, as we discovered when we first started playing with these features while gearing up to roll out Istio more widely.</description>
     </item>
     
     <item>
       <title>Infrastructure as code in the home - one year on</title>
-      <link>/posts/iac-in-the-home-one-year-on/</link>
+      <link>https://blog.skouf.com/posts/iac-in-the-home-one-year-on/</link>
       <pubDate>Wed, 09 Jan 2019 00:43:25 +0000</pubDate>
       
-      <guid>/posts/iac-in-the-home-one-year-on/</guid>
+      <guid>https://blog.skouf.com/posts/iac-in-the-home-one-year-on/</guid>
       <description>One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&amp;rsquo;t and what has changed over the last year.</description>
     </item>
     
     <item>
       <title>Infrastructure as code in the home</title>
-      <link>/posts/iac-in-the-home/</link>
+      <link>https://blog.skouf.com/posts/iac-in-the-home/</link>
       <pubDate>Wed, 25 Apr 2018 23:12:23 +1100</pubDate>
       
-      <guid>/posts/iac-in-the-home/</guid>
+      <guid>https://blog.skouf.com/posts/iac-in-the-home/</guid>
       <description>&lt;p&gt;Infrastructure as Code (herein IaC) is ubiquitous when managing large infrastructure deployments.
 But when we don’t have hundreds of machines to manage, is IaC still useful?&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Log4net rolling file appender with multiple projects</title>
-      <link>/posts/log-4-net-rolling-file-appender/</link>
+      <link>https://blog.skouf.com/posts/log-4-net-rolling-file-appender/</link>
       <pubDate>Mon, 03 Apr 2017 23:12:23 +1100</pubDate>
       
-      <guid>/posts/log-4-net-rolling-file-appender/</guid>
+      <guid>https://blog.skouf.com/posts/log-4-net-rolling-file-appender/</guid>
       <description>&lt;p&gt;The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
 If I can save another poor soul some time, then it will be well worth writing this.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Monterey K104 restoration</title>
-      <link>/posts/monterey-k104-restoration/</link>
+      <link>https://blog.skouf.com/posts/monterey-k104-restoration/</link>
       <pubDate>Sat, 10 Sep 2016 23:12:23 +1100</pubDate>
       
-      <guid>/posts/monterey-k104-restoration/</guid>
+      <guid>https://blog.skouf.com/posts/monterey-k104-restoration/</guid>
       <description>A detailed step-by-step of restoring a keyboard older than I am. Not for the faint-of-keyboard.</description>
     </item>
     
