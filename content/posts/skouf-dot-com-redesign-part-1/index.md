@@ -1,11 +1,33 @@
 ---
-title: "Skouf Dot Com Redesign"
+title: "Skouf.com redesign - part 1"
 date: 2022-04-16T04:31:25Z
-draft: true
+draft: false
+summary: "When I was young and naive, I built a website for myself. It's no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com."
+image: "skouf-dot-com-current.jpg"
 ---
+
+When I was young and naive, I built a website for myself by cobbling together a design I found, some custom css, and
+manually hacking in some features I liked.
+It sort of worked on mobile, but not that well.
+It was hard to update, kind of ugly (in hindsight), and not really conducive to maintenance and updates.
+The content on there, the things it shows off, are dated and not really reflective of the engineer that I've grown to
+be, or the interests I have.
+Those projects are a reflection of me, fresh out of uni, with some (again, in hindsight) frankly terrible toy projects
+that I'd be kind of horrified to show prospective employers or even colleagues.
+
+{{< figure src="skouf-dot-com-current.jpg" caption="What [skouf.com](https://skouf.com) looks like as of 18/04/2022" alt="A screenshot of the website at [skouf.com](https://skouf.com) as it appeared on 18/04/2022" >}}
+
+Another thing that's apparent is that the website isn't fit for purpose anymore.
+When I built it, it was a toy.
+I got to play around with some fun tech.
+And I got to show off to people, because in my social and uni circles at the time, having your own domain and a website
+was somewhat novel.
+At this point it's probably more of an embarrassment than something I'd want to show off to colleagues, and friends are
+more likely to want to see blog entries rather than anything that's on [skouf.com](https://skouf.com).
 
 If there's one thing I've learned when it comes to personal projects over the last few years, it's that my interest in
 them is _extremely_ bursty.
+That's how you're getting this blog post!
 I'll spend a few weekends hacking on something, get it to a point that it works, and then not touch it again for
 roughly 12 months.
 This presents a few suggestions for what to optimise for when I'm creating a personal project:
@@ -24,24 +46,7 @@ This presents a few suggestions for what to optimise for when I'm creating a per
 Looking at those three points, they're probably true of _any_ project rather than just personal projects. 
 Who knew?
 
-When I was young and naive, I built a website for myself by cobbling together a design I found, some custom css, and
-manually hacking in some features I liked.
-It sort of worked on mobile, but not that well.
-It was hard to update, kind of ugly (in hindsight), and not really conducive to maintenance and updates.
-The content on there, the things it shows off, are dated and not really reflective of the engineer that I've grown to
-be, or the interests I have.
-They're a reflection of me, fresh out of uni, with some (again, in hindsight) frankly terrible toy projects that I'd
-be kind of horrified to show prospective employers or even colleagues.
-
-Another thing that's apparent is that the website isn't fit for purpose any more.
-When I built it, it was a toy.
-I got to play around with some fun tech.
-And I got to show off to people, because in my social and uni circles at the time, having your own domain and a website
-was somewhat novel.
-At this point it's probably more of an embarrassment than something I'd want to show off to colleagues, and friends are
-more likely to want to see blog entries rather than anything that's on skouf.com.
-
-With all of that in mind, it was time for a re-write, with a few goals:
+With all of that in mind, it was time for a re-write of [skouf.com](https://skouf.com), with a few goals:
 
 * Build with the learnings above about documentation, simplicity, and the pace of the industry in mind.
 * Build in a way that it can be updated easily, to account for growth as an engineer and a person.
@@ -81,13 +86,100 @@ and extreme looks like.
 Hopefully, this leads you to make better and more informed decisions about the tradeoffs required to please all of your
 potential audiences.
 
-With that in mind, here are the personas I came up with for my site:
+With that in mind, here are the personas I came up with for my site
 
-< Insert images of personas here >
+### "The Recruiter" - Sarah
+
+{{< figure src="recruiter-image.jpg" caption="The image I chose to represent the recruiter persona. Not a real human, I used [generated.photos](https://generated.photos) to generate this face." alt="An image of a young woman with brown hair and brown eyes." >}}
+
+Age: 29
+
+Job title: Senior recruiter
+
+Location: Brussels, Belgium
+
+Quote: "I find the best candidates, that are the right cultural and technical fit for our organisation"
+
+Bio: Tech recruiter working for a growing, medium-sized tech company with startup roots, but that has grown aggressively
+and has big ambitions.
+No formal background in recruiting or tech, but has always worked in roles that involve interacting with people.
+Came to their current job to work with great people, and because the values of the organisation match their own.
+
+Principles and values:
+
+* Everyone is equal, but not everyone is going to make a great fit
+* Don't let perfect be the enemy of good
+* You have to play the game to understand the rules
+
+Goals:
+
+* Finding great candidates before other recruiters get to them
+* Meeting the needs of a growing organisation, in numbers but also in experience and in-demand skills
+* Getting home on time, and not letting work get in the way of life
+
+Motivations:
+
+* Finding a role that is the perfect fit for a candidate as well as the business.
+* Seeing candidates thrive once they've started at the business.
+* Working with other recruiters to get the best outcome for the business - swapping candidates and helping each other out with our open roles.
+
+Frustrations:
+
+* Lots to do, and not much time to do it in
+* Engineering managers that don't understand the hiring market
+* Candidates who look good on paper but turn out to be duds
+* Niche roles - people that are hard to find, and the added complexity of the subtlety of differences between how people self identify vs what your org is looking for
+
+### "The Friend" - Nathan
+
+{{< figure src="friend-image.jpg" caption="The image I chose to represent the friend persona. Not a real human, I used [generated.photos](https://generated.photos) to generate this face." alt="An image of a young man with black hair and brown eyes." >}}
+
+Age: 25
+
+Job title: Teacher
+
+Location: Brisbane, Australia
+
+Quote: "I'd love to recreate that dish Nik made for a party next week. How did he make it so delicious?"
+
+Bio: Single guy working as a teacher.
+Loves food and cooking, craft beer, and video games.
+Working as a teacher which is pretty good, but work is a means to an end.
+Frustrated by the state of the world, and trying to do small things about it, and education is a great way of achieving
+that.
+Not sure what the future holds, but things are pretty good at the moment.
+
+Principles and values:
+
+* Leave the world a better place than you found it
+* Good food with good friends is one of life's greatest joys
+* I'm not sure what the future holds, but I'm playing my part in steering it in a good direction
+
+Goals:
+
+* Wants to cook and eat delicious things, and know where to learn more (even if I don't get around to it - life is busy)
+* Poke around some tech stuff if I can understand it.
+* Share things with friends, because this stuff is cool and I want others to know about it and pass on the favor of knowledge
+
+Motivations:
+
+* Eating delicious things
+* Food and cooking are tied to identity. Not strongly, but more than anyone else in my circle.
+* Sharing information or cool links, because that's what we do in our circle.
+* Learning is a worthwhile pursuit, in and of itself
+
+Frustrations:
+
+* Lots to do, and not much time to do it in
+* Too much preamble before the recipe, I'll go back and read that later.
+* I want to understand, but this recipe is pretty complex and assumes a lot of knowledge. I'm happy to research, but I might need some pointers
+
+## From personas to design ideas
 
 There are definitely some themes here, but I think the best way to represent the ideas that it generated for me are
 through the 'Discover' phase of the design thinking double diamond.
 To make sure that I accurately represented each of my personas, I used the following method:
+
 1. Read one of the personas, trying to really internalise their feelings and thoughts.
 1. Spend 4 minutes brainstorming, trying to empathise with that persona
 1. Read the other persona, and repeat
@@ -95,12 +187,26 @@ To make sure that I accurately represented each of my personas, I used the follo
 
 Here is what I came up with:
 
-< discover step image >
+{{< figure src="discover-phase.jpg" caption="The 'discover' phase of my design thinking" alt="A left pointing triangle with many post it notes, each with a separate idea on them" >}}
 
 After this, I did some grouping into themes or ideas over in the 'Define' section.
 Here's where I ended up:
 
-< define step image >
+{{< figure src="define-phase.jpg" caption="The 'define' phase of my design thinking" alt="A right pointing triangle with many post it notes, each with a separate idea on them" >}}
+
+Something interesting and worth noting here: while doing my brainstorming, there's a clearly missing persona from my
+thinking above.
+This persona is that of someone technical, who might have come across my site through Google or because someone else
+linked to it, and wants to have a bit of a look around.
+They probably don't care about any food stuff, and want to be guided to posts with similar topics to what they've just
+read.
+This persona might be something like 'The Colleague' or 'The Developer' or something like that.
+
+I elected not to go back and create a persona around this, but I could have.
+The point of doing all of this design stuff isn't necessarily that it is perfect, but that it's deliberate and you have
+some sort of plan.
+Missing a persona, but finding it naturally in the ideas that follow after you _did_ create some personas is a good
+example of this.
 
 ## Broad design principles
 
@@ -108,8 +214,8 @@ At this point, I feel like I'm starting to get a bit of a feel for how I'm going
 
 To fill in some required detail here, I have a site at `skouf.com` which I figure is going to be the entry-point for
 lots of folks.
-It's easy to just point people there are be done with it.
-However I also have a blog at `blog.skouf.com` which is a separate Hugo-based static site.
+It's easy to just point people there and be done with it.
+However, I also have a blog at `blog.skouf.com` which is a separate Hugo-based static site.
 
 With that context, some of the information below points clearly to things that need to be on the main `skouf.com` site.
 This includes stuff like contact details, signposting stuff, probably employment things, and a bio.
@@ -177,7 +283,12 @@ Namely:
 * What are recipes like this one?
 * What drinks pair well with this food (or visa versa)?
 * How do I share this to friends?
-* (Not something I subscribe to, but I know lots of people do) Can I skip the preamble and get straight to the recipe?
 
-That last one is painful, but I know that's what people want.
-I should probably give it to them.
+This will probably entail some redesigning of the Hugo 'shortcode' I use to generate recipe blocks, but that's a topic
+for another blog post.
+
+## Conclusion
+
+With some of the design principles out of the way, it's time to start building.
+I'm going to leave this blog post here, as it's long enough.
+Look out for a future post where I detail some of the technical choices, and get stuck in to building this thing.
