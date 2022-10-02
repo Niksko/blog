@@ -6,7 +6,16 @@
     <description>Recent content in Posts on blog.skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Apr 2022 04:31:25 +0000</lastBuildDate><atom:link href="https://blog.skouf.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Oct 2022 06:52:09 +0000</lastBuildDate><atom:link href="https://blog.skouf.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>An OPA Gatekeeper gotcha when enforcing policy on all resource kinds</title>
+      <link>https://blog.skouf.com/posts/opa-gatekeeper-gotcha/</link>
+      <pubDate>Sun, 02 Oct 2022 06:52:09 +0000</pubDate>
+      
+      <guid>https://blog.skouf.com/posts/opa-gatekeeper-gotcha/</guid>
+      <description>Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently</description>
+    </item>
+    
     <item>
       <title>Skouf.com redesign - part 1</title>
       <link>https://blog.skouf.com/posts/skouf-dot-com-redesign-part-1/</link>
