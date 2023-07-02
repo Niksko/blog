@@ -1,8 +1,12 @@
 ---
-title: "Engineering Levels"
+title: "Engineering levels"
 date: 2023-07-01T06:21:00Z
 draft: false
+summary: "Almost all organisations assign levels to their employees, and engineering is no different. But what are the alternatives to engineering levels, what might we gain by avoiding engineering levels, and how do we get the the more beautiful feature that a level-less work environment offers?"
+image: "guggenheim-levels.jpg"
 ---
+
+{{< figure src="guggenheim-levels.jpg" caption="Photo by [Leslie Lopez Holder](https://unsplash.com/@leslielopezholder) on [Unsplash](https://unsplash.com)." alt="An image from above of nested white levels of the inside of a building with people in them" >}}
 
 I was browsing Twitter the other day when I came across this tweet:
 

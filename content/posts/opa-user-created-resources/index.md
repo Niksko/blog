@@ -3,7 +3,10 @@ title: "A useful OPA snippet for selecting user-created resources"
 date: 2023-07-02T11:06:26Z
 draft: false
 summary: "Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)"
+image: "post.jpg"
 ---
+
+{{< figure src="post.jpg" caption="Photo by [Javier Allegue Barros](https://unsplash.com/@soymeraki) on [Unsplash](https://unsplash.com/photos/C7B-ExXpOIEnt)" alt="A photo of a sunset with the silhouette of a signpost" >}}
 
 At [work](https://www.seek.com.au/work-for-seek/) we're continuing to use [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs/)
 in our Kubernetes clusters to enforce policy on the resources that are deployed there.

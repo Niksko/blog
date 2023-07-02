@@ -14,7 +14,7 @@
   <meta property="og:title" content="A useful OPA snippet for selecting user-created resources">
   <meta property="og:url" content="https://blog.skouf.com/posts/opa-user-created-resources/">
   
-  <meta property="og:image" content="https://blog.skouf.com/image/theme/og.png">
+  <meta property="og:image" content="https://blog.skouf.com/post.jpg">
   
   
   <meta property="og:description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)">
@@ -28,7 +28,7 @@
   <meta name="twitter:description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)">
   
   
-  <meta name="twitter:image:src" content="https://blog.skouf.com/image/theme/og.png">
+  <meta name="twitter:image:src" content="https://blog.skouf.com/post.jpg">
   
   <link rel="shortcut icon" href="/image/theme/favicon.ico">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -56,7 +56,64 @@
 </p>
 
       <div class="post-content">
-        <p>At <a href="https://www.seek.com.au/work-for-seek/">work</a> we&rsquo;re continuing to use <a href="https://open-policy-agent.github.io/gatekeeper/website/docs/">OPA Gatekeeper</a>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure>
+    
+        <img 
+          sizes="(min-width: 35em) 1200px, 100vw"
+            srcset='
+              
+                /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_500x0_resize_q75_box.jpg 500w
+              
+              
+                  , /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_800x0_resize_q75_box.jpg 800w
+              
+              
+                  , /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_1200x0_resize_q75_box.jpg 1200w
+              
+              
+                  , /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_1500x0_resize_q75_box.jpg 1500w 
+              '
+              
+                  src="/posts/opa-user-created-resources/post.jpg" 
+               alt="A photo of a sunset with the silhouette of a signpost"><figcaption>
+                
+                <p>
+                    Photo by <a href="https://unsplash.com/@soymeraki">Javier Allegue Barros</a> on <a href="https://unsplash.com/photos/C7B-ExXpOIEnt">Unsplash</a>
+                    
+                        
+                        </p>
+                
+            </figcaption></figure>
+
+<p>At <a href="https://www.seek.com.au/work-for-seek/">work</a> we&rsquo;re continuing to use <a href="https://open-policy-agent.github.io/gatekeeper/website/docs/">OPA Gatekeeper</a>
 in our Kubernetes clusters to enforce policy on the resources that are deployed there.</p>
 <p>As I documented in <a href="https://blog.skouf.com/posts/opa-gatekeeper-gotcha/">my previous post on broad Gatekeeper policies</a>,
 one of the things we want to do is enforce wide-ranging policy across all resources of a particular <code>Kind</code>.
@@ -158,7 +215,7 @@ like enforcing metadata across all resources.</p>
         <a href="https://blog.skouf.com/posts/engineering-levels/">
           <span class="post-nav-label">Previous</span>
           <span class="post-nav-title">
-                Engineering Levels
+                Engineering levels
               </span>
         </a>
       </li>
