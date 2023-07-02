@@ -6,7 +6,16 @@
     <description>Recent content in Posts on blog.skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Oct 2022 06:52:09 +0000</lastBuildDate><atom:link href="https://blog.skouf.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Jul 2023 11:06:26 +0000</lastBuildDate><atom:link href="https://blog.skouf.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A useful OPA snippet for selecting user-created resources</title>
+      <link>https://blog.skouf.com/posts/opa-user-created-resources/</link>
+      <pubDate>Sun, 02 Jul 2023 11:06:26 +0000</pubDate>
+      
+      <guid>https://blog.skouf.com/posts/opa-user-created-resources/</guid>
+      <description>Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)</description>
+    </item>
+    
     <item>
       <title>An OPA Gatekeeper gotcha when enforcing policy on all resource kinds</title>
       <link>https://blog.skouf.com/posts/opa-gatekeeper-gotcha/</link>

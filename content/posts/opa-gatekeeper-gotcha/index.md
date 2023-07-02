@@ -8,6 +8,9 @@ image: "gate.jpg"
 
 {{< figure src="gate.jpg" caption="Photo by [Jose Fontano](https://unsplash.com/@josenothose?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/closed-gate?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)" alt="A close up of a gate that is locked closed by a padlock and some chain" >}}
 
+**EDIT 2023-07-02**: After some thinking time, I've found a better solution to this problem.
+Read about it in my newer article on [OPA user-create resources]({{< ref "posts/opa-user-created-resources/index" >}})
+
 At [work](https://www.seek.com.au/work-for-seek/) we're beginning to roll out [OPA Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs/)
 in our Kubernetes clusters to enforce policy on the resources that are deployed there.
 As part of some early forays into enforcing policy, I ran in to this frustrating 'gotcha' that I figured was worth 
