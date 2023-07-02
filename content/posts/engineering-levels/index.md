@@ -1,7 +1,7 @@
 ---
 title: "Engineering Levels"
-date: 2022-04-17T06:21:00Z
-draft: true
+date: 2023-07-01T06:21:00Z
+draft: false
 ---
 
 I was browsing Twitter the other day when I came across this tweet:
@@ -162,25 +162,7 @@ required level of leadership and outcomes we need.
 If we take these examples and try to apply them to the workplace, hopefully we can convince ourselves that we don't
 strictly need titles to sort this stuff out.
 
-The first example is the group projects that I'm sure you all were forced to do in university.
-Now I'll be the first person to go on a tirade about how fundamentally flawed most group projects at university are,
-for a number of reasons (chiefly, lack of oversight to ensure that people pull their weight, and lack of consequences
-for not pulling your weight), but there is one quality of group projects that is useful to examine.
-Frequently, a de-facto leader emerges.
-
-This might be formal in the sense that the group elects or nominates some person to coordinate things.
-In some assignments, the teaching staff might explicitly suggest selecting a leader.
-But frequently, it's just the person that's most fed up with the lack of focus or direction who self-nominates to run
-things, because they feel it will lead to better outcomes.
-This happens in an environment devoid of titles to tell us who should be leader.
-Perhaps the leader ends up being the most experienced person in the subject.
-Or perhaps the person who leads is the most outgoing, or the best communicator, or the most organized person.
-Or maybe it's just the mature aged student who has some life experience, and has seen the effects of a lack of
-leadership.
-Regardless of who is chosen, a choice is frequently made, and made without titles to point to an obvious or natural
-choice.
-
-Another example is going on a camping trip.
+The first example is going on a camping trip.
 When you go camping, there are a variety of tasks to be done.
 You need to pitch your tent, you need to collect firewood, you might need to put up a clothesline, and you might need
 to prepare what you're eating for dinner.
@@ -199,6 +181,24 @@ Or it might be the person who's most experienced with camping.
 It could just be the loudest, most charismatic person in the group.
 These are all perfectly valid ways of choosing a leader, each with their pros and cons.
 The point is that we didn't need titles to choose who was the leader.
+
+Another example is the group projects that I'm sure you all were forced to do in university.
+Now I'll be the first person to go on a tirade about how fundamentally flawed most group projects at university were,
+and still are, for a number of reasons (chiefly, lack of oversight to ensure that people pull their weight, and lack of 
+consequences for not pulling your weight).
+But there is one quality of group projects that is useful to examine: frequently, a de-facto leader emerges.
+
+This might be formal in the sense that the group elects or nominates some person to coordinate things.
+In some assignments, the teaching staff might explicitly suggest selecting a leader.
+But frequently, it's just the person that's most fed up with the lack of focus or direction who self-nominates to run
+things, because they feel it will lead to better outcomes.
+This happens in an environment devoid of titles to tell us who should be leader.
+Perhaps the leader ends up being the most experienced person in the subject.
+Or perhaps the person who leads is the most outgoing, or the best communicator, or the most organized person.
+Or maybe it's just the mature aged student who has some life experience, and has seen the effects of a lack of
+leadership.
+Regardless of who is chosen, a choice is frequently made, and made without titles to point to an obvious or natural
+choice.
 
 So now that I've primed you a bit with those examples, you're hopefully a little more open to the following assertion:
 in the absence of titles, leadership will still happen.
