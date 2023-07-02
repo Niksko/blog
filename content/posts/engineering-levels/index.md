@@ -10,7 +10,9 @@ image: "guggenheim-levels.jpg"
 
 I was browsing Twitter the other day when I came across this tweet:
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Scoop: levels are introduced at Netflix for engineers and there is no shortage in drama over decisions of who got to be Senior and who Staff.<br><br>This happens every time a company introduces levelling. Except for most at Netflix: it’s the first time ever they experience it.</p>&mdash; Gergely Orosz (@GergelyOrosz) <a href="https://twitter.com/GergelyOrosz/status/1515362008211804176?ref_src=twsrc%5Etfw">April 16, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+> Scoop: levels are introduced at Netflix for engineers and there is no shortage in drama over decisions of who got 
+> to be Senior and who Staff.<br><br>This happens every time a company introduces levelling. Except for most at Netflix:
+> it’s the first time ever they experience it.</p>&mdash; Gergely Orosz (@GergelyOrosz)
 
 My first reaction was "wait, Netflix don't have levels?".
 
@@ -60,7 +62,8 @@ your head, go back and re-read the paragraph I wrote above about the success of 
 It's _incredibly_ tempting to dismiss these ideas out of hand.
 Instead, try to see them for what they are: a different way of doing things, with a different set of pros and cons.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Having worked there until a few days ago, you have no idea what you’re talking about WRT the impact everyone being a “Senior” was. 😊</p>&mdash; Tim Heckman (@theckman) <a href="https://twitter.com/theckman/status/1515501846223212552?ref_src=twsrc%5Etfw">April 17, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+> Having worked there until a few days ago, you have no idea what you’re talking about WRT the impact everyone being 
+> a “Senior” was. 😊</p>&mdash; Tim Heckman (@theckman)
 
 ## What do you do about pay?
 
