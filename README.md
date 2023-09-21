@@ -1,17 +1,26 @@
 # blog.skouf.com
 
+## TODO
+
+- [ ] Redo the theme using Tailwind CSS
+- [ ] Clean up the theme, removing weird 404 pages that are in Japanese
+- [ ] Make the rendering of code blocks much prettier as well as responsive, it's pretty ugly right now
+- [ ] Allow images to zoom which clicked or tapped in a sort of lightbox thingo
+- [ ] Create a landing page that will serve as the new homepage of skouf.com
+- [ ] Figure out how I can redirect blog.skouf.com URLs to `skouf.com/blog/<original path>`
+
+## Setup
+
+Download the Hugo extended binary from the Hugo release page.
+
+Latest working version is: [Hugo extended v0.118.2](https://github.com/gohugoio/hugo/releases/tag/v0.118.2)
+
 ## Basic tasks
-
-To run Hugo commands:
-
-```
-$ docker-compose run hugo <your command>
-```
 
 To run a local, live-reloading version of the site
 
 ```
-$ docker-compose up local
+$ hugo server --buildDrafts --config config.toml,debug-config.toml
 ```
 
 Posts are best set up if we use leaf page bundles, with images alongside markdown.
@@ -21,14 +30,12 @@ To create a new post of this type:
 # Create a directory
 $ mkdir content/posts/<post-name>
 # Create the post page
-$ docker-compose run hugo new posts/<post-name>/index.md
+$ hugo new posts/<post-name>/index.md
 ```
 
-To rebuild the bundled `skouf` theme
-
-```
-$ docker-compose run build-theme
-```
+There is a bundled `skouf` theme that needs redoing.
+If for some reason this needs to be rebuilt before it can be redone (likely using TailwindCSS), go back through the 
+Git history and look at the `docker-compose.yaml` to identify the incantations that are required to render the theme.
 
 ## Writing posts
 
@@ -82,7 +89,7 @@ We currently use a stylesheet embedded into the theme for our highlighting, see 
 
 ## Deployment
 
-Build the site to the `/docs` directory with `docker-compose run hugo`.
+Build the site to the `/docs` directory with `hugo`.
 
 Github is configured to serve this as a page out of the `/docs` directory on the `master`.
 Pushing to `master` will update the live site.
