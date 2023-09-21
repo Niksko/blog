@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Istio TLS policies - ugly bits and undocumented bits - blog.skouf.com</title>
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.118.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
@@ -134,15 +134,15 @@ This must be:</p>
 <li>contain no targets (since it is intended to apply to the entire mesh)</li>
 </ul>
 <p>A simple default <code>MeshPolicy</code> looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;authentication.istio.io/v1alpha1&#34;</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;MeshPolicy&#34;</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
-</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">peers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">mtls</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">PERMISSIVE</span><span class="w">
-</span></code></pre></div><p>The policy enables mTLS in &lsquo;permissive&rsquo; mode
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;authentication.istio.io/v1alpha1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;MeshPolicy&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;default&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">peers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">mtls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">PERMISSIVE</span><span class="w">
+</span></span></span></code></pre></div><p>The policy enables mTLS in &lsquo;permissive&rsquo; mode
 This allows mTLS communication in an &lsquo;opt-in&rsquo; fashion, while still allowing plain HTTP communication between sidecars.</p>
 <p>The alternative to permissive mode is &lsquo;strict&rsquo; mode, which can be enabled with mode: STRICT.
 In this mode, sidecars must communicate using TLS and provide a client certificate.
@@ -157,26 +157,26 @@ Confusingly, the following are all equivalent methods of enabling STRICT mode:</
 To do this, you omit the peers block entirely.</p>
 <p>You can also define namespace-scoped and service-scoped mTLS policies using the <code>Policy</code> CRD.
 For example, if you wanted to enforce mTLS for a service named <code>foo</code> in your <code>bar</code> namespace, you could create a policy like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">authentication.istio.io/v1alpha1</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Policy</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-policy</span><span class="w">
-</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">bar</span><span class="w">
-</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo</span><span class="w">
-</span><span class="w">  </span><span class="nt">peers</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="nt">mtls</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">STRICT</span><span class="w">
-</span></code></pre></div><p>The key takeaway here is that <code>MeshPolicy</code> and <code>Policy</code> dictate the types of connections that are accepted by a service.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">authentication.istio.io/v1alpha1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Policy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-policy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">bar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">peers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">mtls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">STRICT</span><span class="w">
+</span></span></span></code></pre></div><p>The key takeaway here is that <code>MeshPolicy</code> and <code>Policy</code> dictate the types of connections that are accepted by a service.</p>
 <h2 id="checking-mtls-configuration">Checking mTLS configuration</h2>
 <p>Now is a useful time to discuss how to determine which communication options are open to a given pod, and between a given pod and service.
 The <code>istioctl</code> CLI tool provides you with the following useful command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ istioctl authn tls-check somepod-123456-abcdef
-
-HOST:PORT                        STATUS    SERVER  CLIENT  AUTHN POLICY  DESTINATION RULE
-foo.bar.svc.cluster.local:8000   CONFLICT  mTLS    HTTP    default/      -
-</code></pre></div><p>The output of this command indicates that when communicating with the <code>foo.bar.svc.cluster.local:8000</code> service, the following conditions will apply:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ istioctl authn tls-check somepod-123456-abcdef
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">HOST:PORT                        STATUS    SERVER  CLIENT  AUTHN POLICY  DESTINATION RULE
+</span></span><span class="line"><span class="cl">foo.bar.svc.cluster.local:8000   CONFLICT  mTLS    HTTP    default/      -
+</span></span></code></pre></div><p>The output of this command indicates that when communicating with the <code>foo.bar.svc.cluster.local:8000</code> service, the following conditions will apply:</p>
 <ul>
 <li><code>STATUS: CONFLICT</code> indicates that communication between the pod and service will not be possible, because the client pod only uses HTTP, and the server service can only accept mTLS.</li>
 <li><code>SERVER: mTLS</code> indicates that this service has been configured to communicate only using mTLS (and has been configured as such by the <code>AUTHN POLICY: default/</code>).</li>
@@ -187,17 +187,17 @@ foo.bar.svc.cluster.local:8000   CONFLICT  mTLS    HTTP    default/      -
 <p>The decision for the client pod to use HTTP or mTLS to connect to a given service is determined by the <code>DestinationRule</code> CRD.
 This CRD is namespace scoped, and includes a host field to target a specific host or set of hosts.
 An example of a <code>DestinationRule</code> instructing clients that want to connect to the <code>baz</code> service in the <code>bar</code> namespace to use mTLS looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">DestinationRule</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">baz</span><span class="w">
-</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">bar</span><span class="w">
-</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">baz.bar.svc.cluster.local</span><span class="w">
-</span><span class="w">  </span><span class="nt">trafficPolicy</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">ISTIO_MUTUAL</span><span class="w">
-</span></code></pre></div><p><code>DestinationRule</code>s are very flexible, almost to the point of confusion.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">DestinationRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">baz</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">bar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">baz.bar.svc.cluster.local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">trafficPolicy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">ISTIO_MUTUAL</span><span class="w">
+</span></span></span></code></pre></div><p><code>DestinationRule</code>s are very flexible, almost to the point of confusion.
 All of the following must be taken in to account when determining what <code>DestinationRule</code>s are in effect:</p>
 <ul>
 <li>
@@ -290,76 +290,76 @@ We can accomplish this using the <code>openssl</code> tool.
 The default <code>sleep</code> pods deployed as part of the Istio documentation do not contain <code>openssl</code>.
 Modify their deployments to use an image that does, for example, <a href="https://medium.com/r/?url=https%3A%2F%2Fhub.docker.com%2Fr%2Fnicolaka%2Fnetshoot">netshoot</a>.</p>
 <p>Once you&rsquo;ve updated the images in your <code>sleep</code> deployment, you should be able to use <code>openssl</code> to verify the behavior described above:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl <span class="nb">exec</span> <span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>sleep -o <span class="nv">jsonpath</span><span class="o">={</span>.items..metadata.name<span class="o">}</span><span class="k">)</span> -c istio-proxy -- openssl s_client -alpn http
-/1.1 -connect httpbin:8000/headers -key /etc/certs/key.pem -cert /etc/certs/cert-chain.pem -CAfile /etc/certs/root-cert.pem
-
-140223038092952:error:140790E5:SSL routines:ssl23_write:ssl handshake failure:s23_lib.c:177:
-CONNECTED<span class="o">(</span>00000003<span class="o">)</span>
----
-no peer certificate available
----
-No client certificate CA names sent
----
-SSL handshake has <span class="nb">read</span> <span class="m">0</span> bytes and written <span class="m">320</span> bytes
----
-New, <span class="o">(</span>NONE<span class="o">)</span>, Cipher is <span class="o">(</span>NONE<span class="o">)</span>
-Secure Renegotiation IS NOT supported
-Compression: NONE
-Expansion: NONE
-No ALPN negotiated
-SSL-Session:
-    Protocol  : TLSv1.2
-    Cipher    : <span class="m">0000</span>
-    Session-ID: 
-    Session-ID-ctx: 
-    Master-Key: 
-    Key-Arg   : None
-    PSK identity: None
-    PSK identity hint: None
-    SRP username: None
-    Start Time: <span class="m">1560308549</span>
-    Timeout   : <span class="m">300</span> <span class="o">(</span>sec<span class="o">)</span>
-    Verify <span class="k">return</span> code: <span class="m">0</span> <span class="o">(</span>ok<span class="o">)</span>
----
-<span class="nb">command</span> terminated with <span class="nb">exit</span> code <span class="m">1</span>
-</code></pre></div><p>However if you pass the <code>istio</code> ALPN header, you get the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ kubectl <span class="nb">exec</span> <span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>sleep -o <span class="nv">jsonpath</span><span class="o">={</span>.items..metadata.name<span class="o">}</span><span class="k">)</span> -c istio-proxy -- openssl s_client -alpn ist
-io -connect httpbin:8000/headers -key /etc/certs/key.pem -cert /etc/certs/cert-chain.pem -CAfile /etc/certs/root-cert.pem
-<span class="nv">depth</span><span class="o">=</span><span class="m">1</span> <span class="nv">O</span> <span class="o">=</span> cluster.local
-verify <span class="k">return</span>:1
-<span class="nv">depth</span><span class="o">=</span><span class="m">0</span> 
-verify <span class="k">return</span>:1
-DONE
-CONNECTED<span class="o">(</span>00000003<span class="o">)</span>
----
-Certificate chain
- <span class="m">0</span> s:
-   i:/O<span class="o">=</span>cluster.local
----
-Server certificate
-
-&lt;SNIP&gt;
-
----
-SSL handshake has <span class="nb">read</span> <span class="m">3126</span> bytes and written <span class="m">2277</span> bytes
----
-New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
-Server public key is <span class="m">2048</span> bit
-Secure Renegotiation IS supported
-Compression: NONE
-Expansion: NONE
-No ALPN negotiated
-SSL-Session:
-    Protocol  : TLSv1.2
-    Cipher    : ECDHE-RSA-AES128-GCM-SHA256
-
-&lt;SNIP&gt;
-
-    Start Time: <span class="m">1560309161</span>
-    Timeout   : <span class="m">300</span> <span class="o">(</span>sec<span class="o">)</span>
-    Verify <span class="k">return</span> code: <span class="m">0</span> <span class="o">(</span>ok<span class="o">)</span>
----
-</code></pre></div><p>This indicates a successful TLS handshake, indicating that mTLS is configured properly.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ kubectl <span class="nb">exec</span> <span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>sleep -o <span class="nv">jsonpath</span><span class="o">={</span>.items..metadata.name<span class="o">}</span><span class="k">)</span> -c istio-proxy -- openssl s_client -alpn http
+</span></span><span class="line"><span class="cl">/1.1 -connect httpbin:8000/headers -key /etc/certs/key.pem -cert /etc/certs/cert-chain.pem -CAfile /etc/certs/root-cert.pem
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">140223038092952:error:140790E5:SSL routines:ssl23_write:ssl handshake failure:s23_lib.c:177:
+</span></span><span class="line"><span class="cl">CONNECTED<span class="o">(</span>00000003<span class="o">)</span>
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">no peer certificate available
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">No client certificate CA names sent
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">SSL handshake has <span class="nb">read</span> <span class="m">0</span> bytes and written <span class="m">320</span> bytes
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">New, <span class="o">(</span>NONE<span class="o">)</span>, Cipher is <span class="o">(</span>NONE<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Secure Renegotiation IS NOT supported
+</span></span><span class="line"><span class="cl">Compression: NONE
+</span></span><span class="line"><span class="cl">Expansion: NONE
+</span></span><span class="line"><span class="cl">No ALPN negotiated
+</span></span><span class="line"><span class="cl">SSL-Session:
+</span></span><span class="line"><span class="cl">    Protocol  : TLSv1.2
+</span></span><span class="line"><span class="cl">    Cipher    : <span class="m">0000</span>
+</span></span><span class="line"><span class="cl">    Session-ID: 
+</span></span><span class="line"><span class="cl">    Session-ID-ctx: 
+</span></span><span class="line"><span class="cl">    Master-Key: 
+</span></span><span class="line"><span class="cl">    Key-Arg   : None
+</span></span><span class="line"><span class="cl">    PSK identity: None
+</span></span><span class="line"><span class="cl">    PSK identity hint: None
+</span></span><span class="line"><span class="cl">    SRP username: None
+</span></span><span class="line"><span class="cl">    Start Time: <span class="m">1560308549</span>
+</span></span><span class="line"><span class="cl">    Timeout   : <span class="m">300</span> <span class="o">(</span>sec<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Verify <span class="k">return</span> code: <span class="m">0</span> <span class="o">(</span>ok<span class="o">)</span>
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl"><span class="nb">command</span> terminated with <span class="nb">exit</span> code <span class="m">1</span>
+</span></span></code></pre></div><p>However if you pass the <code>istio</code> ALPN header, you get the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ kubectl <span class="nb">exec</span> <span class="k">$(</span>kubectl get pod -l <span class="nv">app</span><span class="o">=</span>sleep -o <span class="nv">jsonpath</span><span class="o">={</span>.items..metadata.name<span class="o">}</span><span class="k">)</span> -c istio-proxy -- openssl s_client -alpn ist
+</span></span><span class="line"><span class="cl">io -connect httpbin:8000/headers -key /etc/certs/key.pem -cert /etc/certs/cert-chain.pem -CAfile /etc/certs/root-cert.pem
+</span></span><span class="line"><span class="cl"><span class="nv">depth</span><span class="o">=</span><span class="m">1</span> <span class="nv">O</span> <span class="o">=</span> cluster.local
+</span></span><span class="line"><span class="cl">verify <span class="k">return</span>:1
+</span></span><span class="line"><span class="cl"><span class="nv">depth</span><span class="o">=</span><span class="m">0</span> 
+</span></span><span class="line"><span class="cl">verify <span class="k">return</span>:1
+</span></span><span class="line"><span class="cl">DONE
+</span></span><span class="line"><span class="cl">CONNECTED<span class="o">(</span>00000003<span class="o">)</span>
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">Certificate chain
+</span></span><span class="line"><span class="cl"> <span class="m">0</span> s:
+</span></span><span class="line"><span class="cl">   i:/O<span class="o">=</span>cluster.local
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">Server certificate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;SNIP&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">SSL handshake has <span class="nb">read</span> <span class="m">3126</span> bytes and written <span class="m">2277</span> bytes
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256
+</span></span><span class="line"><span class="cl">Server public key is <span class="m">2048</span> bit
+</span></span><span class="line"><span class="cl">Secure Renegotiation IS supported
+</span></span><span class="line"><span class="cl">Compression: NONE
+</span></span><span class="line"><span class="cl">Expansion: NONE
+</span></span><span class="line"><span class="cl">No ALPN negotiated
+</span></span><span class="line"><span class="cl">SSL-Session:
+</span></span><span class="line"><span class="cl">    Protocol  : TLSv1.2
+</span></span><span class="line"><span class="cl">    Cipher    : ECDHE-RSA-AES128-GCM-SHA256
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;SNIP&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    Start Time: <span class="m">1560309161</span>
+</span></span><span class="line"><span class="cl">    Timeout   : <span class="m">300</span> <span class="o">(</span>sec<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    Verify <span class="k">return</span> code: <span class="m">0</span> <span class="o">(</span>ok<span class="o">)</span>
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></div><p>This indicates a successful TLS handshake, indicating that mTLS is configured properly.
 Note the line that states <code>No ALPN negotiated</code>.
 Didn&rsquo;t we just pass an ALPN header value of <code>istio</code>?
 My reasoning here is that ultimately it was simply being used as a marker to the sidecar, and at this stage the sidecar doesn&rsquo;t know what protocol it is going to transport.

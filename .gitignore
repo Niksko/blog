@@ -6,9 +6,7 @@
 resources/_gen/
 
 # Executable may be added to repository
-hugo.exe
-hugo.darwin
-hugo.linux
+hugo
 
 # End of https://www.gitignore.io/api/hugo
 
@@ -19,3 +17,6 @@ hugo.linux
 
 ### Macos files
 .DS_Store
+
+# Hugo lockfile
+.hugo_build.lock

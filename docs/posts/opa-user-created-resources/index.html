@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>A useful OPA snippet for selecting user-created resources - blog.skouf.com</title>
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.118.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
@@ -139,28 +139,28 @@ to have a much longer list of managed field owners that trigger the enforcement.
 <p>The trick to this post is that since Kubernetes 1.18, Kubernetes records which actor has changed a field on a resource.
 <a href="https://kubernetes.io/blog/2020/04/01/kubernetes-1.18-feature-server-side-apply-beta-2/">https://kubernetes.io/blog/2020/04/01/kubernetes-1.18-feature-server-side-apply-beta-2/</a>
 As an example, a simple <code>ConfigMap</code> with managed fields might look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">test-cm</span><span class="w">
-</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">test-label</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
-</span><span class="w">  </span><span class="nt">managedFields</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">manager</span><span class="p">:</span><span class="w"> </span><span class="l">kubectl</span><span class="w">
-</span><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">Apply</span><span class="w">
-</span><span class="w">      </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span><span class="w">      </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2010-10-10T0:00:00Z&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">fieldsType</span><span class="p">:</span><span class="w"> </span><span class="l">FieldsV1</span><span class="w">
-</span><span class="w">      </span><span class="nt">fieldsV1</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">f:metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">f:labels</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">f:test-label</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w">        </span><span class="nt">f:data</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">f:key</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">some value</span><span class="w">
-</span></code></pre></div><p>Note that as of modern versions of <code>kubectl</code>, you&rsquo;ll need to pass the <code>--show-managed-fields</code> flag, otherwise <code>kubectl</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">test-cm</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">test-label</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">managedFields</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">manager</span><span class="p">:</span><span class="w"> </span><span class="l">kubectl</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">Apply</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2010-10-10T0:00:00Z&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">fieldsType</span><span class="p">:</span><span class="w"> </span><span class="l">FieldsV1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">fieldsV1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">f:metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">f:labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">f:test-label</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">f:data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">f:key</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">some value</span><span class="w">
+</span></span></span></code></pre></div><p>Note that as of modern versions of <code>kubectl</code>, you&rsquo;ll need to pass the <code>--show-managed-fields</code> flag, otherwise <code>kubectl</code>
 won&rsquo;t show you the <code>managedFields</code> field of the resources you view.
 People got upset that they had a bunch more noise in their <code>kubectl</code> outputs when this feature was added, so they put
 it behind a flag.</p>
@@ -172,8 +172,8 @@ If the resource consists entirely of fields that are set by an entity that can&r
 constraints, such as a Kubernetes internal controller, then we can ignore the resource.</p>
 <h2 id="enforcing-constraints-on-user-created-resources-using-managedfields">Enforcing constraints on user-created resources using <code>managedFields</code></h2>
 <p>The OPA required to make this work is fairly straightforward.</p>
-<pre><code class="language-rego" data-lang="rego"># Set this based on the user that creates resources on behalf of your users
-user_manager := &quot;some-user-manager&quot;
+<pre tabindex="0"><code class="language-rego" data-lang="rego"># Set this based on the user that creates resources on behalf of your users
+user_manager := &#34;some-user-manager&#34;
 
 has_user_managed_fields(managed_fields, user_manager_name) {
 	some i
@@ -181,10 +181,10 @@ has_user_managed_fields(managed_fields, user_manager_name) {
 	managed_fields_entry.manager == user_manager_name
 }
 
-violation[{&quot;msg&quot;: msg, &quot;details&quot;: {}}] {
+violation[{&#34;msg&#34;: msg, &#34;details&#34;: {}}] {
 	has_user_managed_fields(input.review.object.metadata.managedFields, user_manager)
 	# Add any rules here that should only apply to user-created resources
-	msg := sprintf(&quot;&lt;some violation messae&gt;&quot;)
+	msg := sprintf(&#34;&lt;some violation messae&gt;&#34;)
 }
 </code></pre><p>The <code>has_user_managed_fields</code> rule will ensure that at least one of the managed fields entries has a manager that
 matches whatever you define to be a manager that indicates that the resource was created by a user.

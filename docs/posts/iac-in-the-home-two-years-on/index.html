@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>IaC in the home - two years on - blog.skouf.com</title>
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.118.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
@@ -154,7 +154,7 @@ It also appears that the Istio operator now looks in the <code>istio-system</cod
 <p>As is often the case, tearing everything down with a <code>kubectl delete ns istio-system --grace-period=0 --force</code> solved things.
 Reapplying my control plane configuration with the new resource kind gave me a new control plane
 Even better, my new control plane is just the <code>default</code> profile.
-Istio&rsquo;s Secret Discovery Service graduated to stable, which was the last &lsquo;experimental&rsquo; feature I was using (requiring extra control plane configuration to enable).</p>
+Istio&rsquo;s Secret Discovery Service graduated to stable, which was the last &rsquo;experimental&rsquo; feature I was using (requiring extra control plane configuration to enable).</p>
 <p>After an Istio upgrade, you generally need to bounce your sidecar-injected pods to force them to get re-injected with the latest version of the Istio sidecar.
 After doing this, my services weren&rsquo;t resolving in the browser, with an <code>ERR_CONNECTION_RESET</code>.
 Fixing this required re-applying my certificate objects, which lived in the <code>istio-system</code> namespace, as discussed in the next section.

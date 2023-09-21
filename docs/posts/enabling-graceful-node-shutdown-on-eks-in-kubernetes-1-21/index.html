@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Enabling graceful node shutdown on EKS in Kubernetes 1.21 - blog.skouf.com</title>
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.118.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
@@ -141,29 +141,29 @@ The format is the standard Golang duration format i.e. <code>3m30s</code> for 3 
 is about 3m15s. So 4m feels like a good amount of time to wait for regular pods to be evicted, and then another 2m for system
 critical pods.</p>
 <p>In the end, my <code>KubeletConfiguration</code> looked like this</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;kind&#34;</span><span class="p">:</span> <span class="s2">&#34;KubeletConfiguration&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;apiVersion&#34;</span><span class="p">:</span> <span class="s2">&#34;kubelet.config.k8s.io/v1beta1&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span>
-  <span class="err">...</span>
-  <span class="err">&lt;snip&gt;</span>
-  <span class="err">...</span>
-  <span class="nt">&#34;maxPods&#34;</span><span class="p">:</span> <span class="mi">58</span><span class="p">,</span>
-  <span class="nt">&#34;shutdownGracePeriod&#34;</span><span class="p">:</span> <span class="s2">&#34;6m&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;shutdownGracePeriodCriticalPods&#34;</span><span class="p">:</span> <span class="s2">&#34;2m&#34;</span>
-<span class="p">}</span>
-</code></pre></div><p>The two lines at the bottom are the new parts.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;kind&#34;</span><span class="p">:</span> <span class="s2">&#34;KubeletConfiguration&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;apiVersion&#34;</span><span class="p">:</span> <span class="s2">&#34;kubelet.config.k8s.io/v1beta1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="err">...</span>
+</span></span><span class="line"><span class="cl">  <span class="err">&lt;snip&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="err">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;maxPods&#34;</span><span class="p">:</span> <span class="mi">58</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;shutdownGracePeriod&#34;</span><span class="p">:</span> <span class="s2">&#34;6m&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;shutdownGracePeriodCriticalPods&#34;</span><span class="p">:</span> <span class="s2">&#34;2m&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The two lines at the bottom are the new parts.</p>
 <p>Now, the kubelet should be configured, we need to restart the Systemd service so that the configuration takes effect.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sudo systemctl restart kubelet
-</code></pre></div><p>The graceful node shutdown feature uses <a href="https://www.freedesktop.org/wiki/Software/systemd/inhibit/">Systemd inhibitor locks</a>,
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl restart kubelet
+</span></span></code></pre></div><p>The graceful node shutdown feature uses <a href="https://www.freedesktop.org/wiki/Software/systemd/inhibit/">Systemd inhibitor locks</a>,
 so we should be able to check whether the kubelet has taken a lock:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo systemd-inhibit --list
-<span class="m">0</span> inhibitors listed.
-</code></pre></div><p>However we find no inhibitors.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo systemd-inhibit --list
+</span></span><span class="line"><span class="cl"><span class="m">0</span> inhibitors listed.
+</span></span></code></pre></div><p>However we find no inhibitors.</p>
 <p>Looking at the kubelet logs:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo journalctl -u kubelet <span class="p">|</span> grep shutdown
-Jul <span class="m">29</span> 06:22:01 &lt;node-hostname&gt; kubelet<span class="o">[</span>20169<span class="o">]</span>: E0729 06:22:01.860159   <span class="m">20169</span> kubelet.go:1407<span class="o">]</span> <span class="s2">&#34;Failed to start node shutdown manager&#34;</span> <span class="nv">err</span><span class="o">=</span><span class="s2">&#34;failed reading InhibitDelayMaxUSec property from logind: Message recipient disconnected from message bus without replying&#34;</span>
-</code></pre></div><p>This indicates an issue with logind.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo journalctl -u kubelet <span class="p">|</span> grep shutdown
+</span></span><span class="line"><span class="cl">Jul <span class="m">29</span> 06:22:01 &lt;node-hostname&gt; kubelet<span class="o">[</span>20169<span class="o">]</span>: E0729 06:22:01.860159   <span class="m">20169</span> kubelet.go:1407<span class="o">]</span> <span class="s2">&#34;Failed to start node shutdown manager&#34;</span> <span class="nv">err</span><span class="o">=</span><span class="s2">&#34;failed reading InhibitDelayMaxUSec property from logind: Message recipient disconnected from message bus without replying&#34;</span>
+</span></span></code></pre></div><p>This indicates an issue with logind.</p>
 <p>Based on the <a href="https://www.freedesktop.org/software/systemd/man/logind.conf.html">logind man page</a>, the issue is probably
 that we haven&rsquo;t configured <code>InhibitDelayMaxSec</code>.</p>
 <p>We can check that by looking at <code>/etc/systemd/logind.conf</code> and seeing that the file has all of the options commented
@@ -172,66 +172,66 @@ We&rsquo;re going to leave <code>/etc/systemd/logind.conf</code> alone, because 
 wanted to configure.
 Instead, we&rsquo;re going to create a file under <code>/etc/systemd/logind.conf.d/</code>.</p>
 <p>At this point, I discovered that there actually already was a file in this directory called <code>99-kubelet.conf</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ cat /etc/systemd/logind.conf.d/99-kubelet.conf
-<span class="c1"># Kubelet logind override</span>
-<span class="o">[</span>Login<span class="o">]</span>
-<span class="nv">InhibitDelayMaxSec</span><span class="o">=</span><span class="m">360</span>
-</code></pre></div><p>Seems like the kubelet attempts to configure logind for us if it can&rsquo;t make the graceful node shutdown feature work.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat /etc/systemd/logind.conf.d/99-kubelet.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># Kubelet logind override</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Login<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">InhibitDelayMaxSec</span><span class="o">=</span><span class="m">360</span>
+</span></span></code></pre></div><p>Seems like the kubelet attempts to configure logind for us if it can&rsquo;t make the graceful node shutdown feature work.</p>
 <p>So at this point, it seems like we should just be able to restart the <code>systemd-logind</code> service and then <code>kubelet</code>,
 and the feature should work. And we can:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo systemctl restart systemd-logind
-$ sudo systemd-inhibit --list
-<span class="m">0</span> inhibitors listed.
-$ sudo systemctl restart kubelet
-$ sudo systemd-inhibit --list
-     Who: kubelet <span class="o">(</span>UID 0/root, PID 24485/kubelet<span class="o">)</span>
-    What: shutdown
-     Why: Kubelet needs <span class="nb">time</span> to handle node shutdown
-    Mode: delay
-
-<span class="m">1</span> inhibitors listed.
-</code></pre></div><p>However relying on the kubelet to create configuration for us isn&rsquo;t ideal.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo systemctl restart systemd-logind
+</span></span><span class="line"><span class="cl">$ sudo systemd-inhibit --list
+</span></span><span class="line"><span class="cl"><span class="m">0</span> inhibitors listed.
+</span></span><span class="line"><span class="cl">$ sudo systemctl restart kubelet
+</span></span><span class="line"><span class="cl">$ sudo systemd-inhibit --list
+</span></span><span class="line"><span class="cl">     Who: kubelet <span class="o">(</span>UID 0/root, PID 24485/kubelet<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    What: shutdown
+</span></span><span class="line"><span class="cl">     Why: Kubelet needs <span class="nb">time</span> to handle node shutdown
+</span></span><span class="line"><span class="cl">    Mode: delay
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">1</span> inhibitors listed.
+</span></span></code></pre></div><p>However relying on the kubelet to create configuration for us isn&rsquo;t ideal.
 Instead, we can create the required config ourselves.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir -p /etc/systemd/logind.conf.d
-$ cat <span class="s">&lt;&lt; EOF &gt; 50-max-delay.conf
-</span><span class="s">[Login]
-</span><span class="s">InhibitDelayMaxSec=360
-</span><span class="s">EOF</span>
-$ sudo mv 50-max-delay.conf /etc/systemd/logind.conf.d/
-$ sudo systemctl restart systemd-logind
-$ sudo systemctl restart kubelet
-$ sudo systemd-inhibit --list
-     Who: kubelet <span class="o">(</span>UID 0/root, PID 24485/kubelet<span class="o">)</span>
-    What: shutdown
-     Why: Kubelet needs <span class="nb">time</span> to handle node shutdown
-    Mode: delay
-
-<span class="m">1</span> inhibitors listed.
-</code></pre></div><p>Doing this on a fresh system shows no <code>99-kubelet.conf</code> this time, indicating that this file is only created if it&rsquo;s needed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir -p /etc/systemd/logind.conf.d
+</span></span><span class="line"><span class="cl">$ cat <span class="s">&lt;&lt; EOF &gt; 50-max-delay.conf
+</span></span></span><span class="line"><span class="cl"><span class="s">[Login]
+</span></span></span><span class="line"><span class="cl"><span class="s">InhibitDelayMaxSec=360
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">$ sudo mv 50-max-delay.conf /etc/systemd/logind.conf.d/
+</span></span><span class="line"><span class="cl">$ sudo systemctl restart systemd-logind
+</span></span><span class="line"><span class="cl">$ sudo systemctl restart kubelet
+</span></span><span class="line"><span class="cl">$ sudo systemd-inhibit --list
+</span></span><span class="line"><span class="cl">     Who: kubelet <span class="o">(</span>UID 0/root, PID 24485/kubelet<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    What: shutdown
+</span></span><span class="line"><span class="cl">     Why: Kubelet needs <span class="nb">time</span> to handle node shutdown
+</span></span><span class="line"><span class="cl">    Mode: delay
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">1</span> inhibitors listed.
+</span></span></code></pre></div><p>Doing this on a fresh system shows no <code>99-kubelet.conf</code> this time, indicating that this file is only created if it&rsquo;s needed.</p>
 <h2 id="final-changes-to-enable-the-feature">Final changes to enable the feature</h2>
 <p>The above was fine for exploration, but now we need a concrete way of enabling this feature on our nodes at startup.</p>
 <p>The following userdata script will do this, with the grep-ing and sed-ing adapted from
 <a href="https://aws.amazon.com/premiumsupport/knowledge-center/eks-worker-nodes-image-cache/">an article from AWS on configuring node image caching</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Inject shutdownGracePeriod value unless it has already been set.</span>
-<span class="k">if</span> ! grep -q shutdownGracePeriod /etc/kubernetes/kubelet/kubelet-config.json<span class="p">;</span> 
-<span class="k">then</span> 
-    sed -i <span class="s1">&#39;/&#34;apiVersion*/a \ \ &#34;shutdownGracePeriod&#34;: &#34;6m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
-<span class="k">fi</span>
-
-<span class="c1"># Inject shutdownGracePeriodCriticalPods value unless it has already been set.</span>
-<span class="k">if</span> ! grep -q shutdownGracePeriodCriticalPods /etc/kubernetes/kubelet/kubelet-config.json<span class="p">;</span> 
-<span class="k">then</span> 
-    sed -i <span class="s1">&#39;/&#34;shutdownGracePeriod*/a \ \ &#34;shutdownGracePeriodCriticalPods&#34;: &#34;2m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
-<span class="k">fi</span>
-
-mkdir -p /etc/systemd/logind.conf.d
-cat <span class="s">&lt;&lt; EOF &gt; /etc/systemd/logind.conf.d/50-max-delay.conf
-</span><span class="s">[Login]
-</span><span class="s">InhibitDelayMaxSec=360
-</span><span class="s">EOF</span>
-
-sudo systemctl restart systemd-logind
-</code></pre></div><p>Adjust the times to suit your particular cluster. Enjoy!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Inject shutdownGracePeriod value unless it has already been set.</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> ! grep -q shutdownGracePeriod /etc/kubernetes/kubelet/kubelet-config.json<span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="k">then</span> 
+</span></span><span class="line"><span class="cl">    sed -i <span class="s1">&#39;/&#34;apiVersion*/a \ \ &#34;shutdownGracePeriod&#34;: &#34;6m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Inject shutdownGracePeriodCriticalPods value unless it has already been set.</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> ! grep -q shutdownGracePeriodCriticalPods /etc/kubernetes/kubelet/kubelet-config.json<span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="k">then</span> 
+</span></span><span class="line"><span class="cl">    sed -i <span class="s1">&#39;/&#34;shutdownGracePeriod*/a \ \ &#34;shutdownGracePeriodCriticalPods&#34;: &#34;2m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir -p /etc/systemd/logind.conf.d
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; /etc/systemd/logind.conf.d/50-max-delay.conf
+</span></span></span><span class="line"><span class="cl"><span class="s">[Login]
+</span></span></span><span class="line"><span class="cl"><span class="s">InhibitDelayMaxSec=360
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo systemctl restart systemd-logind
+</span></span></code></pre></div><p>Adjust the times to suit your particular cluster. Enjoy!</p>
 
       </div>
     </article>

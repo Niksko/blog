@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>An OPA Gatekeeper gotcha when enforcing policy on all resource kinds - blog.skouf.com</title>
-  <meta name="generator" content="Hugo 0.80.0" />
+  <meta name="generator" content="Hugo 0.118.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Nik Skoufis">
   
@@ -127,21 +127,21 @@ contains <a href="https://github.com/open-policy-agent/gatekeeper-library/tree/m
 <p>Using this policy is fairly straightforward.
 Once the <code>ConstraintTemplate</code> resource is installed in to your Kubernetes cluster running Gatkeeper, you can create
 a resource like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">constraints.gatekeeper.sh/v1beta1</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">K8sRequiredLabels</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">must-have-owner-label</span><span class="w">
-</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">kinds</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">        </span><span class="nt">kinds</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span><span class="sd">      </span><span class="w">      </span><span class="l">All resources must have an owner label.</span><span class="w">
-</span><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;owner&#39;</span><span class="w">
-</span></code></pre></div><p>This above constraint enforces that all resources have a label called <code>owner</code>.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">constraints.gatekeeper.sh/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">K8sRequiredLabels</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">must-have-owner-label</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kinds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">kinds</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      All resources must have an owner label.</span><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;owner&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>This above constraint enforces that all resources have a label called <code>owner</code>.
 Simple, right?
 What could possibly go wrong&hellip;</p>
 <p>Unfortunately, the above constraint will cause you a number of issues, which I&rsquo;ll outline below.</p>
@@ -149,57 +149,57 @@ What could possibly go wrong&hellip;</p>
 <p>The first issue you will encounter will happen when you try and deploy some sort of workload, say, a <code>Deployment</code>.
 If you&rsquo;re anything like me, you&rsquo;ll want to validate that this works by deploying a simple <code>Deployment</code>, maybe
 something like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">my-namespace</span><span class="w">
-</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span><span class="w">      </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span><span class="w">        </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.io/kennethreitz/httpbin</span><span class="w">
-</span><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
-</span><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></code></pre></div><p>But you&rsquo;ll need a <code>Namespace</code> to deploy this to, so let&rsquo;s create that as well:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
-</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-namespace</span><span class="w">
-</span><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span></code></pre></div><p>With the constraint as written above, OPA Gatekeeper will enforce our <code>owner</code> label constraint on non-namespaced
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">my-namespace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.io/kennethreitz/httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div><p>But you&rsquo;ll need a <code>Namespace</code> to deploy this to, so let&rsquo;s create that as well:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-namespace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
+</span></span></span></code></pre></div><p>With the constraint as written above, OPA Gatekeeper will enforce our <code>owner</code> label constraint on non-namespaced
 resources as well.
 But that&rsquo;s ok, because we included the <code>owner</code> label on the namespace.</p>
 <p>Seems like it should work, right?</p>
 <p>If you create your namespace and then try to create your deployment, it will succeed, but your <code>Deployment</code> will soon
 take on the following status:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
-</span><span class="w"></span><span class="nt">status</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2022-09-26T23:21:51Z&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">&gt;-</span><span class="sd">
-</span><span class="sd">        pods &#34;httpbin-78f658c47f-&#34; is forbidden: error looking up service
-</span><span class="sd">        account my-namespace/default: serviceaccount &#34;default&#34;
-</span><span class="sd">        not found</span><span class="w">        
-</span><span class="w">      </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="l">FailedCreate</span><span class="w">
-</span><span class="w">      </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;True&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ReplicaFailure</span><span class="w">
-</span><span class="w"></span><span class="nn">...</span><span class="w">
-</span></code></pre></div><p>Huh?
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">status</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2022-09-26T23:21:51Z&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">&gt;-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        pods &#34;httpbin-78f658c47f-&#34; is forbidden: error looking up service
+</span></span></span><span class="line"><span class="cl"><span class="sd">        account my-namespace/default: serviceaccount &#34;default&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        not found</span><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="l">FailedCreate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;True&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ReplicaFailure</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span></code></pre></div><p>Huh?
 That&rsquo;s a weird one.
 I&rsquo;ve never seen that error before.</p>
 <p>If you&rsquo;re new to Kubernetes, you might not know that if you don&rsquo;t specify a <code>serviceAccount</code> for a pod, your pod
@@ -219,18 +219,18 @@ just double check that the resource actually doesn&rsquo;t exist using some sort
 This helps you rule out a situation where something just has insufficient permissions to know that there really <em>is</em>
 a service account in that namespace called <code>default</code>.</p>
 <p>As a privileged user:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ kubectl get serviceaccounts -n my-namespace
-No resources found in tenant-automat-reference-app namespace.
-</code></pre></div><p>Ok, so there is definitely no service account in our namespace, despite the fact that the docs tell us there should be.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ kubectl get serviceaccounts -n my-namespace
+</span></span><span class="line"><span class="cl">No resources found in tenant-automat-reference-app namespace.
+</span></span></code></pre></div><p>Ok, so there is definitely no service account in our namespace, despite the fact that the docs tell us there should be.
 What&rsquo;s going on?</p>
 <p>As it turns out, we overlooked something important in our mandatory labels constraint.
 The key to debugging this issue was to have a look at the control plane logs.
 The docs above tell us that it&rsquo;s the job of the &lsquo;ServiceAccount controller&rsquo; to ensure that the <code>default</code> service
 account exists, so perhaps something went wrong while it was trying to create the service account?
 That&rsquo;s exactly what we find:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">E0926 22:53:47.849664      <span class="m">14</span> serviceaccounts_controller.go:180<span class="o">]</span> my-namespace failed with : admission webhook 
-<span class="s2">&#34;validation.gatekeeper.sh&#34;</span> denied the request: <span class="o">[</span>must-have-owner-label<span class="o">]</span> All resources must have an owner label.
-</code></pre></div><p>That explains things.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">E0926 22:53:47.849664      <span class="m">14</span> serviceaccounts_controller.go:180<span class="o">]</span> my-namespace failed with : admission webhook 
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;validation.gatekeeper.sh&#34;</span> denied the request: <span class="o">[</span>must-have-owner-label<span class="o">]</span> All resources must have an owner label.
+</span></span></code></pre></div><p>That explains things.
 The service account controller tried to create the <code>default</code> service account.
 But since it has no way of knowing that we now enforce that every resource must have an <code>owner</code> label, the
 Gatekeeper validating admission webhook denies its request to create the <code>default</code> service account.</p>
@@ -243,11 +243,11 @@ controller.
 And this controller too does not know about our requirement that every resource must have an <code>onwer</code> label.
 So you will get a cryptic message saying that your pod &lsquo;could not bind to an endpoint&rsquo;.</p>
 <p>If you again look at the control plane logs, you will find:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">I0927 00:03:23.031559      <span class="m">14</span> event.go:291<span class="o">]</span> <span class="s2">&#34;Event occurred&#34;</span> <span class="nv">object</span><span class="o">=</span><span class="s2">&#34;httpbin&#34;</span> <span class="nv">kind</span><span class="o">=</span><span class="s2">&#34;Endpoints&#34;</span> <span class="nv">apiVersion</span><span class="o">=</span><span class="s2">&#34;v1&#34;</span>
-<span class="nv">type</span><span class="o">=</span><span class="s2">&#34;Warning&#34;</span> <span class="nv">reason</span><span class="o">=</span><span class="s2">&#34;FailedToCreateEndpoint&#34;</span> <span class="nv">message</span><span class="o">=</span><span class="s2">&#34;Failed to create endpoint for service my-namespace/httpbin: 
-</span><span class="s2">admission webhook \&#34;validation.gatekeeper.sh\&#34; denied the request: [must-have-owner-label] All resources must have an
-</span><span class="s2">owner label.
-</span></code></pre></div><h2 id="solutions">Solutions</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">I0927 00:03:23.031559      <span class="m">14</span> event.go:291<span class="o">]</span> <span class="s2">&#34;Event occurred&#34;</span> <span class="nv">object</span><span class="o">=</span><span class="s2">&#34;httpbin&#34;</span> <span class="nv">kind</span><span class="o">=</span><span class="s2">&#34;Endpoints&#34;</span> <span class="nv">apiVersion</span><span class="o">=</span><span class="s2">&#34;v1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">type</span><span class="o">=</span><span class="s2">&#34;Warning&#34;</span> <span class="nv">reason</span><span class="o">=</span><span class="s2">&#34;FailedToCreateEndpoint&#34;</span> <span class="nv">message</span><span class="o">=</span><span class="s2">&#34;Failed to create endpoint for service my-namespace/httpbin: 
+</span></span></span><span class="line"><span class="cl"><span class="s2">admission webhook \&#34;validation.gatekeeper.sh\&#34; denied the request: [must-have-owner-label] All resources must have an
+</span></span></span><span class="line"><span class="cl"><span class="s2">owner label.
+</span></span></span></code></pre></div><h2 id="solutions">Solutions</h2>
 <p>This is a bit of an annoying issue.
 What options are available to you?</p>
 <h3 id="option-1">Option 1</h3>
