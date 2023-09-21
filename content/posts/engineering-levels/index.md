@@ -141,7 +141,7 @@ If you do feel fairly compensated, don't worry about it, and worry about it when
 This puts _much_ more emphasis on individuals and our evaluation of others to determine what feels 'fair' and what
 doesn't, but as I alluded to above, it already works this way.
 
-With levels, this manifests as the "N+1 shitheads problem", as Brian Cantrill put it in his [2013 Surge talk](https://www.youtube.com/watch?v=1KeYzjILqDo)
+With levels, this manifests as the "N+1 shitheads problem", as Bryan Cantrill put it in his [2013 Surge talk](https://www.youtube.com/watch?v=1KeYzjILqDo)
 (which by the way, is pretty much required viewing from my point of view, and informed many of the ideas in this blog post).
 Organisations with levels suffer from the "N+1 shitheads problem" where someone at level `N` e.g. senior engineer is
 always going to be demotivated when they see someone at level `N+1` e.g principal engineer behaving badly or not being
