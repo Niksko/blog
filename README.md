@@ -33,9 +33,12 @@ $ mkdir content/posts/<post-name>
 $ hugo new posts/<post-name>/index.md
 ```
 
-There is a bundled `skouf` theme that needs redoing.
-If for some reason this needs to be rebuilt before it can be redone (likely using TailwindCSS), go back through the 
-Git history and look at the `docker-compose.yaml` to identify the incantations that are required to render the theme.
+## Deployment
+
+Build the site to the `/docs` directory with `hugo`.
+
+Github is configured to serve this as a page out of the `/docs` directory on the `master`.
+Pushing to `master` will update the live site.
 
 ## Writing posts
 
@@ -87,9 +90,20 @@ Example:
 Code highlighting is enabled on code fences.
 We currently use a stylesheet embedded into the theme for our highlighting, see the stylesheet in question for details.
 
-## Deployment
+## Theming
 
-Build the site to the `/docs` directory with `hugo`.
+### Setup
 
-Github is configured to serve this as a page out of the `/docs` directory on the `master`.
-Pushing to `master` will update the live site.
+This repo uses the Tailwind CLI as part of theme generation.
+You can install this as a [standalone binary](https://tailwindcss.com/blog/standalone-cli).
+
+```
+curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.3.3/tailwindcss-macos-arm64
+chmod +x tailwindcss-macos-arm64
+mv tailwindcss-macos-arm64 tailwindcss
+```
+
+Adjust the OS and arch above as appropriate.
+
+### Making changes to the theme
+
