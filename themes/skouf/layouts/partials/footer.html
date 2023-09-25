@@ -3,28 +3,26 @@
     <h2 class="font-bold text-2xl m-4">Author</h2>
     <img class="mx-auto rounded-full h-24 w-24"
          src="/image/theme/author.jpg"
-         alt="">
+         alt="A picture of the author">
     <div class="mx-auto my-4">
       <h3 class="font-bold text-xl text-center pb-2">{{ .Site.Author.author }}</h3>
-      <p class="text-center">{{ .Site.Author.profile }}</p>
+      <p class="tagline text-center">{{ .Site.Author.profile }}</p>
     </div>
-    <ul class="flex justify-center space-x-2 my-4">
+    <div class="flex justify-center space-x-2 my-4">
       {{ if and (.Site.Params.github) (ne .Site.Params.github "") }}
-      <li>
-        <a href="https://github.com/{{.Site.Params.github}}" target="_blank">
+        <a href="https://github.com/{{.Site.Params.github}}" target="_blank" aria-label="Link to my GitHub profile">
           <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
         </a>
-      </li>
       {{ end }}
       {{ if and (.Site.Params.mastodonUsername) (ne .Site.Params.mastodonUsername "") }}
-      <li>
         <a href="https://{{.Site.Params.mastodonDomain}}/@{{.Site.Params.mastodonUsername}}"
-           target="_blank">
+           target="_blank"
+           aria-label="Link to my Mastodon profile"
+        >
           <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
         </a>
-      </li>
       {{ end }}
-    </ul>
+    </div>
   </section>
   <small class="pt-4">© {{ .Site.Title }}</small>
 </footer>
