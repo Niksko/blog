@@ -1,7 +1,14 @@
-<!-- TODO Redo this with modern Google analytics -->
 {{ with .Site.Params.googleanalytics }}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
 <script>
-</script>{{ end }}
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ . }}');
+</script>
+{{ end }}
 <!-- TODO redo this with a different syntax highlighting library -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>

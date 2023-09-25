@@ -18,7 +18,7 @@ pygmentsCodefences = true
   mastodonUsername = "niksko"
   mastodonDomain = "hachyderm.io"
   github = "niksko"
-#  googleanalytics = "UA-76961630-4"
+  googleanalytics = "G-9NNFJW25R4"
 
 # Enable tags.
 [taxonomies]
