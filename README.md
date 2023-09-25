@@ -7,8 +7,6 @@
 - [ ] Allow images to zoom which clicked or tapped in a sort of lightbox thingo
 - [ ] Create a landing page that will serve as the new homepage of skouf.com
 - [ ] Figure out how I can redirect blog.skouf.com URLs to `skouf.com/blog/<original path>`
-- [ ] Redo Google Analytics
-- [ ] Search for TODOs, I've left a few around the place
 
 ## Setup
 
