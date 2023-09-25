@@ -3,6 +3,7 @@ title: "Enabling graceful node shutdown on EKS in Kubernetes 1.21"
 date: 2021-08-02T00:58:34Z
 draft: false
 image: "swan.jpg"
+imageAlt: "An image of a white swan swimming in a fairly calm body of water"
 summary: Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.
 ---
 
@@ -159,14 +160,14 @@ The following userdata script will do this, with the grep-ing and sed-ing adapte
 
 ```bash
 # Inject shutdownGracePeriod value unless it has already been set.
-if ! grep -q shutdownGracePeriod /etc/kubernetes/kubelet/kubelet-config.json; 
-then 
+if ! grep -q shutdownGracePeriod /etc/kubernetes/kubelet/kubelet-config.json;
+then
     sed -i '/"apiVersion*/a \ \ "shutdownGracePeriod": "6m",' /etc/kubernetes/kubelet/kubelet-config.json
 fi
 
 # Inject shutdownGracePeriodCriticalPods value unless it has already been set.
-if ! grep -q shutdownGracePeriodCriticalPods /etc/kubernetes/kubelet/kubelet-config.json; 
-then 
+if ! grep -q shutdownGracePeriodCriticalPods /etc/kubernetes/kubelet/kubelet-config.json;
+then
     sed -i '/"shutdownGracePeriod*/a \ \ "shutdownGracePeriodCriticalPods": "2m",' /etc/kubernetes/kubelet/kubelet-config.json
 fi
 

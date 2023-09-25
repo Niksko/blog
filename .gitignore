@@ -20,3 +20,6 @@ hugo
 
 # Hugo lockfile
 .hugo_build.lock
+
+# Ignore Tailwind binary
+tailwindcss

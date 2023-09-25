@@ -4,13 +4,14 @@ date: 2023-07-01T06:21:00Z
 draft: false
 summary: "Almost all organisations assign levels to their employees, and engineering is no different. But what are the alternatives to engineering levels, what might we gain by avoiding engineering levels, and how do we get the the more beautiful feature that a level-less work environment offers?"
 image: "guggenheim-levels.jpg"
+imageAlt: "An image from above of nested white levels of the inside of a building with people in them"
 ---
 
 {{< figure src="guggenheim-levels.jpg" caption="Photo by [Leslie Lopez Holder](https://unsplash.com/@leslielopezholder) on [Unsplash](https://unsplash.com)." alt="An image from above of nested white levels of the inside of a building with people in them" >}}
 
 I was browsing Twitter the other day when I came across this tweet:
 
-> Scoop: levels are introduced at Netflix for engineers and there is no shortage in drama over decisions of who got 
+> Scoop: levels are introduced at Netflix for engineers and there is no shortage in drama over decisions of who got
 > to be Senior and who Staff.<br><br>This happens every time a company introduces levelling. Except for most at Netflix:
 > it’s the first time ever they experience it.</p>&mdash; Gergely Orosz (@GergelyOrosz)
 
@@ -62,7 +63,7 @@ your head, go back and re-read the paragraph I wrote above about the success of 
 It's _incredibly_ tempting to dismiss these ideas out of hand.
 Instead, try to see them for what they are: a different way of doing things, with a different set of pros and cons.
 
-> Having worked there until a few days ago, you have no idea what you’re talking about WRT the impact everyone being 
+> Having worked there until a few days ago, you have no idea what you’re talking about WRT the impact everyone being
 > a “Senior” was. 😊</p>&mdash; Tim Heckman (@theckman)
 
 ## What do you do about pay?
@@ -191,7 +192,7 @@ The point is that we didn't need titles to choose who was the leader.
 
 Another example is the group projects that I'm sure you all were forced to do in university.
 Now I'll be the first person to go on a tirade about how fundamentally flawed most group projects at university were,
-and still are, for a number of reasons (chiefly, lack of oversight to ensure that people pull their weight, and lack of 
+and still are, for a number of reasons (chiefly, lack of oversight to ensure that people pull their weight, and lack of
 consequences for not pulling your weight).
 But there is one quality of group projects that is useful to examine: frequently, a de-facto leader emerges.
 

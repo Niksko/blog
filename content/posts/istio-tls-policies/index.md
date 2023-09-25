@@ -2,6 +2,7 @@
 title: "Istio TLS policies - ugly bits and undocumented bits"
 date: 2019-06-12T00:43:25Z
 image: "sailboat.jpg"
+imageAlt: "An image of a sailboat on the water on a stormy day"
 summary: "One of the selling points of deploying Istio in your Kubernetes cluster is that it provides mechanisms to enforce authentication between pods communicating with other services within the cluster.
 The documentation of these leaves a lot to be desired, as we discovered when we first started playing with these features while gearing up to roll out Istio more widely."
 draft: false
@@ -165,7 +166,7 @@ Some of these were discovered by trial and error, since `istioctl` will not give
   This can be confusing, because even in `STRICT` mTLS mode (as provided by a `MeshPolicy` or `Policy`), you will get pods being unable to communicate if they don't have a destination rule that is applicable to them.
   This can be diagnosed using `istioctl authn tls-check`. The Istio Helm charts provide a default `DestinationRule` of host: `*.local` to avoid issues.
 * If no MeshPolicy or Policy applies, servers will only accept HTTP.
-  This is perhaps the most confusing, as I would have expected this behavior to be similar to PERMISSIVE mode, but it is not.  
+  This is perhaps the most confusing, as I would have expected this behavior to be similar to PERMISSIVE mode, but it is not.
 
 ## Validating connectivity
 
@@ -246,9 +247,9 @@ No ALPN negotiated
 SSL-Session:
     Protocol  : TLSv1.2
     Cipher    : 0000
-    Session-ID: 
-    Session-ID-ctx: 
-    Master-Key: 
+    Session-ID:
+    Session-ID-ctx:
+    Master-Key:
     Key-Arg   : None
     PSK identity: None
     PSK identity hint: None
@@ -260,14 +261,14 @@ SSL-Session:
 command terminated with exit code 1
 ```
 
-However if you pass the `istio` ALPN header, you get the following: 
+However if you pass the `istio` ALPN header, you get the following:
 
 ```shell
 $ kubectl exec $(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name}) -c istio-proxy -- openssl s_client -alpn ist
 io -connect httpbin:8000/headers -key /etc/certs/key.pem -cert /etc/certs/cert-chain.pem -CAfile /etc/certs/root-cert.pem
 depth=1 O = cluster.local
 verify return:1
-depth=0 
+depth=0
 verify return:1
 DONE
 CONNECTED(00000003)

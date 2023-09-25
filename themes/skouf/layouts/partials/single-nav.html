@@ -1,35 +1,31 @@
 <!-- post-nav -->
-<nav class="post-nav">
-  <ol class="pure-g">
+<nav class="flex flex-col max-w-screen-sm mx-auto">
+  <div class="flex justify-between flex-wrap pb-4">
     {{ if .NextInSection }}
-      <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
-        <a href="{{.NextInSection.Permalink}}">
-              <span class="post-nav-label">Next<span>
-              <span class="post-nav-title">
+    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
+       href="{{.NextInSection.Permalink}}">
+      <span>Next:</span>
+      <span class="underline">
                 {{ .NextInSection.Title }}
               </span>
-        </a>
-      </li>
+    </a>
     {{ else }}
-      <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
-      </li>
+    <span></span>
     {{ end }}
     {{ if .PrevInSection }}
-      <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
-        <a href="{{.PrevInSection.Permalink}}">
-          <span class="post-nav-label">Previous</span>
-          <span class="post-nav-title">
+    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
+       href="{{.PrevInSection.Permalink}}">
+      <span>Previous:</span>
+      <span class="underline">
                 {{ .PrevInSection.Title }}
               </span>
-        </a>
-      </li>
+    </a>
     {{ else }}
-      <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
-      </li>
+    <span></span>
     {{ end }}
-  </ol>
-  <div class="post-nav-back">
-    <a class="pure-button" href="/">Back</a>
+  </div>
+  <div class="flex justify-center pt-2">
+    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
   </div>
 </nav>
 <!-- /post-nav -->

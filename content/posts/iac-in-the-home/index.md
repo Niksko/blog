@@ -2,6 +2,7 @@
 title: "Infrastructure as code in the home"
 date: 2018-04-25T23:12:23+11:00
 image: "overview.png"
+imageAlt: "A box diagram showing how Matchbox works"
 draft: false
 ---
 

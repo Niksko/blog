@@ -1,6 +1,7 @@
 <head>
   <meta charset="utf-8">
-  <title>{{ $isHomePage := eq .Title .Site.Title }}{{ .Title }}{{ if eq $isHomePage false }} - {{ .Site.Title }}{{ end }}</title>
+  <title>{{ $isHomePage := eq .Title .Site.Title }}{{ .Title }}{{ if eq $isHomePage false }} - {{ .Site.Title }}{{ end
+    }}</title>
   {{ hugo.Generator }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="{{ .Site.Author.author }}">
@@ -33,15 +34,11 @@
   {{ else }}
   <meta name="twitter:description" content="{{ .Summary }}">
   {{ end }}
-  {{ if and (.Params.image) (ne .Params.image "") }}
-  <meta name="twitter:image:src" content="{{ .Site.BaseURL }}{{ .Params.image }}">
-  {{ else }}
-  <meta name="twitter:image:src" content="{{ .Site.BaseURL }}image/theme/og.png">
-  {{ end }}
   <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/syntax.css">
   <link rel="alternate" href="{{ .Site.BaseURL }}index.xml" type="application/rss+xml" title="{{ .Site.Title }}">

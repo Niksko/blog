@@ -4,6 +4,7 @@ date: 2023-07-02T11:06:26Z
 draft: false
 summary: "Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)"
 image: "post.jpg"
+imageAlt: "A photo of a sunset with the silhouette of a signpost"
 ---
 
 {{< figure src="post.jpg" caption="Photo by [Javier Allegue Barros](https://unsplash.com/@soymeraki) on [Unsplash](https://unsplash.com/photos/C7B-ExXpOIEnt)" alt="A photo of a sunset with the silhouette of a signpost" >}}
@@ -21,8 +22,8 @@ resources in the cluster.
 And this is a surprisingly common occurrence, as I wrote about in my previous blog post.
 Kubernetes contains many internal controllers that watch for resources that users typically create like `Deployment`s,
 and in response create resources like `ReplicaSet`s (and then in turn, the `Pod`s you wanted).
-Suddenly, your nice policy that enforces that every resource must have a `metadata.my-company.com/owner` label is 
-impossible to enforce on every resource, because there's no way to tell the Kubernetes `ReplicaSet` controller to 
+Suddenly, your nice policy that enforces that every resource must have a `metadata.my-company.com/owner` label is
+impossible to enforce on every resource, because there's no way to tell the Kubernetes `ReplicaSet` controller to
 add this label to resources it creates.
 
 In my [my previous post]({{< ref "posts/opa-gatekeeper-gotcha/index" >}}) I suggested a few options for solving this
@@ -30,9 +31,9 @@ problem, but after some experimentation I've discovered a much better solution.
 This solution uses the `managedFields` property that was introduced to Kubernetes standard metadata in Kubernetes
 1.18 to determine whether a resource has been created by a user.
 
-This solution is specifically designed for GitOps environments, where there is a single entity that ultimately 
+This solution is specifically designed for GitOps environments, where there is a single entity that ultimately
 creates resources on behalf of users.
-I _think_ you could use this in environments were developers create resources directly, but you'd need to adapt it 
+I _think_ you could use this in environments were developers create resources directly, but you'd need to adapt it
 to have a much longer list of managed field owners that trigger the enforcement.
 
 ## Kubernetes `managedFields`
@@ -72,9 +73,9 @@ it behind a flag.
 
 What's nice about `managedFields` is that we can now determine who is responsible for setting values on a particular
 Kubernetes object.
-And if an entity who is capable of complying with the policy constraints we would like to enforce has set some of 
+And if an entity who is capable of complying with the policy constraints we would like to enforce has set some of
 those fields, then we can choose to enforce our policy constraint.
-If the resource consists entirely of fields that are set by an entity that can't comply with these policy 
+If the resource consists entirely of fields that are set by an entity that can't comply with these policy
 constraints, such as a Kubernetes internal controller, then we can ignore the resource.
 
 ## Enforcing constraints on user-created resources using `managedFields`
@@ -98,17 +99,17 @@ violation[{"msg": msg, "details": {}}] {
 }
 ```
 
-The `has_user_managed_fields` rule will ensure that at least one of the managed fields entries has a manager that 
+The `has_user_managed_fields` rule will ensure that at least one of the managed fields entries has a manager that
 matches whatever you define to be a manager that indicates that the resource was created by a user.
-For example, if you're using ArgoCD as your GitOps tool, any resource created by ArgoCD on behalf of users will have 
+For example, if you're using ArgoCD as your GitOps tool, any resource created by ArgoCD on behalf of users will have
 many of its fields managed by `argocd-controller`.
-Resources like the default `ServiceAccount` or `ReplicaSet`s which are created on behalf of users by Kubernetes 
+Resources like the default `ServiceAccount` or `ReplicaSet`s which are created on behalf of users by Kubernetes
 internal controllers will not match the `has_user_managed_fields` rule, and so will be exempt from the constraint.
 
 This has worked quite well for us across a few different constraints.
 If you're using something that lets you easily share policy between constraints as libraries like
-[Konstraint](https://github.com/plexsystems/konstraint), I'd suggest putting this functionality in a library that 
-you share around to your policies, because you'll likely end up writing it a lot for policies that are wide-ranging 
+[Konstraint](https://github.com/plexsystems/konstraint), I'd suggest putting this functionality in a library that
+you share around to your policies, because you'll likely end up writing it a lot for policies that are wide-ranging
 like enforcing metadata across all resources.
 
 Hopefully this helps you when designing your Gatekeeper policies!
