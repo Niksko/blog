@@ -12,9 +12,9 @@
   <meta name="keywords" content="">
   <meta property="og:site_name" content="skouf.com">
   <meta property="og:title" content="A useful OPA snippet for selecting user-created resources">
-  <meta property="og:url" content="https://skouf.com/posts/opa-user-created-resources/">
+  <meta property="og:url" content="https://www.skouf.com/posts/opa-user-created-resources/">
   
-  <meta property="og:image" content="https://skouf.com/post.jpg">
+  <meta property="og:image" content="https://www.skouf.com/post.jpg">
   
   
   <meta property="og:description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)">
@@ -23,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="@">
   <meta name="twitter:title" content="A useful OPA snippet for selecting user-created resources">
-  <meta name="twitter:url" content="https://skouf.com/posts/opa-user-created-resources/">
+  <meta name="twitter:url" content="https://www.skouf.com/posts/opa-user-created-resources/">
   
   <meta name="twitter:description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)">
   
@@ -34,14 +34,14 @@
         rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
+  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
 </head>
 
 <body class="text-dark-blue-grey bg-light-blue-grey">
 <div class="overflow-hidden">
   <header class="py-2 md:py-8 text-center bg-hero-green">
   <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://skouf.com/">skouf.com</a></h1>
+    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
   <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
 </header>
 
@@ -115,7 +115,7 @@
 
 <p>At <a href="https://www.seek.com.au/work-for-seek/">work</a> we&rsquo;re continuing to use <a href="https://open-policy-agent.github.io/gatekeeper/website/docs/">OPA Gatekeeper</a>
 in our Kubernetes clusters to enforce policy on the resources that are deployed there.</p>
-<p>As I documented in <a href="https://skouf.com/posts/opa-gatekeeper-gotcha/">my previous post on broad Gatekeeper policies</a>,
+<p>As I documented in <a href="https://www.skouf.com/posts/opa-gatekeeper-gotcha/">my previous post on broad Gatekeeper policies</a>,
 one of the things we want to do is enforce wide-ranging policy across all resources of a particular <code>Kind</code>.
 For example, we might want to enforce that all resources created in the cluster have a label that indicates who the
 owner of the resource is.</p>
@@ -127,7 +127,7 @@ and in response create resources like <code>ReplicaSet</code>s (and then in turn
 Suddenly, your nice policy that enforces that every resource must have a <code>metadata.my-company.com/owner</code> label is
 impossible to enforce on every resource, because there&rsquo;s no way to tell the Kubernetes <code>ReplicaSet</code> controller to
 add this label to resources it creates.</p>
-<p>In my <a href="https://skouf.com/posts/opa-gatekeeper-gotcha/">my previous post</a> I suggested a few options for solving this
+<p>In my <a href="https://www.skouf.com/posts/opa-gatekeeper-gotcha/">my previous post</a> I suggested a few options for solving this
 problem, but after some experimentation I&rsquo;ve discovered a much better solution.
 This solution uses the <code>managedFields</code> property that was introduced to Kubernetes standard metadata in Kubernetes
 1.18 to determine whether a resource has been created by a user.</p>
@@ -211,7 +211,7 @@ like enforcing metadata across all resources.</p>
     
     
     <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://skouf.com/posts/engineering-levels/">
+       href="https://www.skouf.com/posts/engineering-levels/">
       <span>Previous:</span>
       <span class="underline">
                 Engineering levels

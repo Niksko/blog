@@ -2,145 +2,145 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>skouf.com</title>
-    <link>https://skouf.com/</link>
+    <link>https://www.skouf.com/</link>
     <description>Recent content on skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Jul 2023 11:06:26 +0000</lastBuildDate><atom:link href="https://skouf.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Jul 2023 11:06:26 +0000</lastBuildDate><atom:link href="https://www.skouf.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A useful OPA snippet for selecting user-created resources</title>
-      <link>https://skouf.com/posts/opa-user-created-resources/</link>
+      <link>https://www.skouf.com/posts/opa-user-created-resources/</link>
       <pubDate>Sun, 02 Jul 2023 11:06:26 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/opa-user-created-resources/</guid>
+      <guid>https://www.skouf.com/posts/opa-user-created-resources/</guid>
       <description>Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)</description>
     </item>
     
     <item>
       <title>Engineering levels</title>
-      <link>https://skouf.com/posts/engineering-levels/</link>
+      <link>https://www.skouf.com/posts/engineering-levels/</link>
       <pubDate>Sat, 01 Jul 2023 06:21:00 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/engineering-levels/</guid>
+      <guid>https://www.skouf.com/posts/engineering-levels/</guid>
       <description>Almost all organisations assign levels to their employees, and engineering is no different. But what are the alternatives to engineering levels, what might we gain by avoiding engineering levels, and how do we get the the more beautiful feature that a level-less work environment offers?</description>
     </item>
     
     <item>
       <title>An OPA Gatekeeper gotcha when enforcing policy on all resource kinds</title>
-      <link>https://skouf.com/posts/opa-gatekeeper-gotcha/</link>
+      <link>https://www.skouf.com/posts/opa-gatekeeper-gotcha/</link>
       <pubDate>Sun, 02 Oct 2022 06:52:09 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/opa-gatekeeper-gotcha/</guid>
+      <guid>https://www.skouf.com/posts/opa-gatekeeper-gotcha/</guid>
       <description>Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently</description>
     </item>
     
     <item>
       <title>Skouf.com redesign - part 1</title>
-      <link>https://skouf.com/posts/skouf-dot-com-redesign-part-1/</link>
+      <link>https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/</link>
       <pubDate>Sat, 16 Apr 2022 04:31:25 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/skouf-dot-com-redesign-part-1/</guid>
+      <guid>https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/</guid>
       <description>When I was young and naive, I built a website for myself. It&amp;rsquo;s no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com.</description>
     </item>
     
     <item>
       <title>Enabling graceful node shutdown on EKS in Kubernetes 1.21</title>
-      <link>https://skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</link>
+      <link>https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</link>
       <pubDate>Mon, 02 Aug 2021 00:58:34 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</guid>
+      <guid>https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</guid>
       <description>Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.</description>
     </item>
     
     <item>
       <title>Experiments in mushroom garrum</title>
-      <link>https://skouf.com/posts/experiments-in-mushroom-garrum/</link>
+      <link>https://www.skouf.com/posts/experiments-in-mushroom-garrum/</link>
       <pubDate>Sat, 27 Feb 2021 12:00:14 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/experiments-in-mushroom-garrum/</guid>
+      <guid>https://www.skouf.com/posts/experiments-in-mushroom-garrum/</guid>
       <description>Recently I&amp;rsquo;ve been experimenting with a new technique for making incredibly fast garrums. This article documents some of my findings when experimenting with making garrum from mushrooms.</description>
     </item>
     
     <item>
       <title>Lacto-fermented red pepper juice</title>
-      <link>https://skouf.com/posts/lacto-pepper-juice/</link>
+      <link>https://www.skouf.com/posts/lacto-pepper-juice/</link>
       <pubDate>Wed, 24 Feb 2021 22:30:51 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/lacto-pepper-juice/</guid>
+      <guid>https://www.skouf.com/posts/lacto-pepper-juice/</guid>
       <description>How to make a tangy, delicious, smoky, umami rich ferment from red peppers</description>
     </item>
     
     <item>
       <title>Fig leaf syrup and fig leaf lemonade</title>
-      <link>https://skouf.com/posts/fig-leaf-syrup/</link>
+      <link>https://www.skouf.com/posts/fig-leaf-syrup/</link>
       <pubDate>Sun, 14 Feb 2021 01:00:56 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/fig-leaf-syrup/</guid>
+      <guid>https://www.skouf.com/posts/fig-leaf-syrup/</guid>
       <description>A unique and versatile syrup, and a refreshing, summery lemonade</description>
     </item>
     
     <item>
       <title>IaC in the home - two years on</title>
-      <link>https://skouf.com/posts/iac-in-the-home-two-years-on/</link>
+      <link>https://www.skouf.com/posts/iac-in-the-home-two-years-on/</link>
       <pubDate>Sat, 11 Apr 2020 02:25:23 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/iac-in-the-home-two-years-on/</guid>
+      <guid>https://www.skouf.com/posts/iac-in-the-home-two-years-on/</guid>
       <description>After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.</description>
     </item>
     
     <item>
       <title>Blog migration</title>
-      <link>https://skouf.com/posts/blog-migration/blog-migration/</link>
+      <link>https://www.skouf.com/posts/blog-migration/blog-migration/</link>
       <pubDate>Wed, 08 Apr 2020 02:30:18 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/blog-migration/blog-migration/</guid>
+      <guid>https://www.skouf.com/posts/blog-migration/blog-migration/</guid>
       <description>It&amp;rsquo;s finally time to take my blog off of Medium and host it myself.</description>
     </item>
     
     <item>
       <title>Istio TLS policies - ugly bits and undocumented bits</title>
-      <link>https://skouf.com/posts/istio-tls-policies/</link>
+      <link>https://www.skouf.com/posts/istio-tls-policies/</link>
       <pubDate>Wed, 12 Jun 2019 00:43:25 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/istio-tls-policies/</guid>
+      <guid>https://www.skouf.com/posts/istio-tls-policies/</guid>
       <description>One of the selling points of deploying Istio in your Kubernetes cluster is that it provides mechanisms to enforce authentication between pods communicating with other services within the cluster. The documentation of these leaves a lot to be desired, as we discovered when we first started playing with these features while gearing up to roll out Istio more widely.</description>
     </item>
     
     <item>
       <title>Infrastructure as code in the home - one year on</title>
-      <link>https://skouf.com/posts/iac-in-the-home-one-year-on/</link>
+      <link>https://www.skouf.com/posts/iac-in-the-home-one-year-on/</link>
       <pubDate>Wed, 09 Jan 2019 00:43:25 +0000</pubDate>
       
-      <guid>https://skouf.com/posts/iac-in-the-home-one-year-on/</guid>
+      <guid>https://www.skouf.com/posts/iac-in-the-home-one-year-on/</guid>
       <description>One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn&amp;rsquo;t and what has changed over the last year.</description>
     </item>
     
     <item>
       <title>Infrastructure as code in the home</title>
-      <link>https://skouf.com/posts/iac-in-the-home/</link>
+      <link>https://www.skouf.com/posts/iac-in-the-home/</link>
       <pubDate>Wed, 25 Apr 2018 23:12:23 +1100</pubDate>
       
-      <guid>https://skouf.com/posts/iac-in-the-home/</guid>
+      <guid>https://www.skouf.com/posts/iac-in-the-home/</guid>
       <description>&lt;p&gt;Infrastructure as Code (herein IaC) is ubiquitous when managing large infrastructure deployments.
 But when we don’t have hundreds of machines to manage, is IaC still useful?&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Log4net rolling file appender with multiple projects</title>
-      <link>https://skouf.com/posts/log-4-net-rolling-file-appender/</link>
+      <link>https://www.skouf.com/posts/log-4-net-rolling-file-appender/</link>
       <pubDate>Mon, 03 Apr 2017 23:12:23 +1100</pubDate>
       
-      <guid>https://skouf.com/posts/log-4-net-rolling-file-appender/</guid>
+      <guid>https://www.skouf.com/posts/log-4-net-rolling-file-appender/</guid>
       <description>&lt;p&gt;The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
 If I can save another poor soul some time, then it will be well worth writing this.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Monterey K104 restoration</title>
-      <link>https://skouf.com/posts/monterey-k104-restoration/</link>
+      <link>https://www.skouf.com/posts/monterey-k104-restoration/</link>
       <pubDate>Sat, 10 Sep 2016 23:12:23 +1100</pubDate>
       
-      <guid>https://skouf.com/posts/monterey-k104-restoration/</guid>
+      <guid>https://www.skouf.com/posts/monterey-k104-restoration/</guid>
       <description>A detailed step-by-step of restoring a keyboard older than I am. Not for the faint-of-keyboard.</description>
     </item>
     

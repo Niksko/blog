@@ -1,5 +1,5 @@
 languageCode = "en-us"
-baseUrl = "https://skouf.com/"
+baseUrl = "https://www.skouf.com/"
 title = "skouf.com"
 theme = "skouf"
 publishDir = "docs"

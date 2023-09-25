@@ -1,4 +1,4 @@
-# blog.skouf.com
+# blog
 
 ## TODO
 
