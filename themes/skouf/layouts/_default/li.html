@@ -2,9 +2,9 @@
   <!-- Explainer of how and why this works here: https://youtu.be/jl_tdhBxc_Y?si=M8rf7WktVHS3NZAs -->
   <div class="pb-3/4 relative overflow-clip">
     <a
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:opacity-50 hover:scale-[120%] duration-200"
+      class="absolute w-full h-full hover:opacity-50 hover:scale-[120%] duration-200"
       href="{{ .Permalink }}">
-      <img class="scale-[250%]"
+      <img class="object-cover w-full h-full"
            src="{{ if and (.Params.image) (ne .Params.image "") }}
       {{ ((.Resources.GetMatch .Params.image).Fit "600x300").RelPermalink }}
       {{ else }}/image/theme/placeholder.png{{ end }}"
