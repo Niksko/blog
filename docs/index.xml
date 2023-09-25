@@ -6,7 +6,16 @@
     <description>Recent content on skouf.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Jul 2023 11:06:26 +0000</lastBuildDate><atom:link href="https://www.skouf.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Sep 2023 08:25:42 +0000</lastBuildDate><atom:link href="https://www.skouf.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Skouf.com redesign - part 3</title>
+      <link>https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/</link>
+      <pubDate>Mon, 25 Sep 2023 08:25:42 +0000</pubDate>
+      
+      <guid>https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/</guid>
+      <description>In the final part of my website redesign, I finish things off and simplify by merging my blog with my website, inspired by striving to be simple and other personal sites I&amp;rsquo;ve come across in the last year or so</description>
+    </item>
+    
     <item>
       <title>A useful OPA snippet for selecting user-created resources</title>
       <link>https://www.skouf.com/posts/opa-user-created-resources/</link>
@@ -32,6 +41,15 @@
       
       <guid>https://www.skouf.com/posts/opa-gatekeeper-gotcha/</guid>
       <description>Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently</description>
+    </item>
+    
+    <item>
+      <title>Skouf.com redesign - part 2</title>
+      <link>https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/</link>
+      <pubDate>Mon, 18 Apr 2022 08:25:42 +0000</pubDate>
+      
+      <guid>https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/</guid>
+      <description>In the second part of my website redesign, I think a bit about technology choices and design, and then end up stopping abruptly for a year and half</description>
     </item>
     
     <item>

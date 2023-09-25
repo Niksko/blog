@@ -1,5 +1,5 @@
 <section>
-  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold">Recent posts</h2>
+  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold text-center">Recent posts</h2>
   <div class="py-2 grid grid-cols-6 gap-x-12 gap-y-6 md:gap-y-12">
     {{ range (.Paginator 12).Pages }}
     {{ .Render "li" }}

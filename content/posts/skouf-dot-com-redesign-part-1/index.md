@@ -32,7 +32,7 @@ I'll spend a few weekends hacking on something, get it to a point that it works,
 roughly 12 months.
 This presents a few suggestions for what to optimise for when I'm creating a personal project:
 
-1. The docs should be excellent. Thankfully, this isn't something out of the ordinary, and if anything, creating 
+1. The docs should be excellent. Thankfully, this isn't something out of the ordinary, and if anything, creating
    personal projects in the past that are documented terribly has encouraged me to internalise and practice writing
    great docs. The code that builds and deploys these docs is probably a good example of that. I've managed to come
    back to it now a few times, and creating new entries, building and deploying has been easy and simple each time.
@@ -42,8 +42,8 @@ This presents a few suggestions for what to optimise for when I'm creating a per
    complexity also introduces additional things that can (and will) break. Complexity is not durable.
 1. The world will move on. Nothing really to hedge against here. What was state-of-the-art 12 months ago likely isn't
    state-of-the-art now. Rewrites are inevitable. Use them as an opportunity to catch up to the zeitgeist.
-   
-Looking at those three points, they're probably true of _any_ project rather than just personal projects. 
+
+Looking at those three points, they're probably true of _any_ project rather than just personal projects.
 Who knew?
 
 With all of that in mind, it was time for a re-write of [skouf.com](https://skouf.com), with a few goals:
@@ -292,3 +292,6 @@ for another blog post.
 With some of the design principles out of the way, it's time to start building.
 I'm going to leave this blog post here, as it's long enough.
 Look out for a future post where I detail some of the technical choices, and get stuck in to building this thing.
+
+_Read [part 2]({{< ref "posts/skouf-dot-com-redesign-part-2/index" >}}) of this series_
+_Read [part 3]({{< ref "posts/skouf-dot-com-redesign-part-3/index" >}}) of this series_

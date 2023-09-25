@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Skouf.com redesign - part 2 - skouf.com</title>
+  <meta name="generator" content="Hugo 0.118.2">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Nik Skoufis">
+  
+  <meta name="description" content="In the second part of my website redesign, I think a bit about technology choices and design, and then end up stopping abruptly for a year and half">
+  
+  <meta name="keywords" content="">
+  <meta property="og:site_name" content="skouf.com">
+  <meta property="og:title" content="Skouf.com redesign - part 2">
+  <meta property="og:url" content="https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/">
+  
+  <meta property="og:image" content="https://www.skouf.com/image/theme/og.png">
+  
+  
+  <meta property="og:description" content="In the second part of my website redesign, I think a bit about technology choices and design, and then end up stopping abruptly for a year and half">
+  
+  <meta property="og:type" content="blog">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@">
+  <meta name="twitter:title" content="Skouf.com redesign - part 2">
+  <meta name="twitter:url" content="https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/">
+  
+  <meta name="twitter:description" content="In the second part of my website redesign, I think a bit about technology choices and design, and then end up stopping abruptly for a year and half">
+  
+  <link rel="shortcut icon" href="/image/theme/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
+</head>
+
+<body class="text-dark-blue-grey bg-light-blue-grey">
+<div class="overflow-hidden">
+  <header class="py-2 md:py-8 text-center bg-hero-green">
+  <h1>
+    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
+  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
+</header>
+
+  <main class="my-0 mx-auto max-w-prose p-4">
+    
+    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
+      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
+  <h1 class="text-3xl font-bold">Skouf.com redesign - part 2</h1>
+  <p class="text-dark-blue-grey/90 my-2 text-right">
+    <time itemprop="datePublished" datetime="2022-04-18T08:25:42Z">2022.04.18</time>
+  </p>
+</div>
+
+      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
+        <p><em>Read <a href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/">part 1</a> of this series</em></p>
+<p>In the previous installation of this series, I talked about some of my motivations for redesigning my website, and
+outlined a small bit of design thinking that I did to try and arrive at some of the key elements of a new
+<a href="https://skouf.com">skouf.com</a>.</p>
+<p>This part will outline setting up the foundations to build a new <a href="https://skouf.com">skouf.com</a>, and some of the
+decision making process for the tooling and technology I&rsquo;m choosing.</p>
+<h2 id="technology-choice">Technology choice</h2>
+<p>Where possible, I try and avoid running servers.
+For something like this, where I expect to not touch it frequently (because my work on personal projects is highly
+bursty in nature), I don&rsquo;t want the hassle of servers to maintain or patch, and the potential for vulnerabilities.
+This means I&rsquo;m going to be building a static site of some sort.</p>
+<p>My first inclination was to use <a href="https://gohugo.io/">Hugo</a>.
+I use Hugo for this site, and it works well.
+It&rsquo;s also incredibly flexible.
+Last I checked, the <a href="https://istio.io/latest/docs/">Istio docs</a> used Hugo, and that site is very highly customized.
+If Hugo can support something like that, it can support basically anything that I need.</p>
+<p>The other big consideration for me when setting up a site is how I&rsquo;m going to get it looking the way that I want.
+I&rsquo;m not a frontend developer or designer by any means, and one of the things I&rsquo;ve found with previous projects is that
+simply writing CSS by hand is something I can do, but that I&rsquo;m not particularly good at.
+What I create works, and looks fine, but what I lack are the design fundamentals that make it look great.
+It&rsquo;s incredibly frustrating, because I can <em>see</em> that things are slightly off, but I really don&rsquo;t know what to do to
+make it better.
+Basically, my strategy towards CSS is &lsquo;keep tweaking until it looks right&rsquo;, when it seems like my strategy should be
+more along the lines of &lsquo;define some rules up front, and apply them to everything&rsquo;.</p>
+<p>So with my lack of design skills out in the open, it seems like a sensible choice to make would be to use a CSS
+framework, to try and add some structure and order into my theming.
+The hot CSS framework at the moment is <a href="https://tailwindcss.com/">Tailwind CSS</a>, but this immediately presents a
+problem.
+Googling &ldquo;tailwind css hugo static site&rdquo; pops up a number of forum posts and GitHub issues that seem to indicate that
+Hugo and Tailwind CSS version 3 don&rsquo;t play nice together.</p>
+<p>Out of the CSS framework and a static site generator, if I can only pick one, at this stage I&rsquo;m going to pick the CSS
+framework.
+After all, Hugo is primarily helping me render my content into HTML, and if I expect <a href="https://skouf.com">skouf.com</a> to
+have relatively little content, then perhaps Hugo isn&rsquo;t getting me that much?</p>
+<p>This begs the question: can I build a static site that behaves how I want, without using a framework like Hugo?
+We will find out.</p>
+<h2 id="design">Design</h2>
+<p>In my last post, I had sort of decided on this switch-flip/mode change between friends and family and recruiter mode.
+I&rsquo;m not sure why I like this idea, but as I was coming up with how the UX would work, I quickly decided it was a bad
+idea.
+I <em>think</em> the idea of that sort of interactivity comes from this wonderful website: <a href="https://getcoleman.com/">https://getcoleman.com/</a>.
+Please take a sec to check it out and play with the slider, it&rsquo;s really a work of genius.
+What works incredibly well for that site is that the interactivity <em>is</em> the pitch.
+I think my notion of using interactivity to &lsquo;switch&rsquo; between clients is a totally different use of the interactivity,
+and therefore, really needs to have a good reason for being there.
+The conclusion I came to is that without the interactivity really being a &lsquo;feature&rsquo; (it&rsquo;s not that interesting, every
+site has a light and dark mode these days, and I&rsquo;m not especially talented at design that the switch and two different
+modes would be either good or useful), then the cons (poor UX, needs to be learned, needs to balance screen real estate
+with usability, how do you figure out what to default to?) outweight the pros.
+I did briefly consider making the &lsquo;switch&rsquo; a drawcard, by trying to do some sort of machine learning to figure out
+who to default to, but a) that&rsquo;s not my area of expertise, b) I can always add it later c) it sounds pretty hard, there
+might not be anywhere near enough info without resorting to nefarious tracking and d) it&rsquo;s probably privacy invasive,
+and I don&rsquo;t want to send that message.</p>
+<p>Fortuitously, I was browsing around looking at other people&rsquo;s personal sites, and stumbled across one I quite liked.
+<a href="https://michellehertzfeld.com/">https://michellehertzfeld.com/</a>.
+Aside from quite liking the design, for whatever reason it struck me that this design, namely:</p>
+<ul>
+<li>A greeting</li>
+<li>Brief blurb</li>
+<li>What I do</li>
+<li>Contact</li>
+<li>The about the site section</li>
+</ul>
+<p>is basically what I want to show the recruiter persona.
+Taking that design as a starting point, what I&rsquo;d like to change is:</p>
+<ul>
+<li>The about the site is perhaps too prominent, though I&rsquo;m not averse to it.
+The fact that I&rsquo;m hosting on GitHub and using Tailwind might be interesting to some.
+My typography choices likely less so, and without that second section, it feels a little un-interesting.</li>
+<li>The links at the top of the page are good, but I&rsquo;d also want to send people in a slightly more curated direction
+from the homepage.</li>
+</ul>
+<p>I&rsquo;d like my site to have a bit more of a &lsquo;call to action&rsquo;, that encourages the type of behaviour I&rsquo;m expecting from
+people.
+Effectively, this serves as my &lsquo;switch&rsquo;.
+You self select what &lsquo;call to action&rsquo; you&rsquo;d most like to listen to, and that
+takes you to where you&rsquo;re going to be best served.
+Will need to be sure that I don&rsquo;t dilute the calls to action too much by having too many, so 3 is probably the max.</p>
+<h2 id="meta-a-long-hiatus">Meta: A long hiatus</h2>
+<p>I jotted down everything you see above shortly after writing the <a href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/">previous part of this series</a>
+and then life got in the way.
+This is just a quick note to explain why this post ends kind of abruptly.</p>
+<p><em>Read <a href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/">part 3</a> of this series for the thrilling conclusion</em></p>
+
+        <hr/>
+      </div>
+    </article>
+    
+    
+<nav class="flex flex-col max-w-screen-sm mx-auto">
+  <div class="flex justify-between flex-wrap pb-4">
+    
+    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
+       href="https://www.skouf.com/posts/opa-gatekeeper-gotcha/">
+      <span>Next:</span>
+      <span class="underline">
+                An OPA Gatekeeper gotcha when enforcing policy on all resource kinds
+              </span>
+    </a>
+    
+    
+    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
+       href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/">
+      <span>Previous:</span>
+      <span class="underline">
+                Skouf.com redesign - part 1
+              </span>
+    </a>
+    
+  </div>
+  <div class="flex justify-center pt-2">
+    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
+  </div>
+</nav>
+
+
+  </main>
+  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
+  <section class="max-w-screen-sm mx-auto px-4">
+    <h2 class="font-bold text-2xl m-4">Author</h2>
+    <img class="mx-auto rounded-full h-24 w-24"
+         src="/image/theme/author.jpg"
+         alt="A picture of the author">
+    <div class="mx-auto my-4">
+      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
+      <p class="tagline text-center">Software developer, food lover</p>
+    </div>
+    <div class="flex justify-center space-x-2 my-4">
+      
+        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
+          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
+        </a>
+      
+      
+        <a href="https://hachyderm.io/@niksko"
+           target="_blank"
+           aria-label="Link to my Mastodon profile"
+        >
+          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
+        </a>
+      
+    </div>
+  </section>
+  <small class="pt-4">© skouf.com</small>
+</footer>
+
+</div>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9NNFJW25R4');
+</script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

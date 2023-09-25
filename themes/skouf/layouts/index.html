@@ -5,6 +5,12 @@
 <div class="overflow-hidden">
   {{ partial "header" . }}
   <main class="my-0 mx-auto max-w-screen-lg pt-4 px-4">
+    <section class="mx-auto max-w-prose text-center">
+      <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold">About</h2>
+      <article class="prose prose-slate">
+        {{ .Content }}
+      </article>
+    </section>
     {{ partial "paginated-list" . }}
   </main>
   {{ partial "footer" . }}

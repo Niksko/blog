@@ -1,7 +1,8 @@
 ---
 title: "Skouf.com redesign - part 2"
 date: 2022-04-18T08:25:42Z
-draft: true
+draft: false
+summary: "In the second part of my website redesign, I think a bit about technology choices and design, and then end up stopping abruptly for a year and half"
 ---
 
 _Read [part 1]({{< ref "posts/skouf-dot-com-redesign-part-1/index" >}}) of this series_
@@ -48,25 +49,7 @@ After all, Hugo is primarily helping me render my content into HTML, and if I ex
 have relatively little content, then perhaps Hugo isn't getting me that much?
 
 This begs the question: can I build a static site that behaves how I want, without using a framework like Hugo?
-Let's find out!
-
-## Basic setup
-
-Docker compose for everything, so that it keeps working into the future
-
-Followed https://tailwindcss.com/docs/installation to get started with Tailwind
-
-I've been bitten by the revolving door of Node.js task runners before.
-This time, shell scripts.
-
-Got a dev loop going using some file watching and shell scripts, and then started hacking a bit.
-
-## Tailwinds
-
-Tailwinds setup was fairly straightforward. Followed their installation guide, and then started iterating using
-my dev loop
-
-<more stuff about taildwinds here>
+We will find out.
 
 ## Design
 
@@ -104,27 +87,18 @@ Taking that design as a starting point, what I'd like to change is:
   My typography choices likely less so, and without that second section, it feels a little un-interesting.
 * The links at the top of the page are good, but I'd also want to send people in a slightly more curated direction
   from the homepage.
-  
+
 I'd like my site to have a bit more of a 'call to action', that encourages the type of behaviour I'm expecting from
 people.
-Effectively, this serves as my 'switch'. You self select what 'call to action' you'd most like to listen to, and that
+Effectively, this serves as my 'switch'.
+You self select what 'call to action' you'd most like to listen to, and that
 takes you to where you're going to be best served.
 Will need to be sure that I don't dilute the calls to action too much by having too many, so 3 is probably the max.
 
-## Design
+## Meta: A long hiatus
 
-One of the things I always struggle with is margins and spacing.
-To try and combat this, one thing I did early was use the tailwinds theme function to customize the spacing of everything
-to be based on the golden ratio.
-Docs: https://tailwindcss.com/docs/customizing-spacing
-Basically, the spacing size n is (golden-ratio)^(n-1) * 0.25rem
-This means that if you want things nearby to have golden ratio based spacing, you just set their margins/padding/whatever
-to 1 size apart, and you'll have a pleasing look.
+I jotted down everything you see above shortly after writing the [previous part of this series]({{< ref "posts/skouf-dot-com-redesign-part-1/index" >}})
+and then life got in the way.
+This is just a quick note to explain why this post ends kind of abruptly.
 
-## Process
-
-I always tend to mess about with the design way too much early on, before I've populated my content, which means I
-have to do a bunch of shuffling and rejigging at the end.
-Instead, here I tried to get my content down early, at least for the home page, and then designed around it.
-Got it all down, or at least, the shape of it, on the homepage, before going back to design.
-
+_Read [part 3]({{< ref "posts/skouf-dot-com-redesign-part-3/index" >}}) of this series for the thrilling conclusion_
