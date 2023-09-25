@@ -1,1 +1,14 @@
-{{ .Render "list" }}
+<!DOCTYPE html>
+<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en{{ end }}">
+{{ partial "head" . }}
+<body class="text-dark-blue-grey bg-light-blue-grey">
+<div class="overflow-hidden">
+  {{ partial "header" . }}
+  <main class="my-0 mx-auto max-w-screen-lg pt-4 px-4">
+    {{ partial "paginated-list" . }}
+  </main>
+  {{ partial "footer" . }}
+</div>
+{{ partial "js" . }}
+</body>
+</html>

@@ -1,0 +1,21 @@
+<section>
+  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold">Recent posts</h2>
+  <div class="py-2 grid grid-cols-6 gap-x-12 gap-y-6 md:gap-y-12">
+    {{ range (.Paginator 12).Pages }}
+    {{ .Render "li" }}
+    {{ end }}
+  </div>
+</section>
+{{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+<nav class="text-center text-lg my-6 md:my-12">
+  {{ if .Paginator.HasPrev }}
+  <a class="inline-block mr-4 text-light-ocean-blue visited:text-dark-ocean-blue before:content-['<_']"
+     href="{{ .Paginator.Prev.URL }}">Prev</a>
+  {{ end }}
+  <span class="inline-block">Page {{ .Paginator.PageNumber}} / {{ .Paginator.TotalPages }}</span>
+  {{ if .Paginator.HasNext }}
+  <a class="inline-block ml-4 text-light-ocean-blue visited:text-dark-ocean-blue after:content-['_>']"
+     href="{{ .Paginator.Next.URL }}">Next</a>
+  {{ end }}
+</nav>
+{{ end }}

@@ -2,11 +2,8 @@
 
 ## TODO
 
-- [ ] Do a pass for accessibility
 - [ ] Make the rendering of code blocks much prettier as well as responsive, it's pretty ugly right now
 - [ ] Allow images to zoom which clicked or tapped in a sort of lightbox thingo
-- [ ] Create a landing page that will serve as the new homepage of skouf.com
-- [ ] Figure out how I can redirect blog.skouf.com URLs to `skouf.com/blog/<original path>`
 
 ## Setup
 
@@ -38,6 +35,10 @@ Build the site to the `/docs` directory with `hugo`.
 
 GitHub is configured to serve this as a page out of the `/docs` directory on the `master`.
 Pushing to `master` will update the live site.
+
+This page is proxied through Cloudflare.
+Cloudflare also has configurations to rewrite `blog.skouf.com` URLs to just `skouf.com`.
+`blog.skouf.com` was the old domain of this blog, and I didn't want to break any existing links.
 
 ## Writing posts
 

@@ -1,6 +1,6 @@
 languageCode = "en-us"
-baseUrl = "https://blog.skouf.com/"
-title = "blog.skouf.com"
+baseUrl = "https://skouf.com/"
+title = "skouf.com"
 theme = "skouf"
 publishDir = "docs"
 pygmentsUseClasses = true
@@ -13,7 +13,7 @@ pygmentsCodefences = true
 
 [Params]
   localeOgp = "en-us"
-  description = "The blog of Nik Skoufis"
+  description = "The website of Nik Skoufis"
   keywords = ""
   mastodonUsername = "niksko"
   mastodonDomain = "hachyderm.io"
