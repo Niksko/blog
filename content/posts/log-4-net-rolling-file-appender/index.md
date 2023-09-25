@@ -2,6 +2,7 @@
 title: "Log4net rolling file appender with multiple projects"
 date: 2017-04-03T23:12:23+11:00
 draft: false
+imageAlt: "The Apache log4net logo"
 image: "log4net-logo.jpg"
 ---
 

@@ -88,7 +88,7 @@ to the acid, so that's also going to change the volume.
 Is the difference significant?
 Probably not
 
-{{< recipe name="Acid phosphate" total-time="10 mins" active-time="10 mins">}}
+{{< recipe name="Acid phosphate" total-time="10 mins" active-time="10 mins" hr-after="false">}}
   {{% ingredients %}}
   * 15.6 grams calcium carbonate (CaCO3 / chalk)
   * 15.6 grams magnesium carbonate (MgCO3. The one I purchased was labeled magnesium 25% carbonate. I think the 25% refers
@@ -106,7 +106,7 @@ the fact that the magnesium is 25% of the molar mass of the magnesium carbonate)
   Adding acid to the water allows the existing volume of water to act as a heat sink, and also produces less heat.
   This isn't as much of a danger with a weak acid like phosphoric, but it's still good practice to follow chemical handling safety guidelines.
 
-  
+
   {{% /method %}}
 {{< /recipe >}}
 

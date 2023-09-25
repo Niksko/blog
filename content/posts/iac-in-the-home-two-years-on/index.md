@@ -3,6 +3,7 @@ title: "IaC in the home - two years on"
 date: 2020-04-11T02:25:23Z
 draft: false
 image: "container-ship.jpg"
+imageAlt: "A black and white image of a container ship, viewed from the rear"
 summary: "After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster."
 ---
 

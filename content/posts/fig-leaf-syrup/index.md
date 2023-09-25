@@ -3,6 +3,7 @@ title: "Fig leaf syrup and fig leaf lemonade"
 date: 2021-02-14T01:00:56Z
 draft: false
 image: "lemonade.jpg"
+imageAlt: "A glass of iced lemonade, garnished with mint and a half-wheel of lemon"
 summary: "A unique and versatile syrup, and a refreshing, summery lemonade"
 ---
 
@@ -30,14 +31,14 @@ unique flavor.
   {{% /ingredients %}}
   {{% method %}}
   Tear each fig leaf into a few pieces, and place them in a clean jar.
-  
+
   Combine water and sugar in a small saucepan, and bring to a boil, stirring to ensure sugar dissolves.
   We need the high heat of the boiling syrup to extract the maximum amount of flavor from the fig leaves.
-  
+
   Pour boiling syrup over the torn fig leaves.
   Close your jar, and leave it in a cool places for 2 weeks to allow the fig leaves to flavor the syrup.
   Over time, the syrup will take on a gentle yellow hue.
-  
+
   After 2 weeks, strain out the fig leaves, and reserve the syrup.
   {{% /method %}}
 {{< /recipe >}}
@@ -50,7 +51,7 @@ Below is a simple but refreshing lemonade that shows off the unique flavor of th
 
 {{< figure src="lemonade.jpg" caption="The garnished fig leaf lemonade" alt="A glass of iced lemonade, garnished with mint and a half-wheel of lemon" >}}
 
-{{< recipe name="Fig leaf lemonade" total-time="5 mins" active-time="5 mins">}}
+{{< recipe name="Fig leaf lemonade" total-time="5 mins" active-time="5 mins" hr-after="false">}}
   {{% ingredients %}}
   * 60ml fig leaf syrup
   * 60ml fresh lemon juice

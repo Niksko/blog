@@ -23,42 +23,42 @@ If I can save another poor soul some time, then it will be well worth writing th
   
   <meta property="og:type" content="blog">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:creator" content="@niksko">
+  <meta name="twitter:creator" content="@">
   <meta name="twitter:title" content="Log4net rolling file appender with multiple projects">
   <meta name="twitter:url" content="https://blog.skouf.com/posts/log-4-net-rolling-file-appender/">
   
   <meta name="twitter:description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
 If I can save another poor soul some time, then it will be well worth writing this.">
   
-  
-  <meta name="twitter:image:src" content="https://blog.skouf.com/log4net-logo.jpg">
-  
   <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/syntax.css">
   <link rel="alternate" href="https://blog.skouf.com/index.xml" type="application/rss+xml" title="blog.skouf.com">
 </head>
 
-<body>
-<div id="wrap" class="wrap">
-  <header class="header">
-  <div class="site-title"><a href="/">blog.skouf.com</a></div>
-  <p class="site-desc">The personal blog of Nik Skoufis</p>
-  
+<body class="text-dark-blue-grey bg-light-blue-grey">
+<div class="overflow-hidden">
+  <header class="py-2 md:py-8 text-center bg-hero-green">
+  <h1>
+    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://blog.skouf.com/">blog.skouf.com</a></h1>
+  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The blog of Nik Skoufis</p>
 </header>
 
-  <main class="main main--single">
+  <main class="my-0 mx-auto max-w-prose p-4">
     
-    <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
-      <h1 class="post__title">Log4net rolling file appender with multiple projects</h1>
-<p class="post__date">
-  <time itemprop="datePublished" datetime="2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
-</p>
+    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
+      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
+  <h1 class="text-3xl font-bold">Log4net rolling file appender with multiple projects</h1>
+  <p class="text-dark-blue-grey/90 my-2 text-right">
+    <time itemprop="datePublished" datetime="2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
+  </p>
+</div>
 
-      <div class="post-content">
+      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
         <p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
 If I can save another poor soul some time, then it will be well worth writing this.</p>
 <p>At the moment we’re developing a large web application with an <em>almost</em> micro-service architecture.
@@ -85,91 +85,76 @@ You can’t simply change the <code>value</code> attribute of <code>datePattern<
 You’ll now get log output from all of your applications, even if they output log data at almost the same instant.</p>
 <p>The issue with the naive approach is that even though your files will in theory have different names, log4net appears to lock the entire logs folder (even with the locking model set to minimal), which prevents the creation of or appending to the other log files.
 The solution is to force log4net to only lock the specific file that will be used by each application, thus allowing each application to lock its own logfile and write to it without interfering with the others.</p>
+        <hr/>
       </div>
     </article>
     
-    <hr class="post-hr">
     
-<nav class="post-nav">
-  <ol class="pure-g">
+<nav class="flex flex-col max-w-screen-sm mx-auto">
+  <div class="flex justify-between flex-wrap pb-4">
     
-      <li class="pure-u-1 pure-u-md-1-2 post-nav-prev">
-        <a href="https://blog.skouf.com/posts/iac-in-the-home/">
-              <span class="post-nav-label">Next<span>
-              <span class="post-nav-title">
+    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
+       href="https://blog.skouf.com/posts/iac-in-the-home/">
+      <span>Next:</span>
+      <span class="underline">
                 Infrastructure as code in the home
               </span>
-        </a>
-      </li>
+    </a>
     
     
-      <li class="pure-u-1 pure-u-md-1-2 post-nav-next">
-        <a href="https://blog.skouf.com/posts/monterey-k104-restoration/">
-          <span class="post-nav-label">Previous</span>
-          <span class="post-nav-title">
+    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
+       href="https://blog.skouf.com/posts/monterey-k104-restoration/">
+      <span>Previous:</span>
+      <span class="underline">
                 Monterey K104 restoration
               </span>
-        </a>
-      </li>
+    </a>
     
-  </ol>
-  <div class="post-nav-back">
-    <a class="pure-button" href="/">Back</a>
+  </div>
+  <div class="flex justify-center pt-2">
+    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
   </div>
 </nav>
 
 
   </main>
-  <footer class="footer">
-  <section class="author">
-    <h2>Author</h2>
-    <div class="pure-g">
-      <div class="author__image pure-u-1-5 pure-u-md-1-8">
-        <img src="/image/theme/author.jpg" alt="">
-      </div>
-      <div class="author__info pure-u-4-5 pure-u-md-7-8">
-        
-        <h3>Nik Skoufis</h3>
-        
-        
-        <p>Software developer, hardware hacker, food lover</p>
-        
-        <ul class="author__links">
-          
-          <li>
-            <a href="https://github.com/niksko" target="_blank">
-              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxMDI0IiB3aWR0aD0iMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNNTEyIDBDMjI5LjI1IDAgMCAyMjkuMjUgMCA1MTJjMCAyMjYuMjUgMTQ2LjY4OCA0MTguMTI1IDM1MC4xNTYgNDg1LjgxMiAyNS41OTQgNC42ODggMzQuOTM4LTExLjEyNSAzNC45MzgtMjQuNjI1IDAtMTIuMTg4LTAuNDY5LTUyLjU2Mi0wLjcxOS05NS4zMTJDMjQyIDkwOC44MTIgMjExLjkwNiA4MTcuNSAyMTEuOTA2IDgxNy41Yy0yMy4zMTItNTkuMTI1LTU2Ljg0NC03NC44NzUtNTYuODQ0LTc0Ljg3NS00Ni41MzEtMzEuNzUgMy41My0zMS4xMjUgMy41My0zMS4xMjUgNTEuNDA2IDMuNTYyIDc4LjQ3IDUyLjc1IDc4LjQ3IDUyLjc1IDQ1LjY4OCA3OC4yNSAxMTkuODc1IDU1LjYyNSAxNDkgNDIuNSA0LjY1NC0zMyAxNy45MDQtNTUuNjI1IDMyLjUtNjguMzc1QzMwNC45MDYgNzI1LjQzOCAxODUuMzQ0IDY4MS41IDE4NS4zNDQgNDg1LjMxMmMwLTU1LjkzOCAxOS45NjktMTAxLjU2MiA1Mi42NTYtMTM3LjQwNi01LjIxOS0xMy0yMi44NDQtNjUuMDk0IDUuMDYyLTEzNS41NjIgMCAwIDQyLjkzOC0xMy43NSAxNDAuODEyIDUyLjUgNDAuODEyLTExLjQwNiA4NC41OTQtMTcuMDMxIDEyOC4xMjUtMTcuMjE5IDQzLjUgMC4xODggODcuMzEyIDUuODc1IDEyOC4xODggMTcuMjgxIDk3LjY4OC02Ni4zMTIgMTQwLjY4OC01Mi41IDE0MC42ODgtNTIuNSAyOCA3MC41MzEgMTAuMzc1IDEyMi41NjIgNS4xMjUgMTM1LjUgMzIuODEyIDM1Ljg0NCA1Mi42MjUgODEuNDY5IDUyLjYyNSAxMzcuNDA2IDAgMTk2LjY4OC0xMTkuNzUgMjQwLTIzMy44MTIgMjUyLjY4OCAxOC40MzggMTUuODc1IDM0Ljc1IDQ3IDM0Ljc1IDk0Ljc1IDAgNjguNDM4LTAuNjg4IDEyMy42MjUtMC42ODggMTQwLjUgMCAxMy42MjUgOS4zMTIgMjkuNTYyIDM1LjI1IDI0LjU2MkM4NzcuNDM4IDkzMCAxMDI0IDczOC4xMjUgMTAyNCA1MTIgMTAyNCAyMjkuMjUgNzk0Ljc1IDAgNTEyIDB6Ii8+PC9zdmc+" alt="">
-            </a>
-          </li>
-          
-          
-          <li>
-            <a href="https://twitter.com/niksko" target="_blank">
-              <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1MDAiIGlkPSJzdmcyIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzIGlkPSJkZWZzNCIvPjxnIGlkPSJsYXllcjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTU1Mi4zNjIxOCkiPjxyZWN0IGhlaWdodD0iNTAwIiBpZD0icmVjdDI5OTAtMSIgcng9IjI1MCIgcnk9IjI1MCIgc3R5bGU9ImZpbGw6IzU1YWNlZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgd2lkdGg9IjUwMCIgeD0iMCIgeT0iNTUyLjM2MjE4Ii8+PGcgaWQ9ImxheWVyMS05IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTQ5LjAwNTE1LDgwLjI5NDM3MikiLz48ZyBpZD0ibGF5ZXIxLTYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01NzUuNzE0MjksMzkuOTk5OTk5KSIvPjxnIGlkPSJsYXllcjEtOTMiIHRyYW5zZm9ybT0ibWF0cml4KDAuOTk5Mjg5NDUsMCwwLDAuOTk5Mjg5NDUsNDc0LjcwMDIsLTQwLjgxOTI4KSIvPjxwYXRoIGQ9Im0gMzA5Ljg1LDY3Mi4zMTIxOCBjIC0zNS40NzA3OSwwLjg5ODc5IC02My45MjUsMjkuOTMxMzggLTYzLjkyNSw2NS42MjUgMCw1LjEzODI3IDAuNTUxMjIsMTAuMTYxNTYgMS42NzUsMTQuOTc1IC01NC41NjU2NywtMi43NDEyNiAtMTAyLjk0Mjg3LC0yOC44Nzc0OSAtMTM1LjMyNSwtNjguNiAtNS42NTE0Nyw5LjY5MTkxIC04LjksMjAuOTgxNTggLTguOSwzMy4wMjUgMCwyMi43NzQ2NyAxMS42MDgwOSw0Mi44NTQzOCAyOS4yMjUsNTQuNjI1IC0xMC43NTcyMiwtMC4zNDQyOCAtMjAuODk2MDYsLTMuMzA3NTggLTI5Ljc1LC04LjIyNSAtMC4wMDUsMC4yNzI4MiAwLDAuNTcwNjkgMCwwLjg1IDAsMzEuODA0MDIgMjIuNjM3OSw1OC4zMDg4IDUyLjY3NSw2NC4zNSAtNS41MDg1MiwxLjQ5NDA2IC0xMS4zMTA3NSwyLjMgLTE3LjMsMi4zIC00LjIzNTM0LDAgLTguMzQyMDMsLTAuNDAxOTggLTEyLjM1LC0xLjE3NSA4LjM2MDIyLDI2LjA4MTA5IDMyLjU3NTA2LDQ1LjA3Mzg1IDYxLjMsNDUuNiAtMjIuNDY5MzcsMTcuNjEwNDMgLTUwLjczNTM0LDI4LjEgLTgxLjUsMjguMSAtNS4yOTQxNiwwIC0xMC41MzY3NSwtMC4yODkzOCAtMTUuNjc1LC0wLjkgMjkuMDYyNzIsMTguNjM2ODMgNjMuNTUyODIsMjkuNSAxMDAuNjI1LDI5LjUgMTIwLjc2NTUyLDAgMTg2LjgsLTEwMC4wNDA1OCAxODYuOCwtMTg2LjggMCwtMi44NDUyIC0wLjA1MTcsLTUuNzA1NzcgLTAuMTc1LC04LjUyNSAxMi44MjI5NCwtOS4yMzcyIDIzLjk1NDU0LC0yMC44MDc3NiAzMi43NSwtMzMuOTc1IC0xMS43NjQxLDUuMjI5MjIgLTI0LjQxNTg2LDguNzcxNDYgLTM3LjcsMTAuMzUgMTMuNTYzNDYsLTguMTE5OSAyMy45NzA2MSwtMjAuOTgxNjYgMjguODc1LC0zNi4zMjUgLTEyLjY4NjUyLDcuNTI4NzcgLTI2LjczOTkzLDEzLjAwMDg1IC00MS43LDE1Ljk1IC0xMS45NzE5NywtMTIuNzU3OTggLTI5LjA0MTM3LC0yMC43MjUgLTQ3LjkyNSwtMjAuNzI1IC0wLjU2NjQ2LDAgLTEuMTM2OTgsLTAuMDE0MyAtMS43LDAgeiIgaWQ9InJlY3QyOTg5IiBzdHlsZT0iZmlsbDojZmZmZmZmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lIi8+PC9nPjwvc3ZnPg==" alt="">
-            </a>
-          </li>
-          
-          
-        </ul>
-      </div>
+  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
+  <section class="max-w-screen-sm mx-auto px-4">
+    <h2 class="font-bold text-2xl m-4">Author</h2>
+    <img class="mx-auto rounded-full h-24 w-24"
+         src="/image/theme/author.jpg"
+         alt="">
+    <div class="mx-auto my-4">
+      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
+      <p class="text-center">Software developer, food lover</p>
     </div>
+    <ul class="flex justify-center space-x-2 my-4">
+      
+      <li>
+        <a href="https://github.com/niksko" target="_blank">
+          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="https://hachyderm.io/@niksko"
+           target="_blank">
+          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
+        </a>
+      </li>
+      
+    </ul>
   </section>
-  <small>©blog.skouf.com</small>
+  <small class="pt-4">© blog.skouf.com</small>
 </footer>
 
 </div>
 
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-76961630-4', 'auto');
-	ga('send', 'pageview');
-</script>
+
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<script src="/js/script.js"></script>
 
 </body>
 </html>

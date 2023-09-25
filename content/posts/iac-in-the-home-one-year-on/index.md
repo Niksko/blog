@@ -4,6 +4,7 @@ date: 2019-01-09T00:43:25Z
 draft: false
 summary: "One year on, I revisit my home infrastructure as code setup. I explore what worked, what didn't and what has changed over the last year."
 image: "servers.jpg"
+imageAlt: "A number of server racks with wires going everywhere"
 ---
 
 _It's been almost a year since I published my original article on running my Kubernetes setup at home.

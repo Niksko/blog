@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en{{ end }}">
 {{ partial "head" . }}
-<body>
-<div id="wrap" class="wrap">
+<body class="text-dark-blue-grey bg-light-blue-grey">
+<div class="overflow-hidden">
   {{ partial "header" . }}
-  <main class="main main--single">
+  <main class="my-0 mx-auto max-w-prose p-4">
     <!-- post -->
-    <article class="post"　itemscope itemtype="http://schema.org/BlogPosting">
+    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
       {{ partial "single-header" . }}
-      <div class="post-content">
+      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
         {{ .Content }}
+        <hr/>
       </div>
     </article>
     <!-- /post -->
-    <hr class="post-hr">
     {{ partial "single-nav" . }}
   </main>
   {{ partial "footer" . }}

@@ -2,12 +2,13 @@
 
 ## TODO
 
-- [ ] Redo the theme using Tailwind CSS
-- [ ] Clean up the theme, removing weird 404 pages that are in Japanese
+- [ ] Do a pass for accessibility
 - [ ] Make the rendering of code blocks much prettier as well as responsive, it's pretty ugly right now
 - [ ] Allow images to zoom which clicked or tapped in a sort of lightbox thingo
 - [ ] Create a landing page that will serve as the new homepage of skouf.com
 - [ ] Figure out how I can redirect blog.skouf.com URLs to `skouf.com/blog/<original path>`
+- [ ] Redo Google Analytics
+- [ ] Search for TODOs, I've left a few around the place
 
 ## Setup
 
@@ -37,7 +38,7 @@ $ hugo new posts/<post-name>/index.md
 
 Build the site to the `/docs` directory with `hugo`.
 
-Github is configured to serve this as a page out of the `/docs` directory on the `master`.
+GitHub is configured to serve this as a page out of the `/docs` directory on the `master`.
 Pushing to `master` will update the live site.
 
 ## Writing posts
@@ -107,3 +108,11 @@ Adjust the OS and arch above as appropriate.
 
 ### Making changes to the theme
 
+Updates should be made to the Hugo templates under the [`themes/skouf/layouts`](themes/skouf/layouts) directory, or
+to static images under the [`themes/skouf/static/image`](themes/skouf/static/image) directory.
+
+Once changes have been made, you can regenerate the TailwindCSS stylesheet with:
+
+```
+./tailwindcss --config themes/skouf/tailwind.config.js --input themes/skouf/src/input.css --output themes/skouf/static/css/style.css --minify
+```

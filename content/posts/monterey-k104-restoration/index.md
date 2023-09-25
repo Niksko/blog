@@ -3,6 +3,7 @@ title: "Monterey K104 restoration"
 date: 2016-09-10T23:12:23+11:00
 summary: "A detailed step-by-step of restoring a keyboard older than I am. Not for the faint-of-keyboard."
 image: "first-image.jpg"
+imageAlt: "An image of a large, old keyboard. It has keyboard shortcuts for a program printed out and taped to the top of it"
 draft: false
 ---
 
