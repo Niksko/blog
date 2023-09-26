@@ -13,26 +13,13 @@
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:title" content="{{ .Title }}">
   <meta property="og:url" content="{{ .Permalink }}">
-  {{ if and (.Params.image) (ne .Params.image "") }}
   <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">
-  {{ else }}
-  <meta property="og:image" content="{{ .Site.BaseURL }}image/theme/og.png">
-  {{ end }}
   {{ if .IsHome }}
   <meta property="og:description" content="{{ .Site.Params.description }}">
   {{ else }}
   <meta property="og:description" content="{{ .Summary }}">
   {{ end }}
   <meta property="og:type" content="blog">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:creator" content="@{{ .Site.Params.twitter }}">
-  <meta name="twitter:title" content="{{ .Title }}">
-  <meta name="twitter:url" content="{{ .Permalink }}">
-  {{ if .IsHome }}
-  <meta name="twitter:description" content="{{ .Site.Params.description }}">
-  {{ else }}
-  <meta name="twitter:description" content="{{ .Summary }}">
-  {{ end }}
   <link rel="shortcut icon" href="/image/theme/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
