@@ -5,6 +5,12 @@ draft: false
 image: "lemonade.jpg"
 imageAlt: "A glass of iced lemonade, garnished with mint and a half-wheel of lemon"
 summary: "A unique and versatile syrup, and a refreshing, summery lemonade"
+categories:
+  - food
+tags:
+  - figs
+  - summer
+  - drinks
 ---
 
 Turns out, fig leaves have a wonderful flavor to them.

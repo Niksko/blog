@@ -1,24 +1,26 @@
 <section>
-  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold text-center">Recent posts{{ if not (eq .Paginator.PageNumber 1) }} - Page {{ .Paginator.PageNumber }}{{ end }}</h2>
+  {{ $paginator := .Paginator 12 }}
+  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold text-center">{{ title .Page.Title }} posts
+    {{ if not (eq $paginator.PageNumber 1) }} - Page {{ $paginator.PageNumber }}{{ end }}</h2>
   <div class="py-2 grid grid-cols-6 gap-x-12 gap-y-6 md:gap-y-12">
-    {{ range (.Paginator 12).Pages }}
+    {{ range $paginator.Pages }}
     {{ .Render "li" }}
     {{ end }}
   </div>
 </section>
-{{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
 <nav class="text-center text-lg my-6 md:my-12">
-  {{ if .Paginator.HasPrev }}
+  {{ if or ($paginator.HasPrev) ($paginator.HasNext) }}
+  {{ if $paginator.HasPrev }}
   <a class="inline-block mr-4 text-light-ocean-blue visited:text-dark-ocean-blue before:content-['<_']"
-     href="{{ .Paginator.Prev.URL }}">Prev</a>
+     href="{{ $paginator.Prev.URL }}">Prev</a>
   {{ end }}
-  <span class="inline-block">Page {{ .Paginator.PageNumber}} / {{ .Paginator.TotalPages }}</span>
-  {{ if .Paginator.HasNext }}
+  <span class="inline-block">Page {{ $paginator.PageNumber}} / {{ $paginator.TotalPages }}</span>
+  {{ if $paginator.HasNext }}
   <a class="inline-block ml-4 text-light-ocean-blue visited:text-dark-ocean-blue after:content-['_>']"
-     href="{{ .Paginator.Next.URL }}">Next</a>
+     href="{{ $paginator.Next.URL }}">Next</a>
+  {{ end }}
   {{ end }}
   <div class="flex justify-center pt-4 md:pt-8">
     <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
   </div>
 </nav>
-{{ end }}

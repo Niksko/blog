@@ -3,6 +3,10 @@ title: "Skouf.com redesign - part 3"
 date: 2023-09-25T08:25:42Z
 draft: false
 summary: "In the final part of my website redesign, I finish things off and simplify by merging my blog with my website, inspired by striving to be simple and other personal sites I've come across in the last year or so"
+categories:
+  - technology
+tags:
+  - website
 ---
 
 _Read [part 1]({{< ref "posts/skouf-dot-com-redesign-part-1/index" >}}) and [part 2]({{< ref "posts/skouf-dot-com-redesign-part-2/index" >}})

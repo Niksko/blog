@@ -4,6 +4,11 @@ date: 2020-04-08T02:30:18Z
 draft: false
 summary: It's finally time to take my blog off of Medium and host it myself.
 description: "Moving my blog from Medium to Hugo"
+categories:
+  - technology
+tags:
+  - blog
+  - web-technology
 ---
 ## Growing tired of Medium
 

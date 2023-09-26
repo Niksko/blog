@@ -4,6 +4,10 @@ date: 2022-04-16T04:31:25Z
 draft: false
 summary: "When I was young and naive, I built a website for myself. It's no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com."
 image: "skouf-dot-com-current.jpg"
+categories:
+  - technology
+tags:
+  - website
 ---
 
 When I was young and naive, I built a website for myself by cobbling together a design I found, some custom css, and

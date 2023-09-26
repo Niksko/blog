@@ -5,6 +5,11 @@ draft: false
 summary: "Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently"
 image: "gate.jpg"
 imageAlt: "A close up of a gate that is locked closed by a padlock and some chain"
+categories:
+  - technology
+tags:
+  - Kubernetes
+  - OPA
 ---
 
 {{< figure src="gate.jpg" caption="Photo by [Jose Fontano](https://unsplash.com/@josenothose?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/closed-gate?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)" alt="A close up of a gate that is locked closed by a padlock and some chain" >}}

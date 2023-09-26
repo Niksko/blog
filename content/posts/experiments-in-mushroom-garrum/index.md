@@ -4,6 +4,12 @@ date: 2021-02-27T12:00:14Z
 image: "weighing.jpg"
 imageAlt: "A blender canister on a scale, filled with mushrooms. The scale is sitting on a wooden cutting board on a cluttered kitchen counter"
 summary: "Recently I've been experimenting with a new technique for making incredibly fast garrums. This article documents some of my findings when experimenting with making garrum from mushrooms."
+categories:
+  - food
+tags:
+  - garrum
+  - fermentation
+  - mushrooms
 ---
 
 ## Background

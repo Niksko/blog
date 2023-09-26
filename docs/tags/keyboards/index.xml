@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>keyboards on skouf.com</title>
+    <link>https://www.skouf.com/tags/keyboards/</link>
+    <description>Recent content in keyboards on skouf.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 Sep 2016 23:12:23 +1100</lastBuildDate><atom:link href="https://www.skouf.com/tags/keyboards/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Monterey K104 restoration</title>
+      <link>https://www.skouf.com/posts/monterey-k104-restoration/</link>
+      <pubDate>Sat, 10 Sep 2016 23:12:23 +1100</pubDate>
+      
+      <guid>https://www.skouf.com/posts/monterey-k104-restoration/</guid>
+      <description>A detailed step-by-step of restoring a keyboard older than I am. Not for the faint-of-keyboard.</description>
+    </item>
+    
+  </channel>
+</rss>

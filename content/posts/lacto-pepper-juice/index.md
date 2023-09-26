@@ -5,6 +5,11 @@ draft: false
 image: "charred-peppers.jpg"
 imageAlt: "A metal bowl with whole, blackened peppers in it"
 summary: "How to make a tangy, delicious, smoky, umami rich ferment from red peppers"
+categories:
+  - food
+tags:
+  - fermentation
+  - peppers
 ---
 
 A few years ago, I was roasting peppers late at night for a recipe I was going to make the next day.

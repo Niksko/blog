@@ -5,6 +5,10 @@ summary: "A detailed step-by-step of restoring a keyboard older than I am. Not f
 image: "first-image.jpg"
 imageAlt: "An image of a large, old keyboard. It has keyboard shortcuts for a program printed out and taped to the top of it"
 draft: false
+categories:
+  - technology
+tags:
+  - keyboards
 ---
 
 This was the first photo I saw of the keyboard:

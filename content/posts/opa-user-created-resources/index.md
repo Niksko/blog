@@ -5,6 +5,11 @@ draft: false
 summary: "Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)"
 image: "post.jpg"
 imageAlt: "A photo of a sunset with the silhouette of a signpost"
+categories:
+  - technology
+tags:
+  - Kubernetes
+  - OPA
 ---
 
 {{< figure src="post.jpg" caption="Photo by [Javier Allegue Barros](https://unsplash.com/@soymeraki) on [Unsplash](https://unsplash.com/photos/C7B-ExXpOIEnt)" alt="A photo of a sunset with the silhouette of a signpost" >}}

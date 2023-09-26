@@ -4,6 +4,11 @@ date: 2018-04-25T23:12:23+11:00
 image: "overview.png"
 imageAlt: "A box diagram showing how Matchbox works"
 draft: false
+categories:
+  - technology
+tags:
+  - homelab
+  - Kubernetes
 ---
 
 Infrastructure as Code (herein IaC) is ubiquitous when managing large infrastructure deployments.

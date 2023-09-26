@@ -3,6 +3,10 @@ title: "Skouf.com redesign - part 2"
 date: 2022-04-18T08:25:42Z
 draft: false
 summary: "In the second part of my website redesign, I think a bit about technology choices and design, and then end up stopping abruptly for a year and half"
+categories:
+  - technology
+tags:
+  - website
 ---
 
 _Read [part 1]({{< ref "posts/skouf-dot-com-redesign-part-1/index" >}}) of this series_

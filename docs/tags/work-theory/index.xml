@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>work-theory on skouf.com</title>
+    <link>https://www.skouf.com/tags/work-theory/</link>
+    <description>Recent content in work-theory on skouf.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jul 2023 06:21:00 +0000</lastBuildDate><atom:link href="https://www.skouf.com/tags/work-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Engineering levels</title>
+      <link>https://www.skouf.com/posts/engineering-levels/</link>
+      <pubDate>Sat, 01 Jul 2023 06:21:00 +0000</pubDate>
+      
+      <guid>https://www.skouf.com/posts/engineering-levels/</guid>
+      <description>Almost all organisations assign levels to their employees, and engineering is no different. But what are the alternatives to engineering levels, what might we gain by avoiding engineering levels, and how do we get the the more beautiful feature that a level-less work environment offers?</description>
+    </item>
+    
+  </channel>
+</rss>

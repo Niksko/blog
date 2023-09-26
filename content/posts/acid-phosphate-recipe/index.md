@@ -2,6 +2,10 @@
 title: "Acid Phosphate Recipe"
 date: 2021-02-27T06:09:52Z
 draft: true
+categories:
+  - food
+tags:
+  - drink
 ---
 
 For health reasons, I've been abstaining from alcohol for the last few weeks.

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS on skouf.com</title>
+    <link>https://www.skouf.com/tags/aws/</link>
+    <description>Recent content in AWS on skouf.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Aug 2021 00:58:34 +0000</lastBuildDate><atom:link href="https://www.skouf.com/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enabling graceful node shutdown on EKS in Kubernetes 1.21</title>
+      <link>https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</link>
+      <pubDate>Mon, 02 Aug 2021 00:58:34 +0000</pubDate>
+      
+      <guid>https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/</guid>
+      <description>Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.</description>
+    </item>
+    
+  </channel>
+</rss>

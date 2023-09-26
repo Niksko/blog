@@ -4,6 +4,11 @@ date: 2017-04-03T23:12:23+11:00
 draft: false
 imageAlt: "The Apache log4net logo"
 image: "log4net-logo.jpg"
+categories:
+  - technology
+tags:
+  - log4net
+  - C#
 ---
 
 The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.

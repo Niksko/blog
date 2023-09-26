@@ -5,6 +5,12 @@ draft: false
 image: "swan.jpg"
 imageAlt: "An image of a white swan swimming in a fairly calm body of water"
 summary: Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.
+categories:
+  - technology
+tags:
+  - Kubernetes
+  - EKS
+  - AWS
 ---
 
 {{< figure src="swan.jpg" caption="Your cluster (hopefully) after enabling this feature. Photo by [Oliver Rowley](https://unsplash.com/@oliver_rowley?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/swan?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)" alt="An image of a white swan swimming in a fairly calm body of water" >}}

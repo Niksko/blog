@@ -5,6 +5,11 @@ draft: false
 image: "container-ship.jpg"
 imageAlt: "A black and white image of a container ship, viewed from the rear"
 summary: "After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster."
+categories:
+  - technology
+tags:
+  - Kubernetes
+  - homelab
 ---
 
 _This is the third post in a series about how I manage my home Kubernetes cluster.

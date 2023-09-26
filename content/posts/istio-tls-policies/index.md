@@ -6,6 +6,11 @@ imageAlt: "An image of a sailboat on the water on a stormy day"
 summary: "One of the selling points of deploying Istio in your Kubernetes cluster is that it provides mechanisms to enforce authentication between pods communicating with other services within the cluster.
 The documentation of these leaves a lot to be desired, as we discovered when we first started playing with these features while gearing up to roll out Istio more widely."
 draft: false
+categories:
+  - technology
+tags:
+  - Istio
+  - Kubernetes
 ---
 
 {{< figure src="sailboat.jpg" caption="Photo by [Alina Pkhakadze](https://unsplash.com/@alinap) on [Unsplash](https://unsplash.com)" alt="An image of a sailboat on the water on a stormy day." >}}
