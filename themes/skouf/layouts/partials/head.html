@@ -1,11 +1,10 @@
 <head>
   <meta charset="utf-8">
-  <title>{{ $isHomePage := eq .Title .Site.Title }}{{ .Title }}{{ if eq $isHomePage false }} - {{ .Site.Title }}{{ end
-    }}</title>
+  <title>{{ if not .IsHome }}{{ .Page.Title }} - {{ end }}{{ .Site.Title }}</title>
   {{ hugo.Generator }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="{{ .Site.Author.author }}">
-  {{ if eq $isHomePage true }}
+  {{ if .IsHome }}
   <meta name="description" content="{{ .Site.Params.description }}">
   {{ else }}
   <meta name="description" content="{{ .Summary }}">
@@ -19,7 +18,7 @@
   {{ else }}
   <meta property="og:image" content="{{ .Site.BaseURL }}image/theme/og.png">
   {{ end }}
-  {{ if eq $isHomePage true }}
+  {{ if .IsHome }}
   <meta property="og:description" content="{{ .Site.Params.description }}">
   {{ else }}
   <meta property="og:description" content="{{ .Summary }}">
@@ -29,7 +28,7 @@
   <meta name="twitter:creator" content="@{{ .Site.Params.twitter }}">
   <meta name="twitter:title" content="{{ .Title }}">
   <meta name="twitter:url" content="{{ .Permalink }}">
-  {{ if eq $isHomePage true }}
+  {{ if .IsHome }}
   <meta name="twitter:description" content="{{ .Site.Params.description }}">
   {{ else }}
   <meta name="twitter:description" content="{{ .Summary }}">
