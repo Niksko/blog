@@ -1,6 +1,6 @@
 Hi, I'm Nik, welcome to my website.
 
-You can read more about me [at my GitHub profile](https://github.com/Niksko), or visit
+You can read more [about me]({{< ref "/about" >}}), or visit
 [resume.skouf.com](https://resume.skouf.com) for my professional resume.
 
 I write about [tech]({{< ref "categories/technology" >}}) and [food]({{< ref "categories/food" >}}) on this

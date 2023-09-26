@@ -8,6 +8,16 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 25 Sep 2023 08:25:42 +0000</lastBuildDate><atom:link href="https://www.skouf.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About me</title>
+      <link>https://www.skouf.com/about/</link>
+      <pubDate>Tue, 26 Sep 2023 06:09:52 +0000</pubDate>
+      
+      <guid>https://www.skouf.com/about/</guid>
+      <description>Hey 👋 I&amp;rsquo;m Nik, a software developer from Melbourne, Australia.
+General info 🧔 Pronouns: he/him 🌐 Website and blog: https://www.skouf.com 📄 Resume: https://resume.skouf.com 💼 Working at: https://seek.com.au 🍳 Favourite food: Pickles! What I&amp;rsquo;m working on I&amp;rsquo;m currently working as a senior staff engineer within the Engineering Platforms group at SEEK. We&amp;rsquo;re working on a new continuous delivery platform to make developers at SEEK more efficient, and to make our services more secure, more resilient and cheaper.</description>
+    </item>
+    
+    <item>
       <title>Skouf.com redesign - part 3</title>
       <link>https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/</link>
       <pubDate>Mon, 25 Sep 2023 08:25:42 +0000</pubDate>
