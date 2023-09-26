@@ -27,8 +27,8 @@
 {{/* only use images smaller than or equal to the src (original) image size, as Hugo will upscale small images */}}
 {{/* set the sizes attribute to (min-width: 35em) 1200px, 100vw unless overridden in shortcode */}}
 <figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
-    {{ if .Get "link"}}<a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>{{ end }}
-        <img 
+        <a href="#{{ .Get "src" | safeHTMLAttr }}">
+        <img
           {{ with .Get "sizes" }}sizes='{{.}}'{{ else }}sizes="(min-width: 35em) 1200px, 100vw"{{ end }}
             srcset='
               {{ if ge $src.Width "500" }}
@@ -44,9 +44,9 @@
                   {{ with $large.RelPermalink }}, {{.}} 1500w {{ end }}
               {{ end }}'
               {{ if .Get (print $medium) }}
-                  src="{{ $medium.RelPermalink }}" 
+                  src="{{ $medium.RelPermalink }}"
               {{ else }}
-                  src="{{ $src.RelPermalink }}" 
+                  src="{{ $src.RelPermalink }}"
               {{ end }}
             {{- if (or (.Get "alt") (.Get "caption")) -}}
                 {{- with .Get "alt"}}
@@ -55,7 +55,16 @@
                     {{- printf " alt=\"%s\"" (.Get "caption" | markdownify | plainify) | safeHTMLAttr -}}
                 {{- end -}}
             {{- end -}}>
-        {{- if .Get "link" }}</a>{{ end -}}
+            </a>
+            <!-- https://codepen.io/gschier/pen/kyRXVx -->
+            <!-- Also this ugly hack to avoid scrolling on close: https://stackoverflow.com/a/11746912 -->
+            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
+               href="#_" id="{{ .Get "src" |  safeHTMLAttr }}">
+              <img
+                class="block w-full h-full object-contain m-0"
+                src="{{ $src.RelPermalink }}"
+              >
+            </a>
         {{- if or (or (.Get "title") (.Get "caption")) (.Get "attr") -}}
             <figcaption>
                 {{ with (.Get "title") }}
