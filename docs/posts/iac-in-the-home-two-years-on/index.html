@@ -1,536 +1,75 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <title>IaC in the home - two years on - skouf.com</title>
-  <meta name="generator" content="Hugo 0.118.2">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Nik Skoufis">
-  
-  <meta name="description" content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.">
-  
-  <meta name="keywords" content="">
-  <meta property="og:site_name" content="skouf.com">
-  <meta property="og:title" content="IaC in the home - two years on">
-  <meta property="og:url" content="https://www.skouf.com/posts/iac-in-the-home-two-years-on/">
-  <meta property="og:image" content="https://www.skouf.com/container-ship.jpg">
-  
-  <meta property="og:description" content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster.">
-  
-  <meta property="og:type" content="blog">
-  <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
-</head>
-
-<body class="text-dark-blue-grey bg-light-blue-grey">
-<div class="overflow-hidden">
-  <header class="py-2 md:py-8 text-center bg-hero-green">
-  <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
-  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
-</header>
-
-  <main class="my-0 mx-auto max-w-prose p-4">
-    
-    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
-      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
-  <h1 class="text-3xl font-bold">IaC in the home - two years on</h1>
-  <p class="text-dark-blue-grey/90 my-2 text-right">
-    <time itemprop="datePublished" datetime="2020-04-11T02:25:23Z">2020.04.11</time>
-  </p>
-</div>
-
-      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
-        <p><em>This is the third post in a series about how I manage my home Kubernetes cluster.
-For context, read <a href="https://www.skouf.com/posts/iac-in-the-home/">the original post</a> and <a href="https://www.skouf.com/posts/iac-in-the-home-one-year-on/">the followup at one year</a>.</em></p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#container-ship.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_800x0_resize_q75_box.jpg 800w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_1200x0_resize_q75_box.jpg 1200w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_1500x0_resize_q75_box.jpg 1500w 
-              '
-              
-                  src="/posts/iac-in-the-home-two-years-on/container-ship.jpg"
-               alt="A black and white image of a container ship, viewed from the rear.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="container-ship.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/iac-in-the-home-two-years-on/container-ship.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    Photo by <a href="https://unsplash.com/@runfilm">torben</a> on <a href="https://unsplash.com">Unsplash</a>
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>I&rsquo;ve now been running my home Kubernetes &ldquo;cluster&rdquo; (inverted commas, because there&rsquo;s only one node) for two years.
-A fair bit has changed since I wrote the last post, so I thought it might be time for an update.</p>
-<p>On a personal note, I started working in a team building a Kubernetes platform full time.
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>IaC in the home - two years on - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster."><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="IaC in the home - two years on"><meta property="og:url" content="https://www.skouf.com/posts/iac-in-the-home-two-years-on/"><meta property="og:image" content="https://www.skouf.com/container-ship.jpg"><meta property="og:description" content="After two years of running a home Kubernetes setup, I have more thoughts and lessons about how to run a home cluster."><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">IaC in the home - two years on</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2020-04-11T02:25:23Z>2020.04.11</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><p><em>This is the third post in a series about how I manage my home Kubernetes cluster.
+For context, read <a href=https://www.skouf.com/posts/iac-in-the-home/>the original post</a> and <a href=https://www.skouf.com/posts/iac-in-the-home-one-year-on/>the followup at one year</a>.</em></p><figure><a href=#container-ship.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_500x0_resize_q75_box.jpg 500w
+, /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_800x0_resize_q75_box.jpg 800w
+, /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_1200x0_resize_q75_box.jpg 1200w
+, /posts/iac-in-the-home-two-years-on/container-ship_hu097f54c173504d3971b88bf561e54bf6_2086208_1500x0_resize_q75_box.jpg 1500w' src=/posts/iac-in-the-home-two-years-on/container-ship.jpg alt="A black and white image of a container ship, viewed from the rear."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=container-ship.jpg><img class="block w-full h-full object-contain m-0" src=/posts/iac-in-the-home-two-years-on/container-ship.jpg></a><figcaption><p>Photo by <a href=https://unsplash.com/@runfilm>torben</a> on <a href=https://unsplash.com>Unsplash</a></p></figcaption></figure><p>I&rsquo;ve now been running my home Kubernetes &ldquo;cluster&rdquo; (inverted commas, because there&rsquo;s only one node) for two years.
+A fair bit has changed since I wrote the last post, so I thought it might be time for an update.</p><p>On a personal note, I started working in a team building a Kubernetes platform full time.
 This was an incredibly exciting move for me, and has shifted my career in an exciting new direction.
 Running Kubernetes at home helped me to get a running start in my new role, and probably contributed to me getting the role in the first place.
-I guess all of this pain has some upsides.</p>
-<p>Needless to say, working in that team has shaped and altered my views on best practice for running a cluster.
+I guess all of this pain has some upsides.</p><p>Needless to say, working in that team has shaped and altered my views on best practice for running a cluster.
 It&rsquo;s also improved my Kubernetes understanding greatly.
 Because of this, I&rsquo;ve made a range of changes to my home cluster, expanding both its functionality and its maintainability.
-The sections below go in to more detail about how and why the changes were made, and document any speedbumps along the way.</p>
-<h2 id="metallb">MetalLB</h2>
-<p>Kubernetes is geared towards large-scale deployments for running many workloads.
+The sections below go in to more detail about how and why the changes were made, and document any speedbumps along the way.</p><h2 id=metallb>MetalLB</h2><p>Kubernetes is geared towards large-scale deployments for running many workloads.
 It&rsquo;s meant to be run on a public cloud.
 This means that the options for setting up load balancing outside of the public cloud providers aren&rsquo;t ideal.
 I used to run everything via a <code>NodePort</code>, but this means you need the port in your URLs when requesting services inside the cluster.
-And you can&rsquo;t use ports 80 or 443 because these are taken by the Kubernetes API server.</p>
-<p><a href="https://metallb.universe.tf/">MetalLB</a> provides a load balancer for bare-metal Kubernetes clusters, solving this problem.
+And you can&rsquo;t use ports 80 or 443 because these are taken by the Kubernetes API server.</p><p><a href=https://metallb.universe.tf/>MetalLB</a> provides a load balancer for bare-metal Kubernetes clusters, solving this problem.
 I&rsquo;m operating MetalLB in &lsquo;Layer 2 mode&rsquo;, which means MetalLB will participate in address resolution of IPv4 addresses via the standard ARP protocol.
 What this means practically is that I&rsquo;ve assigned an IPv4 address block on my home network to MetalLB, and it will advertise these address for me, and associate them with Kubernetes <code>LoadBalancer</code> objects.
 From the outside, it simply looks like my server advertises multiple addresses.
-This removes the port conflict on 80 and 443, freeing those up for use for cluster services.</p>
-<p>Combining this new IP address for load balancing with some DNS entries in my router means that I can now access services easily in a browser, without having to remember which port I bound them to.</p>
-<h2 id="istio">Istio</h2>
-<p><a href="https://istio.io/">Istio</a> is a service mesh, that enables smarter networking within a cluster.
+This removes the port conflict on 80 and 443, freeing those up for use for cluster services.</p><p>Combining this new IP address for load balancing with some DNS entries in my router means that I can now access services easily in a browser, without having to remember which port I bound them to.</p><h2 id=istio>Istio</h2><p><a href=https://istio.io/>Istio</a> is a service mesh, that enables smarter networking within a cluster.
 It&rsquo;s complete and total overkill for a home Kubernetes cluster.
-I&rsquo;m running it anyway, because it&rsquo;s cool tech and it&rsquo;s relevant to my work.</p>
-<p>The installation of Istio has come a long way since I first installed it.
+I&rsquo;m running it anyway, because it&rsquo;s cool tech and it&rsquo;s relevant to my work.</p><p>The installation of Istio has come a long way since I first installed it.
 At first, my instructions included cloning the source repo, making modifications, running incantations, and all the sorts of things you can&rsquo;t remember six months later.
-Thankfully the Istio contributors have prioritised usability in recent releases, and the installation process is now relatively straightforward.</p>
-<p>While writing this post, I updated to Istio 1.5 - the latest release at the time.
+Thankfully the Istio contributors have prioritised usability in recent releases, and the installation process is now relatively straightforward.</p><p>While writing this post, I updated to Istio 1.5 - the latest release at the time.
 After updating my <code>istioctl</code> tool, I ran <code>istioctl operator init</code>.
-This detected the existing install of the Istio operator in my cluster, and upgraded it to the latest version automatically.</p>
-<p>Upgrading Istio turned out to be a bit of a bad idea, because the API for defining control planes appears to have changed.
+This detected the existing install of the Istio operator in my cluster, and upgraded it to the latest version automatically.</p><p>Upgrading Istio turned out to be a bit of a bad idea, because the API for defining control planes appears to have changed.
 The old resource had <code>kind: IstioControlPlane</code>, where as the new resource is <code>kind: IstioOperator</code>.
 This meant that removing the old control plane configuration did nothing, instead of removing the old control plane as I&rsquo;d hoped.
-It also appears that the Istio operator now looks in the <code>istio-system</code> namespace for control plane configuration objects, rather than in its own <code>istio-operator</code> namespace.</p>
-<p>As is often the case, tearing everything down with a <code>kubectl delete ns istio-system --grace-period=0 --force</code> solved things.
+It also appears that the Istio operator now looks in the <code>istio-system</code> namespace for control plane configuration objects, rather than in its own <code>istio-operator</code> namespace.</p><p>As is often the case, tearing everything down with a <code>kubectl delete ns istio-system --grace-period=0 --force</code> solved things.
 Reapplying my control plane configuration with the new resource kind gave me a new control plane
 Even better, my new control plane is just the <code>default</code> profile.
-Istio&rsquo;s Secret Discovery Service graduated to stable, which was the last &rsquo;experimental&rsquo; feature I was using (requiring extra control plane configuration to enable).</p>
-<p>After an Istio upgrade, you generally need to bounce your sidecar-injected pods to force them to get re-injected with the latest version of the Istio sidecar.
+Istio&rsquo;s Secret Discovery Service graduated to stable, which was the last &rsquo;experimental&rsquo; feature I was using (requiring extra control plane configuration to enable).</p><p>After an Istio upgrade, you generally need to bounce your sidecar-injected pods to force them to get re-injected with the latest version of the Istio sidecar.
 After doing this, my services weren&rsquo;t resolving in the browser, with an <code>ERR_CONNECTION_RESET</code>.
 Fixing this required re-applying my certificate objects, which lived in the <code>istio-system</code> namespace, as discussed in the next section.
 After this, all my services seemed to be in working order.
-The Istio upgrade process gets easier every time!</p>
-<h2 id="certificates">Certificates</h2>
-<p>Browser warnings, red padlocks, or just grey padlocks are annoying.
+The Istio upgrade process gets easier every time!</p><h2 id=certificates>Certificates</h2><p>Browser warnings, red padlocks, or just grey padlocks are annoying.
 Wouldn&rsquo;t it be nice to have nice, SSL secured services, within our home cluster?
-And on top of that, can we get SSL certificates without exposing my home cluster to the internet?</p>
-<p>My solution to this is to hook up my home cluster into Cloudflare, which is what I use for my DNS.
-<a href="https://github.com/jetstack/cert-manager">cert-manager</a> set up inside Kubernetes allows me to create certificate files alongside the deployments of my applications.
-Using the Cloudflare API, cert-manager is able to automatically fulfil the <a href="https://letsencrypt.org/docs/challenge-types/#dns-01-challenge">DNS-01</a> challenge that Let&rsquo;s Encrypt uses.
-This means that I can safely provision certificates for services in my home network.</p>
-<p>The final step is to configure Istio to use the certificates that cert-manager provisions.
+And on top of that, can we get SSL certificates without exposing my home cluster to the internet?</p><p>My solution to this is to hook up my home cluster into Cloudflare, which is what I use for my DNS.
+<a href=https://github.com/jetstack/cert-manager>cert-manager</a> set up inside Kubernetes allows me to create certificate files alongside the deployments of my applications.
+Using the Cloudflare API, cert-manager is able to automatically fulfil the <a href=https://letsencrypt.org/docs/challenge-types/#dns-01-challenge>DNS-01</a> challenge that Let&rsquo;s Encrypt uses.
+This means that I can safely provision certificates for services in my home network.</p><p>The final step is to configure Istio to use the certificates that cert-manager provisions.
 This is the only flaw with this set up, which I hope can be fixed in the future.
 Currently, the secrets for the certificate must be created in the <code>istio-system</code> namespace, alongside the Istio Ingress Gateway.
-There&rsquo;s an <a href="https://github.com/jetstack/cert-manager/issues/2522">open issue</a> on the cert-manager project that discusses this and considers workarounds, as well as linking off to the relevant Istio issues.
-For now, we have to create the certificates in the <code>istio-system</code> namespace (and remember to re-deploy if we delete the namespace).</p>
-<p>Along with a DNS entry (something I haven&rsquo;t put in my cluster&hellip; yet), I can now access my cluster services at friendly domains like <a href="https://deluge.home.skouf.com">https://deluge.home.skouf.com</a>.</p>
-<h2 id="migration-from-container-linux-to-flatcar-linux">Migration from Container Linux to Flatcar Linux</h2>
-<p>When I set up my server, I wanted a lightweight operating system that was designed for running containers.
-Container Linux fit the bill, and has served me well.</p>
-<p>Unfortunately, in January of 2018, CoreOS (the creators of Container Linux) <a href="https://www.cnbc.com/2018/01/30/red-hat-buys-coreos-for-250-mililon.html">were bought by Red Hat</a>.
-As such, Container Linux was folded into Red Hat&rsquo;s existing Atomic project, and <a href="https://coreos.com/os/eol/">Container Linux is set to reach end of life as of May 26th 2020</a>.</p>
-<p><a href="https://www.flatcar-linux.org/">Flatcar Linux</a> is a friendly fork of Container Linux, and is largely compatible with Container Linux.
+There&rsquo;s an <a href=https://github.com/jetstack/cert-manager/issues/2522>open issue</a> on the cert-manager project that discusses this and considers workarounds, as well as linking off to the relevant Istio issues.
+For now, we have to create the certificates in the <code>istio-system</code> namespace (and remember to re-deploy if we delete the namespace).</p><p>Along with a DNS entry (something I haven&rsquo;t put in my cluster&mldr; yet), I can now access my cluster services at friendly domains like <a href=https://deluge.home.skouf.com>https://deluge.home.skouf.com</a>.</p><h2 id=migration-from-container-linux-to-flatcar-linux>Migration from Container Linux to Flatcar Linux</h2><p>When I set up my server, I wanted a lightweight operating system that was designed for running containers.
+Container Linux fit the bill, and has served me well.</p><p>Unfortunately, in January of 2018, CoreOS (the creators of Container Linux) <a href=https://www.cnbc.com/2018/01/30/red-hat-buys-coreos-for-250-mililon.html>were bought by Red Hat</a>.
+As such, Container Linux was folded into Red Hat&rsquo;s existing Atomic project, and <a href=https://coreos.com/os/eol/>Container Linux is set to reach end of life as of May 26th 2020</a>.</p><p><a href=https://www.flatcar-linux.org/>Flatcar Linux</a> is a friendly fork of Container Linux, and is largely compatible with Container Linux.
 Flatcar made upgrading from Container Linux really easy, so Flatcar became the obvious choice for underlying OS.
-<a href="https://docs.flatcar-linux.org/os/update-from-container-linux/">Flatcar has a guide on directly updating from Container Linux</a>, as well as a script that runs everything for you.</p>
-<p>Running this script took about 10 seconds, and after a reboot, everything seemed to come back up.
-However the message upon sshing in seemed like things hadn&rsquo;t worked.</p>
-<p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#before-upgrade.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/iac-in-the-home-two-years-on/before-upgrade_hufc29107df2dd8facea0ed8b6fe830af9_15540_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/before-upgrade_hufc29107df2dd8facea0ed8b6fe830af9_15540_800x0_resize_q75_box.jpg 800w
-              
-              
-              '
-              
-                  src="/posts/iac-in-the-home-two-years-on/before-upgrade.jpg"
-               alt="A screenshot of a terminal. The text indicates that we are running Container Linux.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="before-upgrade.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/iac-in-the-home-two-years-on/before-upgrade.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    Pre-upgrade message indicating an old version of Container Linux.
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#latest-container-linux.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/iac-in-the-home-two-years-on/latest-container-linux_huc57cb7ba7bc5200b8d4bacff3cb731c0_27759_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/latest-container-linux_huc57cb7ba7bc5200b8d4bacff3cb731c0_27759_800x0_resize_q75_box.jpg 800w
-              
-              
-              '
-              
-                  src="/posts/iac-in-the-home-two-years-on/latest-container-linux.jpg"
-               alt="A screenshot of a terminal. The text indicates that we are still running Container Linux, but now at a newer version. There is also a warning about the end-of-life of Container Linux.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="latest-container-linux.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/iac-in-the-home-two-years-on/latest-container-linux.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    After updating to the latest Container Linux, we now get this end-of-life warning.
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-</p>
-<p>After some poking around with the <code>update_engine_client</code> tool, I ended up running the script again.
+<a href=https://docs.flatcar-linux.org/os/update-from-container-linux/>Flatcar has a guide on directly updating from Container Linux</a>, as well as a script that runs everything for you.</p><p>Running this script took about 10 seconds, and after a reboot, everything seemed to come back up.
+However the message upon sshing in seemed like things hadn&rsquo;t worked.</p><p><figure><a href=#before-upgrade.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/iac-in-the-home-two-years-on/before-upgrade_hufc29107df2dd8facea0ed8b6fe830af9_15540_500x0_resize_q75_box.jpg 500w
+, /posts/iac-in-the-home-two-years-on/before-upgrade_hufc29107df2dd8facea0ed8b6fe830af9_15540_800x0_resize_q75_box.jpg 800w' src=/posts/iac-in-the-home-two-years-on/before-upgrade.jpg alt="A screenshot of a terminal. The text indicates that we are running Container Linux."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=before-upgrade.jpg><img class="block w-full h-full object-contain m-0" src=/posts/iac-in-the-home-two-years-on/before-upgrade.jpg></a><figcaption><p>Pre-upgrade message indicating an old version of Container Linux.</p></figcaption></figure><figure><a href=#latest-container-linux.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/iac-in-the-home-two-years-on/latest-container-linux_huc57cb7ba7bc5200b8d4bacff3cb731c0_27759_500x0_resize_q75_box.jpg 500w
+, /posts/iac-in-the-home-two-years-on/latest-container-linux_huc57cb7ba7bc5200b8d4bacff3cb731c0_27759_800x0_resize_q75_box.jpg 800w' src=/posts/iac-in-the-home-two-years-on/latest-container-linux.jpg alt="A screenshot of a terminal. The text indicates that we are still running Container Linux, but now at a newer version. There is also a warning about the end-of-life of Container Linux."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=latest-container-linux.jpg><img class="block w-full h-full object-contain m-0" src=/posts/iac-in-the-home-two-years-on/latest-container-linux.jpg></a><figcaption><p>After updating to the latest Container Linux, we now get this end-of-life warning.</p></figcaption></figure></p><p>After some poking around with the <code>update_engine_client</code> tool, I ended up running the script again.
 This time I was pretty confident that I was updating to Flatcar.
 The version I was updating to, <code>2345.3.1</code>, is the latest version of Flatcar; this version doesn&rsquo;t exist in Container Linux.
-Evidently, I was just a little out of date with my Container Linux install, and needed to update first for a smooth experience.</p>
-<p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#update-progress.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/iac-in-the-home-two-years-on/update-progress_hu54983a320732d54270526148e722809b_56231_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/update-progress_hu54983a320732d54270526148e722809b_56231_800x0_resize_q75_box.jpg 800w
-              
-              
-              '
-              
-                  src="/posts/iac-in-the-home-two-years-on/update-progress.jpg"
-               alt="A screenshot of a terminal. The text indicates that the update engine is in the process of downloading a new update.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="update-progress.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/iac-in-the-home-two-years-on/update-progress.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    The update engine performing the update to <code>2345.3.1</code>.
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#upgrade-successful.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/iac-in-the-home-two-years-on/upgrade-successful_huc6e94e930e48ce65e0b433013d61676b_15453_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/iac-in-the-home-two-years-on/upgrade-successful_huc6e94e930e48ce65e0b433013d61676b_15453_800x0_resize_q75_box.jpg 800w
-              
-              
-              '
-              
-                  src="/posts/iac-in-the-home-two-years-on/upgrade-successful.jpg"
-               alt="A screenshot of a terminal. The text indicates that the machine now runs Flatcar Linux.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="upgrade-successful.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/iac-in-the-home-two-years-on/upgrade-successful.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    The upgrade was a success!
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-</p>
-<p>You&rsquo;ll notice the images above have <code>Update Strategy: No Reboots</code>.
+Evidently, I was just a little out of date with my Container Linux install, and needed to update first for a smooth experience.</p><p><figure><a href=#update-progress.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/iac-in-the-home-two-years-on/update-progress_hu54983a320732d54270526148e722809b_56231_500x0_resize_q75_box.jpg 500w
+, /posts/iac-in-the-home-two-years-on/update-progress_hu54983a320732d54270526148e722809b_56231_800x0_resize_q75_box.jpg 800w' src=/posts/iac-in-the-home-two-years-on/update-progress.jpg alt="A screenshot of a terminal. The text indicates that the update engine is in the process of downloading a new update."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=update-progress.jpg><img class="block w-full h-full object-contain m-0" src=/posts/iac-in-the-home-two-years-on/update-progress.jpg></a><figcaption><p>The update engine performing the update to <code>2345.3.1</code>.</p></figcaption></figure><figure><a href=#upgrade-successful.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/iac-in-the-home-two-years-on/upgrade-successful_huc6e94e930e48ce65e0b433013d61676b_15453_500x0_resize_q75_box.jpg 500w
+, /posts/iac-in-the-home-two-years-on/upgrade-successful_huc6e94e930e48ce65e0b433013d61676b_15453_800x0_resize_q75_box.jpg 800w' src=/posts/iac-in-the-home-two-years-on/upgrade-successful.jpg alt="A screenshot of a terminal. The text indicates that the machine now runs Flatcar Linux."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=upgrade-successful.jpg><img class="block w-full h-full object-contain m-0" src=/posts/iac-in-the-home-two-years-on/upgrade-successful.jpg></a><figcaption><p>The upgrade was a success!</p></figcaption></figure></p><p>You&rsquo;ll notice the images above have <code>Update Strategy: No Reboots</code>.
 I&rsquo;m sure I did this to maintain uptime, but it&rsquo;s probably not a great idea.
-While I was fiddling with things, I decided to enable a maintenance window for applying updates.</p>
-<p><a href="https://docs.flatcar-linux.org/os/update-strategies/#auto-updates-with-a-maintenance-window">Flatcar Linux have docs on this</a>, though I had to install a <a href="https://github.com/flatcar-linux/locksmith/blob/flatcar-master/systemd/locksmithd.service">locksmithd systemd unit</a> and fiddle with some configuration files to get it working.
+While I was fiddling with things, I decided to enable a maintenance window for applying updates.</p><p><a href=https://docs.flatcar-linux.org/os/update-strategies/#auto-updates-with-a-maintenance-window>Flatcar Linux have docs on this</a>, though I had to install a <a href=https://github.com/flatcar-linux/locksmith/blob/flatcar-master/systemd/locksmithd.service>locksmithd systemd unit</a> and fiddle with some configuration files to get it working.
 Now my system will update itself every Monday at 10am.
-I chose this time because my server makes a few noises after rebooting, and I didn&rsquo;t want to wake people up.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>And so ends another year of running Kubernetes at home.
+I chose this time because my server makes a few noises after rebooting, and I didn&rsquo;t want to wake people up.</p><h2 id=conclusion>Conclusion</h2><p>And so ends another year of running Kubernetes at home.
 The cluster is in great shape, and has experienced relatively few issues over the last 12 months.
 I&rsquo;m spending around an evening every six months or so doing upkeep and maintenance, which seems reasonable to me.
-Considering that I&rsquo;m learning a lot along the way, I&rsquo;m really happy with the setup.</p>
-<p>See you in a year!</p>
-
-        <hr/>
-      </div>
-    </article>
-    
-    
-<nav class="flex flex-col max-w-screen-sm mx-auto">
-  <div class="flex justify-between flex-wrap pb-4">
-    
-    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/fig-leaf-syrup/">
-      <span>Next:</span>
-      <span class="underline">
-                Fig leaf syrup and fig leaf lemonade
-              </span>
-    </a>
-    
-    
-    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/blog-migration/blog-migration/">
-      <span>Previous:</span>
-      <span class="underline">
-                Blog migration
-              </span>
-    </a>
-    
-  </div>
-  <div class="flex justify-center pt-2">
-    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
-  </div>
-</nav>
-
-
-  </main>
-  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
-  <section class="max-w-screen-sm mx-auto px-4">
-    <h2 class="font-bold text-2xl m-4">Author</h2>
-    <img class="mx-auto rounded-full h-24 w-24"
-         src="/image/theme/author.jpg"
-         alt="A picture of the author">
-    <div class="mx-auto my-4">
-      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
-      <p class="tagline text-center">Software developer, food lover</p>
-    </div>
-    <div class="flex justify-center space-x-2 my-4">
-      
-        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
-          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
-        </a>
-      
-      
-        <a href="https://hachyderm.io/@niksko"
-           target="_blank"
-           aria-label="Link to my Mastodon profile"
-        >
-          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
-        </a>
-      
-    </div>
-  </section>
-  <small class="pt-4">© skouf.com</small>
-</footer>
-
-</div>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NNFJW25R4');
-</script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</body>
-</html>
+Considering that I&rsquo;m learning a lot along the way, I&rsquo;m really happy with the setup.</p><p>See you in a year!</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/fig-leaf-syrup/><span>Next:</span>
+<span class=underline>Fig leaf syrup and fig leaf lemonade</span></a>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/blog-migration/blog-migration/><span>Previous:</span>
+<span class=underline>Blog migration</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>

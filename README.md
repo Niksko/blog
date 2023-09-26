@@ -3,7 +3,6 @@
 ## TODO
 
 - [ ] Make the rendering of code blocks much prettier as well as responsive, it's pretty ugly right now
-- [ ] Allow images to zoom which clicked or tapped in a sort of lightbox thingo
 
 ## Setup
 
@@ -27,6 +26,12 @@ To create a new post of this type:
 $ mkdir content/posts/<post-name>
 # Create the post page
 $ hugo new posts/<post-name>/index.md
+```
+
+To render the site to the `docs` directory for publishing, run
+
+```
+hugo --minify
 ```
 
 ## Deployment
@@ -59,6 +64,7 @@ Use the `summary` field in the frontmatter to set the summary to something other
 
 Use the `figure` shortcode.
 This will automatically resize images to a few sizes, and serve them up depending on the size of the image.
+It also adds a lightbox triggered by tapping on the image that zooms the image to full size.
 
 Example:
 
@@ -113,5 +119,5 @@ to static images under the [`themes/skouf/static/image`](themes/skouf/static/ima
 Once changes have been made, you can regenerate the TailwindCSS stylesheet with:
 
 ```
-./tailwindcss --config themes/skouf/tailwind.config.js --input themes/skouf/src/input.css --output themes/skouf/static/css/style.css --minify
+./tailwindcss --config themes/skouf/tailwind.config.js --input themes/skouf/src/input.css --output themes/skouf/assets/css/style.css --minify
 ```

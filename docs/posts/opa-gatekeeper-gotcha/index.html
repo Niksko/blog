@@ -1,367 +1,138 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <title>An OPA Gatekeeper gotcha when enforcing policy on all resource kinds - skouf.com</title>
-  <meta name="generator" content="Hugo 0.118.2">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Nik Skoufis">
-  
-  <meta name="description" content="Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently">
-  
-  <meta name="keywords" content="">
-  <meta property="og:site_name" content="skouf.com">
-  <meta property="og:title" content="An OPA Gatekeeper gotcha when enforcing policy on all resource kinds">
-  <meta property="og:url" content="https://www.skouf.com/posts/opa-gatekeeper-gotcha/">
-  <meta property="og:image" content="https://www.skouf.com/gate.jpg">
-  
-  <meta property="og:description" content="Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently">
-  
-  <meta property="og:type" content="blog">
-  <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
-</head>
-
-<body class="text-dark-blue-grey bg-light-blue-grey">
-<div class="overflow-hidden">
-  <header class="py-2 md:py-8 text-center bg-hero-green">
-  <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
-  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
-</header>
-
-  <main class="my-0 mx-auto max-w-prose p-4">
-    
-    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
-      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
-  <h1 class="text-3xl font-bold">An OPA Gatekeeper gotcha when enforcing policy on all resource kinds</h1>
-  <p class="text-dark-blue-grey/90 my-2 text-right">
-    <time itemprop="datePublished" datetime="2022-10-02T06:52:09Z">2022.10.02</time>
-  </p>
-</div>
-
-      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#gate.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_800x0_resize_q75_box.jpg 800w
-              
-              
-                  , /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_1200x0_resize_q75_box.jpg 1200w
-              
-              
-                  , /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_1500x0_resize_q75_box.jpg 1500w 
-              '
-              
-                  src="/posts/opa-gatekeeper-gotcha/gate.jpg"
-               alt="A close up of a gate that is locked closed by a padlock and some chain">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="gate.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/opa-gatekeeper-gotcha/gate.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    Photo by <a href="https://unsplash.com/@josenothose?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jose Fontano</a> on <a href="https://unsplash.com/s/photos/closed-gate?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a>
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p><strong>EDIT 2023-07-02</strong>: After some thinking time, I&rsquo;ve found a better solution to this problem.
-Read about it in my newer article on <a href="https://www.skouf.com/posts/opa-user-created-resources/">OPA user-created resources</a></p>
-<p>At <a href="https://www.seek.com.au/work-for-seek/">work</a> we&rsquo;re beginning to roll out <a href="https://open-policy-agent.github.io/gatekeeper/website/docs/">OPA Gatekeeper</a>
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>An OPA Gatekeeper gotcha when enforcing policy on all resource kinds - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently"><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="An OPA Gatekeeper gotcha when enforcing policy on all resource kinds"><meta property="og:url" content="https://www.skouf.com/posts/opa-gatekeeper-gotcha/"><meta property="og:image" content="https://www.skouf.com/gate.jpg"><meta property="og:description" content="Documenting and providing potential solutions for a beginner OPA Gatekeeper gotcha that I ran into recently"><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">An OPA Gatekeeper gotcha when enforcing policy on all resource kinds</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2022-10-02T06:52:09Z>2022.10.02</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><figure><a href=#gate.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_500x0_resize_q75_box.jpg 500w
+, /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_800x0_resize_q75_box.jpg 800w
+, /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_1200x0_resize_q75_box.jpg 1200w
+, /posts/opa-gatekeeper-gotcha/gate_hue6c6d3ab4152acb7dc976fe18ee1f49c_3393635_1500x0_resize_q75_box.jpg 1500w' src=/posts/opa-gatekeeper-gotcha/gate.jpg alt="A close up of a gate that is locked closed by a padlock and some chain"></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=gate.jpg><img class="block w-full h-full object-contain m-0" src=/posts/opa-gatekeeper-gotcha/gate.jpg></a><figcaption><p>Photo by <a href="https://unsplash.com/@josenothose?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Jose Fontano</a> on <a href="https://unsplash.com/s/photos/closed-gate?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p></figcaption></figure><p><strong>EDIT 2023-07-02</strong>: After some thinking time, I&rsquo;ve found a better solution to this problem.
+Read about it in my newer article on <a href=https://www.skouf.com/posts/opa-user-created-resources/>OPA user-created resources</a></p><p>At <a href=https://www.seek.com.au/work-for-seek/>work</a> we&rsquo;re beginning to roll out <a href=https://open-policy-agent.github.io/gatekeeper/website/docs/>OPA Gatekeeper</a>
 in our Kubernetes clusters to enforce policy on the resources that are deployed there.
 As part of some early forays into enforcing policy, I ran in to this frustrating &lsquo;gotcha&rsquo; that I figured was worth
-documenting.</p>
-<p>A common use case for OPA Gatekeeper is to enforce that resources have particular metadata.
+documenting.</p><p>A common use case for OPA Gatekeeper is to enforce that resources have particular metadata.
 This helps to ensure that, for example, it&rsquo;s easy to tell who owns a particular Kubernetes resource, by enforcing
-that all resources have a label called <code>owner</code>.</p>
-<p>This particular use case of enforcing the presence of labels is so common, that the open source <a href="https://github.com/open-policy-agent/gatekeeper-library">OPA Gatekeeper Library</a>
-contains <a href="https://github.com/open-policy-agent/gatekeeper-library/tree/master/library/general/requiredlabels">a constraint template that does just that</a>.</p>
-<p>Using this policy is fairly straightforward.
+that all resources have a label called <code>owner</code>.</p><p>This particular use case of enforcing the presence of labels is so common, that the open source <a href=https://github.com/open-policy-agent/gatekeeper-library>OPA Gatekeeper Library</a>
+contains <a href=https://github.com/open-policy-agent/gatekeeper-library/tree/master/library/general/requiredlabels>a constraint template that does just that</a>.</p><p>Using this policy is fairly straightforward.
 Once the <code>ConstraintTemplate</code> resource is installed in to your Kubernetes cluster running Gatkeeper, you can create
-a resource like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">constraints.gatekeeper.sh/v1beta1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">K8sRequiredLabels</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">must-have-owner-label</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kinds</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">kinds</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">      All resources must have an owner label.</span><span class="w">      
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;owner&#39;</span><span class="w">
+a resource like this:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>constraints.gatekeeper.sh/v1beta1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>K8sRequiredLabels</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>must-have-owner-label</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>match</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>kinds</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>apiGroups</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>kinds</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s1>&#39;*&#39;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>message</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>      All resources must have an owner label.</span><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;owner&#39;</span><span class=w>
 </span></span></span></code></pre></div><p>This above constraint enforces that all resources have a label called <code>owner</code>.
 Simple, right?
-What could possibly go wrong&hellip;</p>
-<p>Unfortunately, the above constraint will cause you a number of issues, which I&rsquo;ll outline below.</p>
-<h2 id="the-first-issue-you-will-run-in-to">The first issue you will run in to</h2>
-<p>The first issue you will encounter will happen when you try and deploy some sort of workload, say, a <code>Deployment</code>.
+What could possibly go wrong&mldr;</p><p>Unfortunately, the above constraint will cause you a number of issues, which I&rsquo;ll outline below.</p><h2 id=the-first-issue-you-will-run-in-to>The first issue you will run in to</h2><p>The first issue you will encounter will happen when you try and deploy some sort of workload, say, a <code>Deployment</code>.
 If you&rsquo;re anything like me, you&rsquo;ll want to validate that this works by deploying a simple <code>Deployment</code>, maybe
-something like:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">my-namespace</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">docker.io/kennethreitz/httpbin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></span></span></code></pre></div><p>But you&rsquo;ll need a <code>Namespace</code> to deploy this to, so let&rsquo;s create that as well:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-namespace</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="l">nik</span><span class="w">
+something like:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>apps/v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Deployment</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpbin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>my-namespace</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=l>nik</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>replicas</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>selector</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>matchLabels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>httpbin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=l>nik</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>template</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>app</span><span class=p>:</span><span class=w> </span><span class=l>httpbin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=l>nik</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>spec</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>containers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>docker.io/kennethreitz/httpbin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>imagePullPolicy</span><span class=p>:</span><span class=w> </span><span class=l>IfNotPresent</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>httpbin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span>- <span class=nt>containerPort</span><span class=p>:</span><span class=w> </span><span class=m>80</span><span class=w>
+</span></span></span></code></pre></div><p>But you&rsquo;ll need a <code>Namespace</code> to deploy this to, so let&rsquo;s create that as well:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>Namespace</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>my-namespace</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=l>nik</span><span class=w>
 </span></span></span></code></pre></div><p>With the constraint as written above, OPA Gatekeeper will enforce our <code>owner</code> label constraint on non-namespaced
 resources as well.
-But that&rsquo;s ok, because we included the <code>owner</code> label on the namespace.</p>
-<p>Seems like it should work, right?</p>
-<p>If you create your namespace and then try to create your deployment, it will succeed, but your <code>Deployment</code> will soon
-take on the following status:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">status</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2022-09-26T23:21:51Z&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="p">&gt;-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">        pods &#34;httpbin-78f658c47f-&#34; is forbidden: error looking up service
-</span></span></span><span class="line"><span class="cl"><span class="sd">        account my-namespace/default: serviceaccount &#34;default&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        not found</span><span class="w">        
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="l">FailedCreate</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;True&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ReplicaFailure</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+But that&rsquo;s ok, because we included the <code>owner</code> label on the namespace.</p><p>Seems like it should work, right?</p><p>If you create your namespace and then try to create your deployment, it will succeed, but your <code>Deployment</code> will soon
+take on the following status:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nn>...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>status</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>conditions</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>lastTransitionTime</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;2022-09-26T23:21:51Z&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>message</span><span class=p>:</span><span class=w> </span><span class=p>&gt;-</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>        pods &#34;httpbin-78f658c47f-&#34; is forbidden: error looking up service
+</span></span></span><span class=line><span class=cl><span class=sd>        account my-namespace/default: serviceaccount &#34;default&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>        not found</span><span class=w>        
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>reason</span><span class=p>:</span><span class=w> </span><span class=l>FailedCreate</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>status</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;True&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>ReplicaFailure</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nn>...</span><span class=w>
 </span></span></span></code></pre></div><p>Huh?
 That&rsquo;s a weird one.
-I&rsquo;ve never seen that error before.</p>
-<p>If you&rsquo;re new to Kubernetes, you might not know that if you don&rsquo;t specify a <code>serviceAccount</code> for a pod, your pod
+I&rsquo;ve never seen that error before.</p><p>If you&rsquo;re new to Kubernetes, you might not know that if you don&rsquo;t specify a <code>serviceAccount</code> for a pod, your pod
 will be assigned to the default service account for a namespace, which is called <code>default</code>.
 In this case, we didn&rsquo;t specify a service account as part of our pod template, so we get the <code>default</code> service account.
 But our error message is saying that there is no <code>default</code> service account in the namespace we created.
-How does the <code>default</code> service account get there in the first place?</p>
-<p>Well, the <a href="https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#serviceaccount-controller">Kubernetes docs on service account administration</a>
-have this to say:</p>
-<blockquote>
-<p>A ServiceAccount controller manages the ServiceAccounts inside namespaces, and ensures a ServiceAccount named
-&ldquo;default&rdquo; exists in every active namespace.</p>
-</blockquote>
-<p>Ok, so our <code>default</code> service account should definitely exist.</p>
-<p>When you&rsquo;re told a resource doesn&rsquo;t exist in a permissioned environment like Kubernetes, it&rsquo;s always a good idea to
+How does the <code>default</code> service account get there in the first place?</p><p>Well, the <a href=https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#serviceaccount-controller>Kubernetes docs on service account administration</a>
+have this to say:</p><blockquote><p>A ServiceAccount controller manages the ServiceAccounts inside namespaces, and ensures a ServiceAccount named
+&ldquo;default&rdquo; exists in every active namespace.</p></blockquote><p>Ok, so our <code>default</code> service account should definitely exist.</p><p>When you&rsquo;re told a resource doesn&rsquo;t exist in a permissioned environment like Kubernetes, it&rsquo;s always a good idea to
 just double check that the resource actually doesn&rsquo;t exist using some sort of privileged user.
 This helps you rule out a situation where something just has insufficient permissions to know that there really <em>is</em>
-a service account in that namespace called <code>default</code>.</p>
-<p>As a privileged user:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ kubectl get serviceaccounts -n my-namespace
-</span></span><span class="line"><span class="cl">No resources found in tenant-automat-reference-app namespace.
+a service account in that namespace called <code>default</code>.</p><p>As a privileged user:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>$ kubectl get serviceaccounts -n my-namespace
+</span></span><span class=line><span class=cl>No resources found in tenant-automat-reference-app namespace.
 </span></span></code></pre></div><p>Ok, so there is definitely no service account in our namespace, despite the fact that the docs tell us there should be.
-What&rsquo;s going on?</p>
-<p>As it turns out, we overlooked something important in our mandatory labels constraint.
+What&rsquo;s going on?</p><p>As it turns out, we overlooked something important in our mandatory labels constraint.
 The key to debugging this issue was to have a look at the control plane logs.
 The docs above tell us that it&rsquo;s the job of the &lsquo;ServiceAccount controller&rsquo; to ensure that the <code>default</code> service
 account exists, so perhaps something went wrong while it was trying to create the service account?
-That&rsquo;s exactly what we find:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">E0926 22:53:47.849664      <span class="m">14</span> serviceaccounts_controller.go:180<span class="o">]</span> my-namespace failed with : admission webhook
-</span></span><span class="line"><span class="cl"><span class="s2">&#34;validation.gatekeeper.sh&#34;</span> denied the request: <span class="o">[</span>must-have-owner-label<span class="o">]</span> All resources must have an owner label.
+That&rsquo;s exactly what we find:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>E0926 22:53:47.849664      <span class=m>14</span> serviceaccounts_controller.go:180<span class=o>]</span> my-namespace failed with : admission webhook
+</span></span><span class=line><span class=cl><span class=s2>&#34;validation.gatekeeper.sh&#34;</span> denied the request: <span class=o>[</span>must-have-owner-label<span class=o>]</span> All resources must have an owner label.
 </span></span></code></pre></div><p>That explains things.
 The service account controller tried to create the <code>default</code> service account.
 But since it has no way of knowing that we now enforce that every resource must have an <code>owner</code> label, the
-Gatekeeper validating admission webhook denies its request to create the <code>default</code> service account.</p>
-<h2 id="the-second-issue-you-will-run-in-to">The second issue you will run in to</h2>
-<p>Even if you manage to get around this first issue, for example, by excluding <code>ServiceAccount</code> resources from the
+Gatekeeper validating admission webhook denies its request to create the <code>default</code> service account.</p><h2 id=the-second-issue-you-will-run-in-to>The second issue you will run in to</h2><p>Even if you manage to get around this first issue, for example, by excluding <code>ServiceAccount</code> resources from the
 resources that Gatekeeper cares about, you&rsquo;re not out of the woods quite yet.
-You will run in to exactly the same issue when you create a <code>Service</code> resource that selects your pods.</p>
-<p>This is because backing a <code>Service</code> resource is an <code>Endpoint</code> resource that is also created for you by the endpoint
+You will run in to exactly the same issue when you create a <code>Service</code> resource that selects your pods.</p><p>This is because backing a <code>Service</code> resource is an <code>Endpoint</code> resource that is also created for you by the endpoint
 controller.
 And this controller too does not know about our requirement that every resource must have an <code>onwer</code> label.
-So you will get a cryptic message saying that your pod &lsquo;could not bind to an endpoint&rsquo;.</p>
-<p>If you again look at the control plane logs, you will find:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">I0927 00:03:23.031559      <span class="m">14</span> event.go:291<span class="o">]</span> <span class="s2">&#34;Event occurred&#34;</span> <span class="nv">object</span><span class="o">=</span><span class="s2">&#34;httpbin&#34;</span> <span class="nv">kind</span><span class="o">=</span><span class="s2">&#34;Endpoints&#34;</span> <span class="nv">apiVersion</span><span class="o">=</span><span class="s2">&#34;v1&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nv">type</span><span class="o">=</span><span class="s2">&#34;Warning&#34;</span> <span class="nv">reason</span><span class="o">=</span><span class="s2">&#34;FailedToCreateEndpoint&#34;</span> <span class="nv">message</span><span class="o">=</span><span class="s2">&#34;Failed to create endpoint for service my-namespace/httpbin:
-</span></span></span><span class="line"><span class="cl"><span class="s2">admission webhook \&#34;validation.gatekeeper.sh\&#34; denied the request: [must-have-owner-label] All resources must have an
-</span></span></span><span class="line"><span class="cl"><span class="s2">owner label.
-</span></span></span></code></pre></div><h2 id="solutions">Solutions</h2>
-<p>This is a bit of an annoying issue.
-What options are available to you?</p>
-<h3 id="option-1">Option 1</h3>
-<p>Set up your constraint resource to not include resources like <code>Endpoint</code> and <code>ServiceAccount</code>.</p>
-<p>However this comes with a serious drawback: you can no-longer use a wildcard to say &lsquo;apply to every resource&rsquo; as we
+So you will get a cryptic message saying that your pod &lsquo;could not bind to an endpoint&rsquo;.</p><p>If you again look at the control plane logs, you will find:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>I0927 00:03:23.031559      <span class=m>14</span> event.go:291<span class=o>]</span> <span class=s2>&#34;Event occurred&#34;</span> <span class=nv>object</span><span class=o>=</span><span class=s2>&#34;httpbin&#34;</span> <span class=nv>kind</span><span class=o>=</span><span class=s2>&#34;Endpoints&#34;</span> <span class=nv>apiVersion</span><span class=o>=</span><span class=s2>&#34;v1&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>type</span><span class=o>=</span><span class=s2>&#34;Warning&#34;</span> <span class=nv>reason</span><span class=o>=</span><span class=s2>&#34;FailedToCreateEndpoint&#34;</span> <span class=nv>message</span><span class=o>=</span><span class=s2>&#34;Failed to create endpoint for service my-namespace/httpbin:
+</span></span></span><span class=line><span class=cl><span class=s2>admission webhook \&#34;validation.gatekeeper.sh\&#34; denied the request: [must-have-owner-label] All resources must have an
+</span></span></span><span class=line><span class=cl><span class=s2>owner label.
+</span></span></span></code></pre></div><h2 id=solutions>Solutions</h2><p>This is a bit of an annoying issue.
+What options are available to you?</p><h3 id=option-1>Option 1</h3><p>Set up your constraint resource to not include resources like <code>Endpoint</code> and <code>ServiceAccount</code>.</p><p>However this comes with a serious drawback: you can no-longer use a wildcard to say &lsquo;apply to every resource&rsquo; as we
 did in our constraint above.
 This is because Gatekeeper lacks an option to exclude resources from a constraint, it can only include.
-So the effect is that you will have to list every resource that your constraint applies to.</p>
-<p>This solution is viable, but not particularly nice.
+So the effect is that you will have to list every resource that your constraint applies to.</p><p>This solution is viable, but not particularly nice.
 Whenever you install a new kind of resource in to your cluster, you&rsquo;ll need to update this constraint to include
 that resource if you want to enforce an ownership label.
 And if you have other similar universally-enforced constraints, you&rsquo;ll have to update those too.
 There may be ways to DRY this list of &lsquo;resources that you can safely enforce policies on&rsquo;, but it&rsquo;s a bit of a pain
 to have to update it when you install new resources.
-You could also automate the generation of this list, but again, it seems like a lot of hassle.</p>
-<p>It&rsquo;s also not entirely clear to me which resources should be on this list, leading me to believe that you&rsquo;d have to
+You could also automate the generation of this list, but again, it seems like a lot of hassle.</p><p>It&rsquo;s also not entirely clear to me which resources should be on this list, leading me to believe that you&rsquo;d have to
 construct the list by trial and error.
 For example, in the above exercise, the <code>ReplicaSet</code> resource is created just fine, because it seems to inherit the
-labels of the parent <code>Deployment</code> resource.</p>
-<h3 id="option-2">Option 2</h3>
-<p>Update your <code>ConstraintTemplate</code> to allow excluding resources.</p>
-<p>Unfortunately, the only other viable option I&rsquo;ve found to solve this problem is to deviate from the open source
-required labels constraint template, and add your own custom rules around how to enforce this constraint.</p>
-<p>This would mean adding some fields to the <code>spec</code> of the <code>ConstraintTemplate</code>.
+labels of the parent <code>Deployment</code> resource.</p><h3 id=option-2>Option 2</h3><p>Update your <code>ConstraintTemplate</code> to allow excluding resources.</p><p>Unfortunately, the only other viable option I&rsquo;ve found to solve this problem is to deviate from the open source
+required labels constraint template, and add your own custom rules around how to enforce this constraint.</p><p>This would mean adding some fields to the <code>spec</code> of the <code>ConstraintTemplate</code>.
 Perhaps an <code>exemptKinds</code> field that accepts a list of <code>kind</code>s to ignore.
 Or if necessary, an <code>exemptResources</code> field that allows for defining more complex combinations of exempt kinds,
-exemptions by name, namespace or API group.</p>
-<p>Although this would require some custom Rego, it shouldn&rsquo;t be too hard to create.
+exemptions by name, namespace or API group.</p><p>Although this would require some custom Rego, it shouldn&rsquo;t be too hard to create.
 The cost here is that you&rsquo;re deviating from the open source required labels constraint template.
 However given that the constraint template is only around 30 lines of Rego, you&rsquo;re not losing out on my by defining
-your own constraint template.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>Hopefully this post serves as some documentation of this frustrating beginner gotcha, as I couldn&rsquo;t find anyone else
+your own constraint template.</p><h2 id=conclusion>Conclusion</h2><p>Hopefully this post serves as some documentation of this frustrating beginner gotcha, as I couldn&rsquo;t find anyone else
 having the same issue.
-If you&rsquo;re interested in more content on OPA, Rego and Gatekeeper, please reach out and let me know!</p>
-
-        <hr/>
-      </div>
-    </article>
-    
-    
-<nav class="flex flex-col max-w-screen-sm mx-auto">
-  <div class="flex justify-between flex-wrap pb-4">
-    
-    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/engineering-levels/">
-      <span>Next:</span>
-      <span class="underline">
-                Engineering levels
-              </span>
-    </a>
-    
-    
-    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/">
-      <span>Previous:</span>
-      <span class="underline">
-                Skouf.com redesign - part 2
-              </span>
-    </a>
-    
-  </div>
-  <div class="flex justify-center pt-2">
-    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
-  </div>
-</nav>
-
-
-  </main>
-  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
-  <section class="max-w-screen-sm mx-auto px-4">
-    <h2 class="font-bold text-2xl m-4">Author</h2>
-    <img class="mx-auto rounded-full h-24 w-24"
-         src="/image/theme/author.jpg"
-         alt="A picture of the author">
-    <div class="mx-auto my-4">
-      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
-      <p class="tagline text-center">Software developer, food lover</p>
-    </div>
-    <div class="flex justify-center space-x-2 my-4">
-      
-        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
-          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
-        </a>
-      
-      
-        <a href="https://hachyderm.io/@niksko"
-           target="_blank"
-           aria-label="Link to my Mastodon profile"
-        >
-          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
-        </a>
-      
-    </div>
-  </section>
-  <small class="pt-4">© skouf.com</small>
-</footer>
-
-</div>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NNFJW25R4');
-</script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</body>
-</html>
+If you&rsquo;re interested in more content on OPA, Rego and Gatekeeper, please reach out and let me know!</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/engineering-levels/><span>Next:</span>
+<span class=underline>Engineering levels</span></a>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/><span>Previous:</span>
+<span class=underline>Skouf.com redesign - part 2</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>

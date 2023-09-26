@@ -1,157 +1,20 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <title>Log4net rolling file appender with multiple projects - skouf.com</title>
-  <meta name="generator" content="Hugo 0.118.2">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Nik Skoufis">
-  
-  <meta name="description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
-If I can save another poor soul some time, then it will be well worth writing this.">
-  
-  <meta name="keywords" content="">
-  <meta property="og:site_name" content="skouf.com">
-  <meta property="og:title" content="Log4net rolling file appender with multiple projects">
-  <meta property="og:url" content="https://www.skouf.com/posts/log-4-net-rolling-file-appender/">
-  <meta property="og:image" content="https://www.skouf.com/log4net-logo.jpg">
-  
-  <meta property="og:description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
-If I can save another poor soul some time, then it will be well worth writing this.">
-  
-  <meta property="og:type" content="blog">
-  <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
-</head>
-
-<body class="text-dark-blue-grey bg-light-blue-grey">
-<div class="overflow-hidden">
-  <header class="py-2 md:py-8 text-center bg-hero-green">
-  <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
-  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
-</header>
-
-  <main class="my-0 mx-auto max-w-prose p-4">
-    
-    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
-      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
-  <h1 class="text-3xl font-bold">Log4net rolling file appender with multiple projects</h1>
-  <p class="text-dark-blue-grey/90 my-2 text-right">
-    <time itemprop="datePublished" datetime="2017-04-03T23:12:23&#43;11:00">2017.04.03</time>
-  </p>
-</div>
-
-      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
-        <p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
-If I can save another poor soul some time, then it will be well worth writing this.</p>
-<p>At the moment we’re developing a large web application with an <em>almost</em> micro-service architecture.
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>Log4net rolling file appender with multiple projects - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this."><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="Log4net rolling file appender with multiple projects"><meta property="og:url" content="https://www.skouf.com/posts/log-4-net-rolling-file-appender/"><meta property="og:image" content="https://www.skouf.com/log4net-logo.jpg"><meta property="og:description" content="The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this."><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">Log4net rolling file appender with multiple projects</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2017-04-03T23:12:23+11:00>2017.04.03</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><p>The purpose of this article is to document a minor frustration I ran into at work a few weeks ago, in the hopes that somebody else with the same issue will stumble across it.
+If I can save another poor soul some time, then it will be well worth writing this.</p><p>At the moment we’re developing a large web application with an <em>almost</em> micro-service architecture.
 What this means is that we have multiple separate applications running on the same machine, and all of them need to produce log files.
-We’re using <a href="https://logging.apache.org/log4net/">Apache log4net</a> as our logging framework.</p>
-<p>If you Google for sample rolling file appender configurations, what you might see is something like this (<a href="https://stackoverflow.com/questions/1165084/log4net-rolling-daily-filename-with-date-in-the-file-name">taken from this StackOverflow question</a>):</p>
-<script type="application/javascript" src="https://gist.github.com/niksko/5de9f20ca39bfb9b55948ae9f6b907ee.js?file=web.config.xml"></script>
-
-<p>We’ve defined a log file appender that will create daily logs in the <code>logs\</code> directory with the date in the name of the log file.
-This works fine for a single application logging to a file.</p>
-<p>Now let’s say you want to include the name of the service that created the log in the logfile name, so that you can differentiate between different sources of log data.
-Here’s how you might naively think to do this:</p>
-<script type="application/javascript" src="https://gist.github.com/niksko/ae49d29af8440c155c46966f536faaaa.js?file=web.config.wrong.xml"></script>
-
-<p>This looks fine, and might appear to work at first.
+We’re using <a href=https://logging.apache.org/log4net/>Apache log4net</a> as our logging framework.</p><p>If you Google for sample rolling file appender configurations, what you might see is something like this (<a href=https://stackoverflow.com/questions/1165084/log4net-rolling-daily-filename-with-date-in-the-file-name>taken from this StackOverflow question</a>):</p><script type=application/javascript src="https://gist.github.com/niksko/5de9f20ca39bfb9b55948ae9f6b907ee.js?file=web.config.xml"></script><p>We’ve defined a log file appender that will create daily logs in the <code>logs\</code> directory with the date in the name of the log file.
+This works fine for a single application logging to a file.</p><p>Now let’s say you want to include the name of the service that created the log in the logfile name, so that you can differentiate between different sources of log data.
+Here’s how you might naively think to do this:</p><script type=application/javascript src="https://gist.github.com/niksko/ae49d29af8440c155c46966f536faaaa.js?file=web.config.wrong.xml"></script><p>This looks fine, and might appear to work at first.
 In fact, it does work some of the time.
 However as soon as you have multiple applications trying to log at the same time, you run into issues.
-What this leads to is strange problems where a you will seem to get log output sometimes, but not other times.</p>
-<p>The solution is quite simple.
-You can’t simply change the <code>value</code> attribute of <code>datePattern</code>, you have to change the <code>file</code> node’s <code>value</code> as well:</p>
-<script type="application/javascript" src="https://gist.github.com/niksko/0b6ceab982b855dd6c9ffd5687f64b2e.js?file=web.config.right.xml"></script>
-
-<p>Problem solved!
-You’ll now get log output from all of your applications, even if they output log data at almost the same instant.</p>
-<p>The issue with the naive approach is that even though your files will in theory have different names, log4net appears to lock the entire logs folder (even with the locking model set to minimal), which prevents the creation of or appending to the other log files.
-The solution is to force log4net to only lock the specific file that will be used by each application, thus allowing each application to lock its own logfile and write to it without interfering with the others.</p>
-        <hr/>
-      </div>
-    </article>
-    
-    
-<nav class="flex flex-col max-w-screen-sm mx-auto">
-  <div class="flex justify-between flex-wrap pb-4">
-    
-    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/iac-in-the-home/">
-      <span>Next:</span>
-      <span class="underline">
-                Infrastructure as code in the home
-              </span>
-    </a>
-    
-    
-    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/monterey-k104-restoration/">
-      <span>Previous:</span>
-      <span class="underline">
-                Monterey K104 restoration
-              </span>
-    </a>
-    
-  </div>
-  <div class="flex justify-center pt-2">
-    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
-  </div>
-</nav>
-
-
-  </main>
-  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
-  <section class="max-w-screen-sm mx-auto px-4">
-    <h2 class="font-bold text-2xl m-4">Author</h2>
-    <img class="mx-auto rounded-full h-24 w-24"
-         src="/image/theme/author.jpg"
-         alt="A picture of the author">
-    <div class="mx-auto my-4">
-      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
-      <p class="tagline text-center">Software developer, food lover</p>
-    </div>
-    <div class="flex justify-center space-x-2 my-4">
-      
-        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
-          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
-        </a>
-      
-      
-        <a href="https://hachyderm.io/@niksko"
-           target="_blank"
-           aria-label="Link to my Mastodon profile"
-        >
-          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
-        </a>
-      
-    </div>
-  </section>
-  <small class="pt-4">© skouf.com</small>
-</footer>
-
-</div>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NNFJW25R4');
-</script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</body>
-</html>
+What this leads to is strange problems where a you will seem to get log output sometimes, but not other times.</p><p>The solution is quite simple.
+You can’t simply change the <code>value</code> attribute of <code>datePattern</code>, you have to change the <code>file</code> node’s <code>value</code> as well:</p><script type=application/javascript src="https://gist.github.com/niksko/0b6ceab982b855dd6c9ffd5687f64b2e.js?file=web.config.right.xml"></script><p>Problem solved!
+You’ll now get log output from all of your applications, even if they output log data at almost the same instant.</p><p>The issue with the naive approach is that even though your files will in theory have different names, log4net appears to lock the entire logs folder (even with the locking model set to minimal), which prevents the creation of or appending to the other log files.
+The solution is to force log4net to only lock the specific file that will be used by each application, thus allowing each application to lock its own logfile and write to it without interfering with the others.</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/iac-in-the-home/><span>Next:</span>
+<span class=underline>Infrastructure as code in the home</span></a>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/monterey-k104-restoration/><span>Previous:</span>
+<span class=underline>Monterey K104 restoration</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>

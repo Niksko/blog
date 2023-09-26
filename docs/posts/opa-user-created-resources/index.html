@@ -1,179 +1,56 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <title>A useful OPA snippet for selecting user-created resources - skouf.com</title>
-  <meta name="generator" content="Hugo 0.118.2">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Nik Skoufis">
-  
-  <meta name="description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)">
-  
-  <meta name="keywords" content="">
-  <meta property="og:site_name" content="skouf.com">
-  <meta property="og:title" content="A useful OPA snippet for selecting user-created resources">
-  <meta property="og:url" content="https://www.skouf.com/posts/opa-user-created-resources/">
-  <meta property="og:image" content="https://www.skouf.com/post.jpg">
-  
-  <meta property="og:description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)">
-  
-  <meta property="og:type" content="blog">
-  <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
-</head>
-
-<body class="text-dark-blue-grey bg-light-blue-grey">
-<div class="overflow-hidden">
-  <header class="py-2 md:py-8 text-center bg-hero-green">
-  <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
-  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
-</header>
-
-  <main class="my-0 mx-auto max-w-prose p-4">
-    
-    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
-      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
-  <h1 class="text-3xl font-bold">A useful OPA snippet for selecting user-created resources</h1>
-  <p class="text-dark-blue-grey/90 my-2 text-right">
-    <time itemprop="datePublished" datetime="2023-07-02T11:06:26Z">2023.07.02</time>
-  </p>
-</div>
-
-      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#post.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_800x0_resize_q75_box.jpg 800w
-              
-              
-                  , /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_1200x0_resize_q75_box.jpg 1200w
-              
-              
-                  , /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_1500x0_resize_q75_box.jpg 1500w 
-              '
-              
-                  src="/posts/opa-user-created-resources/post.jpg"
-               alt="A photo of a sunset with the silhouette of a signpost">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="post.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/opa-user-created-resources/post.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    Photo by <a href="https://unsplash.com/@soymeraki">Javier Allegue Barros</a> on <a href="https://unsplash.com/photos/C7B-ExXpOIEnt">Unsplash</a>
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>At <a href="https://www.seek.com.au/work-for-seek/">work</a> we&rsquo;re continuing to use <a href="https://open-policy-agent.github.io/gatekeeper/website/docs/">OPA Gatekeeper</a>
-in our Kubernetes clusters to enforce policy on the resources that are deployed there.</p>
-<p>As I documented in <a href="https://www.skouf.com/posts/opa-gatekeeper-gotcha/">my previous post on broad Gatekeeper policies</a>,
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>A useful OPA snippet for selecting user-created resources - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)"><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="A useful OPA snippet for selecting user-created resources"><meta property="og:url" content="https://www.skouf.com/posts/opa-user-created-resources/"><meta property="og:image" content="https://www.skouf.com/post.jpg"><meta property="og:description" content="Documenting a neat solution to the problem of enforcing OPA policies against resources, but only when they have been created by a user (as opposed to those created by an internal Kubernetes controller)"><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">A useful OPA snippet for selecting user-created resources</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2023-07-02T11:06:26Z>2023.07.02</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><figure><a href=#post.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_500x0_resize_q75_box.jpg 500w
+, /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_800x0_resize_q75_box.jpg 800w
+, /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_1200x0_resize_q75_box.jpg 1200w
+, /posts/opa-user-created-resources/post_hu3d03a01dcc18bc5be0e67db3d8d209a6_1654431_1500x0_resize_q75_box.jpg 1500w' src=/posts/opa-user-created-resources/post.jpg alt="A photo of a sunset with the silhouette of a signpost"></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=post.jpg><img class="block w-full h-full object-contain m-0" src=/posts/opa-user-created-resources/post.jpg></a><figcaption><p>Photo by <a href=https://unsplash.com/@soymeraki>Javier Allegue Barros</a> on <a href=https://unsplash.com/photos/C7B-ExXpOIEnt>Unsplash</a></p></figcaption></figure><p>At <a href=https://www.seek.com.au/work-for-seek/>work</a> we&rsquo;re continuing to use <a href=https://open-policy-agent.github.io/gatekeeper/website/docs/>OPA Gatekeeper</a>
+in our Kubernetes clusters to enforce policy on the resources that are deployed there.</p><p>As I documented in <a href=https://www.skouf.com/posts/opa-gatekeeper-gotcha/>my previous post on broad Gatekeeper policies</a>,
 one of the things we want to do is enforce wide-ranging policy across all resources of a particular <code>Kind</code>.
 For example, we might want to enforce that all resources created in the cluster have a label that indicates who the
-owner of the resource is.</p>
-<p>When this becomes challenging is when you run in to situations where your users are not the only entities creating
+owner of the resource is.</p><p>When this becomes challenging is when you run in to situations where your users are not the only entities creating
 resources in the cluster.
 And this is a surprisingly common occurrence, as I wrote about in my previous blog post.
 Kubernetes contains many internal controllers that watch for resources that users typically create like <code>Deployment</code>s,
 and in response create resources like <code>ReplicaSet</code>s (and then in turn, the <code>Pod</code>s you wanted).
 Suddenly, your nice policy that enforces that every resource must have a <code>metadata.my-company.com/owner</code> label is
 impossible to enforce on every resource, because there&rsquo;s no way to tell the Kubernetes <code>ReplicaSet</code> controller to
-add this label to resources it creates.</p>
-<p>In my <a href="https://www.skouf.com/posts/opa-gatekeeper-gotcha/">my previous post</a> I suggested a few options for solving this
+add this label to resources it creates.</p><p>In my <a href=https://www.skouf.com/posts/opa-gatekeeper-gotcha/>my previous post</a> I suggested a few options for solving this
 problem, but after some experimentation I&rsquo;ve discovered a much better solution.
 This solution uses the <code>managedFields</code> property that was introduced to Kubernetes standard metadata in Kubernetes
-1.18 to determine whether a resource has been created by a user.</p>
-<p>This solution is specifically designed for GitOps environments, where there is a single entity that ultimately
+1.18 to determine whether a resource has been created by a user.</p><p>This solution is specifically designed for GitOps environments, where there is a single entity that ultimately
 creates resources on behalf of users.
 I <em>think</em> you could use this in environments were developers create resources directly, but you&rsquo;d need to adapt it
-to have a much longer list of managed field owners that trigger the enforcement.</p>
-<h2 id="kubernetes-managedfields">Kubernetes <code>managedFields</code></h2>
-<p>The trick to this post is that since Kubernetes 1.18, Kubernetes records which actor has changed a field on a resource.
-<a href="https://kubernetes.io/blog/2020/04/01/kubernetes-1.18-feature-server-side-apply-beta-2/">https://kubernetes.io/blog/2020/04/01/kubernetes-1.18-feature-server-side-apply-beta-2/</a>
-As an example, a simple <code>ConfigMap</code> with managed fields might look like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">test-cm</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">test-label</span><span class="p">:</span><span class="w"> </span><span class="l">test</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">managedFields</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">manager</span><span class="p">:</span><span class="w"> </span><span class="l">kubectl</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operation</span><span class="p">:</span><span class="w"> </span><span class="l">Apply</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">time</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2010-10-10T0:00:00Z&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">fieldsType</span><span class="p">:</span><span class="w"> </span><span class="l">FieldsV1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">fieldsV1</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">f:metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">f:labels</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">f:test-label</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">f:data</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">f:key</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">some value</span><span class="w">
+to have a much longer list of managed field owners that trigger the enforcement.</p><h2 id=kubernetes-managedfields>Kubernetes <code>managedFields</code></h2><p>The trick to this post is that since Kubernetes 1.18, Kubernetes records which actor has changed a field on a resource.
+<a href=https://kubernetes.io/blog/2020/04/01/kubernetes-1.18-feature-server-side-apply-beta-2/>https://kubernetes.io/blog/2020/04/01/kubernetes-1.18-feature-server-side-apply-beta-2/</a>
+As an example, a simple <code>ConfigMap</code> with managed fields might look like this:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>kind</span><span class=p>:</span><span class=w> </span><span class=l>ConfigMap</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>test-cm</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>namespace</span><span class=p>:</span><span class=w> </span><span class=l>default</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>test-label</span><span class=p>:</span><span class=w> </span><span class=l>test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>managedFields</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>manager</span><span class=p>:</span><span class=w> </span><span class=l>kubectl</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>operation</span><span class=p>:</span><span class=w> </span><span class=l>Apply</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>apiVersion</span><span class=p>:</span><span class=w> </span><span class=l>v1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>time</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;2010-10-10T0:00:00Z&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>fieldsType</span><span class=p>:</span><span class=w> </span><span class=l>FieldsV1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>fieldsV1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>f:metadata</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>f:labels</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>f:test-label</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>f:data</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>f:key</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>data</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=l>some value</span><span class=w>
 </span></span></span></code></pre></div><p>Note that as of modern versions of <code>kubectl</code>, you&rsquo;ll need to pass the <code>--show-managed-fields</code> flag, otherwise <code>kubectl</code>
 won&rsquo;t show you the <code>managedFields</code> field of the resources you view.
 People got upset that they had a bunch more noise in their <code>kubectl</code> outputs when this feature was added, so they put
-it behind a flag.</p>
-<p>What&rsquo;s nice about <code>managedFields</code> is that we can now determine who is responsible for setting values on a particular
+it behind a flag.</p><p>What&rsquo;s nice about <code>managedFields</code> is that we can now determine who is responsible for setting values on a particular
 Kubernetes object.
 And if an entity who is capable of complying with the policy constraints we would like to enforce has set some of
 those fields, then we can choose to enforce our policy constraint.
 If the resource consists entirely of fields that are set by an entity that can&rsquo;t comply with these policy
-constraints, such as a Kubernetes internal controller, then we can ignore the resource.</p>
-<h2 id="enforcing-constraints-on-user-created-resources-using-managedfields">Enforcing constraints on user-created resources using <code>managedFields</code></h2>
-<p>The OPA required to make this work is fairly straightforward.</p>
-<pre tabindex="0"><code class="language-rego" data-lang="rego"># Set this based on the user that creates resources on behalf of your users
+constraints, such as a Kubernetes internal controller, then we can ignore the resource.</p><h2 id=enforcing-constraints-on-user-created-resources-using-managedfields>Enforcing constraints on user-created resources using <code>managedFields</code></h2><p>The OPA required to make this work is fairly straightforward.</p><pre tabindex=0><code class=language-rego data-lang=rego># Set this based on the user that creates resources on behalf of your users
 user_manager := &#34;some-user-manager&#34;
 
 has_user_managed_fields(managed_fields, user_manager_name) {
@@ -192,91 +69,14 @@ matches whatever you define to be a manager that indicates that the resource was
 For example, if you&rsquo;re using ArgoCD as your GitOps tool, any resource created by ArgoCD on behalf of users will have
 many of its fields managed by <code>argocd-controller</code>.
 Resources like the default <code>ServiceAccount</code> or <code>ReplicaSet</code>s which are created on behalf of users by Kubernetes
-internal controllers will not match the <code>has_user_managed_fields</code> rule, and so will be exempt from the constraint.</p>
-<p>This has worked quite well for us across a few different constraints.
+internal controllers will not match the <code>has_user_managed_fields</code> rule, and so will be exempt from the constraint.</p><p>This has worked quite well for us across a few different constraints.
 If you&rsquo;re using something that lets you easily share policy between constraints as libraries like
-<a href="https://github.com/plexsystems/konstraint">Konstraint</a>, I&rsquo;d suggest putting this functionality in a library that
+<a href=https://github.com/plexsystems/konstraint>Konstraint</a>, I&rsquo;d suggest putting this functionality in a library that
 you share around to your policies, because you&rsquo;ll likely end up writing it a lot for policies that are wide-ranging
-like enforcing metadata across all resources.</p>
-<p>Hopefully this helps you when designing your Gatekeeper policies!</p>
-
-        <hr/>
-      </div>
-    </article>
-    
-    
-<nav class="flex flex-col max-w-screen-sm mx-auto">
-  <div class="flex justify-between flex-wrap pb-4">
-    
-    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/">
-      <span>Next:</span>
-      <span class="underline">
-                Skouf.com redesign - part 3
-              </span>
-    </a>
-    
-    
-    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/engineering-levels/">
-      <span>Previous:</span>
-      <span class="underline">
-                Engineering levels
-              </span>
-    </a>
-    
-  </div>
-  <div class="flex justify-center pt-2">
-    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
-  </div>
-</nav>
-
-
-  </main>
-  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
-  <section class="max-w-screen-sm mx-auto px-4">
-    <h2 class="font-bold text-2xl m-4">Author</h2>
-    <img class="mx-auto rounded-full h-24 w-24"
-         src="/image/theme/author.jpg"
-         alt="A picture of the author">
-    <div class="mx-auto my-4">
-      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
-      <p class="tagline text-center">Software developer, food lover</p>
-    </div>
-    <div class="flex justify-center space-x-2 my-4">
-      
-        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
-          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
-        </a>
-      
-      
-        <a href="https://hachyderm.io/@niksko"
-           target="_blank"
-           aria-label="Link to my Mastodon profile"
-        >
-          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
-        </a>
-      
-    </div>
-  </section>
-  <small class="pt-4">© skouf.com</small>
-</footer>
-
-</div>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NNFJW25R4');
-</script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</body>
-</html>
+like enforcing metadata across all resources.</p><p>Hopefully this helps you when designing your Gatekeeper policies!</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/><span>Next:</span>
+<span class=underline>Skouf.com redesign - part 3</span></a>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/engineering-levels/><span>Previous:</span>
+<span class=underline>Engineering levels</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>

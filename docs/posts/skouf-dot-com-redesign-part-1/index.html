@@ -1,681 +1,119 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <title>Skouf.com redesign - part 1 - skouf.com</title>
-  <meta name="generator" content="Hugo 0.118.2">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Nik Skoufis">
-  
-  <meta name="description" content="When I was young and naive, I built a website for myself. It&rsquo;s no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com.">
-  
-  <meta name="keywords" content="">
-  <meta property="og:site_name" content="skouf.com">
-  <meta property="og:title" content="Skouf.com redesign - part 1">
-  <meta property="og:url" content="https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/">
-  <meta property="og:image" content="https://www.skouf.com/skouf-dot-com-current.jpg">
-  
-  <meta property="og:description" content="When I was young and naive, I built a website for myself. It&rsquo;s no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com.">
-  
-  <meta property="og:type" content="blog">
-  <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
-</head>
-
-<body class="text-dark-blue-grey bg-light-blue-grey">
-<div class="overflow-hidden">
-  <header class="py-2 md:py-8 text-center bg-hero-green">
-  <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
-  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
-</header>
-
-  <main class="my-0 mx-auto max-w-prose p-4">
-    
-    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
-      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
-  <h1 class="text-3xl font-bold">Skouf.com redesign - part 1</h1>
-  <p class="text-dark-blue-grey/90 my-2 text-right">
-    <time itemprop="datePublished" datetime="2022-04-16T04:31:25Z">2022.04.16</time>
-  </p>
-</div>
-
-      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
-        <p>When I was young and naive, I built a website for myself by cobbling together a design I found, some custom css, and
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>Skouf.com redesign - part 1 - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="When I was young and naive, I built a website for myself. It&rsquo;s no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com."><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="Skouf.com redesign - part 1"><meta property="og:url" content="https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/"><meta property="og:image" content="https://www.skouf.com/skouf-dot-com-current.jpg"><meta property="og:description" content="When I was young and naive, I built a website for myself. It&rsquo;s no-longer fit for purpose, and needs a facelift. This is the first part of a multi-part series, focussing on some of the design considerations of this new skouf.com."><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">Skouf.com redesign - part 1</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2022-04-16T04:31:25Z>2022.04.16</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><p>When I was young and naive, I built a website for myself by cobbling together a design I found, some custom css, and
 manually hacking in some features I liked.
 It sort of worked on mobile, but not that well.
 It was hard to update, kind of ugly (in hindsight), and not really conducive to maintenance and updates.
 The content on there, the things it shows off, are dated and not really reflective of the engineer that I&rsquo;ve grown to
 be, or the interests I have.
 Those projects are a reflection of me, fresh out of uni, with some (again, in hindsight) frankly terrible toy projects
-that I&rsquo;d be kind of horrified to show prospective employers or even colleagues.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#skouf-dot-com-current.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current_hud54d24d36c1ce3af7acdb8e2761ec192_196942_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current_hud54d24d36c1ce3af7acdb8e2761ec192_196942_800x0_resize_q75_box.jpg 800w
-              
-              
-              '
-              
-                  src="/posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current.jpg"
-               alt="A screenshot of the website at [skouf.com](https://skouf.com) as it appeared on 18/04/2022">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="skouf-dot-com-current.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    What <a href="https://skouf.com">skouf.com</a> looks like as of 18/04/2022
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>Another thing that&rsquo;s apparent is that the website isn&rsquo;t fit for purpose anymore.
+that I&rsquo;d be kind of horrified to show prospective employers or even colleagues.</p><figure><a href=#skouf-dot-com-current.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current_hud54d24d36c1ce3af7acdb8e2761ec192_196942_500x0_resize_q75_box.jpg 500w
+, /posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current_hud54d24d36c1ce3af7acdb8e2761ec192_196942_800x0_resize_q75_box.jpg 800w' src=/posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current.jpg alt="A screenshot of the website at [skouf.com](https://skouf.com) as it appeared on 18/04/2022"></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=skouf-dot-com-current.jpg><img class="block w-full h-full object-contain m-0" src=/posts/skouf-dot-com-redesign-part-1/skouf-dot-com-current.jpg></a><figcaption><p>What <a href=https://skouf.com>skouf.com</a> looks like as of 18/04/2022</p></figcaption></figure><p>Another thing that&rsquo;s apparent is that the website isn&rsquo;t fit for purpose anymore.
 When I built it, it was a toy.
 I got to play around with some fun tech.
 And I got to show off to people, because in my social and uni circles at the time, having your own domain and a website
 was somewhat novel.
 At this point it&rsquo;s probably more of an embarrassment than something I&rsquo;d want to show off to colleagues, and friends are
-more likely to want to see blog entries rather than anything that&rsquo;s on <a href="https://skouf.com">skouf.com</a>.</p>
-<p>If there&rsquo;s one thing I&rsquo;ve learned when it comes to personal projects over the last few years, it&rsquo;s that my interest in
+more likely to want to see blog entries rather than anything that&rsquo;s on <a href=https://skouf.com>skouf.com</a>.</p><p>If there&rsquo;s one thing I&rsquo;ve learned when it comes to personal projects over the last few years, it&rsquo;s that my interest in
 them is <em>extremely</em> bursty.
 That&rsquo;s how you&rsquo;re getting this blog post!
 I&rsquo;ll spend a few weekends hacking on something, get it to a point that it works, and then not touch it again for
 roughly 12 months.
-This presents a few suggestions for what to optimise for when I&rsquo;m creating a personal project:</p>
-<ol>
-<li>The docs should be excellent. Thankfully, this isn&rsquo;t something out of the ordinary, and if anything, creating
+This presents a few suggestions for what to optimise for when I&rsquo;m creating a personal project:</p><ol><li>The docs should be excellent. Thankfully, this isn&rsquo;t something out of the ordinary, and if anything, creating
 personal projects in the past that are documented terribly has encouraged me to internalise and practice writing
 great docs. The code that builds and deploys these docs is probably a good example of that. I&rsquo;ve managed to come
-back to it now a few times, and creating new entries, building and deploying has been easy and simple each time.</li>
-<li>Simplicity is a virtue. The biggest example of this was probably my convoluted Matchbox/Ignition/PXE boot Kubernetes
-setup that I detailed in my <a href="https://www.skouf.com/posts/iac-in-the-home/">IAC in the home</a> article. A year on,
+back to it now a few times, and creating new entries, building and deploying has been easy and simple each time.</li><li>Simplicity is a virtue. The biggest example of this was probably my convoluted Matchbox/Ignition/PXE boot Kubernetes
+setup that I detailed in my <a href=https://www.skouf.com/posts/iac-in-the-home/>IAC in the home</a> article. A year on,
 I couldn&rsquo;t remember how any of it worked and had to start from scratch. This is also probably tied to good docs, but
-complexity also introduces additional things that can (and will) break. Complexity is not durable.</li>
-<li>The world will move on. Nothing really to hedge against here. What was state-of-the-art 12 months ago likely isn&rsquo;t
-state-of-the-art now. Rewrites are inevitable. Use them as an opportunity to catch up to the zeitgeist.</li>
-</ol>
-<p>Looking at those three points, they&rsquo;re probably true of <em>any</em> project rather than just personal projects.
-Who knew?</p>
-<p>With all of that in mind, it was time for a re-write of <a href="https://skouf.com">skouf.com</a>, with a few goals:</p>
-<ul>
-<li>Build with the learnings above about documentation, simplicity, and the pace of the industry in mind.</li>
-<li>Build in a way that it can be updated easily, to account for growth as an engineer and a person.</li>
-<li>Build for the audiences I care about, and make it easy for them to get their jobs done.</li>
-<li>Build the website itself in such a way that I learn from it, because my frontend skills are pretty rusty.</li>
-<li>Build so that the site itself is a project I&rsquo;m proud of.</li>
-</ul>
-<p>With those goals in mind, off we go!</p>
-<h2 id="design-thinking">Design thinking</h2>
-<p>Lately <a href="https://www.seek.com.au/work-for-seek/life-at-seek/">at work</a> I&rsquo;ve been doing a bunch of product thinking, and
+complexity also introduces additional things that can (and will) break. Complexity is not durable.</li><li>The world will move on. Nothing really to hedge against here. What was state-of-the-art 12 months ago likely isn&rsquo;t
+state-of-the-art now. Rewrites are inevitable. Use them as an opportunity to catch up to the zeitgeist.</li></ol><p>Looking at those three points, they&rsquo;re probably true of <em>any</em> project rather than just personal projects.
+Who knew?</p><p>With all of that in mind, it was time for a re-write of <a href=https://skouf.com>skouf.com</a>, with a few goals:</p><ul><li>Build with the learnings above about documentation, simplicity, and the pace of the industry in mind.</li><li>Build in a way that it can be updated easily, to account for growth as an engineer and a person.</li><li>Build for the audiences I care about, and make it easy for them to get their jobs done.</li><li>Build the website itself in such a way that I learn from it, because my frontend skills are pretty rusty.</li><li>Build so that the site itself is a project I&rsquo;m proud of.</li></ul><p>With those goals in mind, off we go!</p><h2 id=design-thinking>Design thinking</h2><p>Lately <a href=https://www.seek.com.au/work-for-seek/life-at-seek/>at work</a> I&rsquo;ve been doing a bunch of product thinking, and
 iterating on how we go from rough ideas and a product-shaped hole to delivering specific outcomes that meet customer
 needs.
-A tool I&rsquo;ve been reaching for is <a href="https://en.wikipedia.org/wiki/Design_thinking">design thinking</a>, and specifically,
-the <a href="https://www.designcouncil.org.uk/news-opinion/double-diamond-universally-accepted-depiction-design-process">design thinking double diamond</a>
+A tool I&rsquo;ve been reaching for is <a href=https://en.wikipedia.org/wiki/Design_thinking>design thinking</a>, and specifically,
+the <a href=https://www.designcouncil.org.uk/news-opinion/double-diamond-universally-accepted-depiction-design-process>design thinking double diamond</a>
 approach to designing software and products.
 I was introduced to this methodology primarily through Hackathons, and I&rsquo;ve been pretty happy with the sorts of
 results it produces.
 I like that it&rsquo;s not terribly prescriptive, meaning that it&rsquo;s flexible and can be adapted to lots of different types
 of design problems.
-It&rsquo;s also iterative in nature, and iteration leads to better design.</p>
-<p>There are probably as many techniques for doing design thinking as there are frontend frameworks.
+It&rsquo;s also iterative in nature, and iteration leads to better design.</p><p>There are probably as many techniques for doing design thinking as there are frontend frameworks.
 Choosing one can lead to decision paralysis.
 Instead, I think it&rsquo;s more important to just have some sort of process, regardless of whether it&rsquo;s the &lsquo;right&rsquo; process.
 It&rsquo;s the act of thinking about the design of whatever you&rsquo;re building that nudges you towards better choices, not
-the specific steps that you take.</p>
-<h2 id="persona-mapping">Persona mapping</h2>
-<p>Something I&rsquo;ve enjoyed in the past to kick-start the &lsquo;Discover&rsquo; phase of design thinking is <a href="https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them">persona mapping</a>.
+the specific steps that you take.</p><h2 id=persona-mapping>Persona mapping</h2><p>Something I&rsquo;ve enjoyed in the past to kick-start the &lsquo;Discover&rsquo; phase of design thinking is <a href=https://www.interaction-design.org/literature/article/personas-why-and-how-you-should-use-them>persona mapping</a>.
 I think what appeals to me is an &rsquo;extremist&rsquo; style of personas, that helps you understand the extremes of the audiences
 you are designing for.
 Once you&rsquo;ve explored the extremes of the solution space, you&rsquo;re better equipped to understand what &rsquo;too far&rsquo; towards
 and extreme looks like.
 Hopefully, this leads you to make better and more informed decisions about the tradeoffs required to please all of your
-potential audiences.</p>
-<p>With that in mind, here are the personas I came up with for my site</p>
-<h3 id="the-recruiter---sarah">&ldquo;The Recruiter&rdquo; - Sarah</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#recruiter-image.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-              
-              
-              '
-              
-                  src="/posts/skouf-dot-com-redesign-part-1/recruiter-image.jpg"
-               alt="An image of a young woman with brown hair and brown eyes.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="recruiter-image.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/skouf-dot-com-redesign-part-1/recruiter-image.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    The image I chose to represent the recruiter persona. Not a real human, I used <a href="https://generated.photos">generated.photos</a> to generate this face.
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>Age: 29</p>
-<p>Job title: Senior recruiter</p>
-<p>Location: Brussels, Belgium</p>
-<p>Quote: &ldquo;I find the best candidates, that are the right cultural and technical fit for our organisation&rdquo;</p>
-<p>Bio: Tech recruiter working for a growing, medium-sized tech company with startup roots, but that has grown aggressively
+potential audiences.</p><p>With that in mind, here are the personas I came up with for my site</p><h3 id=the-recruiter---sarah>&ldquo;The Recruiter&rdquo; - Sarah</h3><figure><a href=#recruiter-image.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset src=/posts/skouf-dot-com-redesign-part-1/recruiter-image.jpg alt="An image of a young woman with brown hair and brown eyes."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=recruiter-image.jpg><img class="block w-full h-full object-contain m-0" src=/posts/skouf-dot-com-redesign-part-1/recruiter-image.jpg></a><figcaption><p>The image I chose to represent the recruiter persona. Not a real human, I used <a href=https://generated.photos>generated.photos</a> to generate this face.</p></figcaption></figure><p>Age: 29</p><p>Job title: Senior recruiter</p><p>Location: Brussels, Belgium</p><p>Quote: &ldquo;I find the best candidates, that are the right cultural and technical fit for our organisation&rdquo;</p><p>Bio: Tech recruiter working for a growing, medium-sized tech company with startup roots, but that has grown aggressively
 and has big ambitions.
 No formal background in recruiting or tech, but has always worked in roles that involve interacting with people.
-Came to their current job to work with great people, and because the values of the organisation match their own.</p>
-<p>Principles and values:</p>
-<ul>
-<li>Everyone is equal, but not everyone is going to make a great fit</li>
-<li>Don&rsquo;t let perfect be the enemy of good</li>
-<li>You have to play the game to understand the rules</li>
-</ul>
-<p>Goals:</p>
-<ul>
-<li>Finding great candidates before other recruiters get to them</li>
-<li>Meeting the needs of a growing organisation, in numbers but also in experience and in-demand skills</li>
-<li>Getting home on time, and not letting work get in the way of life</li>
-</ul>
-<p>Motivations:</p>
-<ul>
-<li>Finding a role that is the perfect fit for a candidate as well as the business.</li>
-<li>Seeing candidates thrive once they&rsquo;ve started at the business.</li>
-<li>Working with other recruiters to get the best outcome for the business - swapping candidates and helping each other out with our open roles.</li>
-</ul>
-<p>Frustrations:</p>
-<ul>
-<li>Lots to do, and not much time to do it in</li>
-<li>Engineering managers that don&rsquo;t understand the hiring market</li>
-<li>Candidates who look good on paper but turn out to be duds</li>
-<li>Niche roles - people that are hard to find, and the added complexity of the subtlety of differences between how people self identify vs what your org is looking for</li>
-</ul>
-<h3 id="the-friend---nathan">&ldquo;The Friend&rdquo; - Nathan</h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#friend-image.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-              
-              
-              '
-              
-                  src="/posts/skouf-dot-com-redesign-part-1/friend-image.jpg"
-               alt="An image of a young man with black hair and brown eyes.">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="friend-image.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/skouf-dot-com-redesign-part-1/friend-image.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    The image I chose to represent the friend persona. Not a real human, I used <a href="https://generated.photos">generated.photos</a> to generate this face.
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>Age: 25</p>
-<p>Job title: Teacher</p>
-<p>Location: Brisbane, Australia</p>
-<p>Quote: &ldquo;I&rsquo;d love to recreate that dish Nik made for a party next week. How did he make it so delicious?&rdquo;</p>
-<p>Bio: Single guy working as a teacher.
+Came to their current job to work with great people, and because the values of the organisation match their own.</p><p>Principles and values:</p><ul><li>Everyone is equal, but not everyone is going to make a great fit</li><li>Don&rsquo;t let perfect be the enemy of good</li><li>You have to play the game to understand the rules</li></ul><p>Goals:</p><ul><li>Finding great candidates before other recruiters get to them</li><li>Meeting the needs of a growing organisation, in numbers but also in experience and in-demand skills</li><li>Getting home on time, and not letting work get in the way of life</li></ul><p>Motivations:</p><ul><li>Finding a role that is the perfect fit for a candidate as well as the business.</li><li>Seeing candidates thrive once they&rsquo;ve started at the business.</li><li>Working with other recruiters to get the best outcome for the business - swapping candidates and helping each other out with our open roles.</li></ul><p>Frustrations:</p><ul><li>Lots to do, and not much time to do it in</li><li>Engineering managers that don&rsquo;t understand the hiring market</li><li>Candidates who look good on paper but turn out to be duds</li><li>Niche roles - people that are hard to find, and the added complexity of the subtlety of differences between how people self identify vs what your org is looking for</li></ul><h3 id=the-friend---nathan>&ldquo;The Friend&rdquo; - Nathan</h3><figure><a href=#friend-image.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset src=/posts/skouf-dot-com-redesign-part-1/friend-image.jpg alt="An image of a young man with black hair and brown eyes."></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=friend-image.jpg><img class="block w-full h-full object-contain m-0" src=/posts/skouf-dot-com-redesign-part-1/friend-image.jpg></a><figcaption><p>The image I chose to represent the friend persona. Not a real human, I used <a href=https://generated.photos>generated.photos</a> to generate this face.</p></figcaption></figure><p>Age: 25</p><p>Job title: Teacher</p><p>Location: Brisbane, Australia</p><p>Quote: &ldquo;I&rsquo;d love to recreate that dish Nik made for a party next week. How did he make it so delicious?&rdquo;</p><p>Bio: Single guy working as a teacher.
 Loves food and cooking, craft beer, and video games.
 Working as a teacher which is pretty good, but work is a means to an end.
 Frustrated by the state of the world, and trying to do small things about it, and education is a great way of achieving
 that.
-Not sure what the future holds, but things are pretty good at the moment.</p>
-<p>Principles and values:</p>
-<ul>
-<li>Leave the world a better place than you found it</li>
-<li>Good food with good friends is one of life&rsquo;s greatest joys</li>
-<li>I&rsquo;m not sure what the future holds, but I&rsquo;m playing my part in steering it in a good direction</li>
-</ul>
-<p>Goals:</p>
-<ul>
-<li>Wants to cook and eat delicious things, and know where to learn more (even if I don&rsquo;t get around to it - life is busy)</li>
-<li>Poke around some tech stuff if I can understand it.</li>
-<li>Share things with friends, because this stuff is cool and I want others to know about it and pass on the favor of knowledge</li>
-</ul>
-<p>Motivations:</p>
-<ul>
-<li>Eating delicious things</li>
-<li>Food and cooking are tied to identity. Not strongly, but more than anyone else in my circle.</li>
-<li>Sharing information or cool links, because that&rsquo;s what we do in our circle.</li>
-<li>Learning is a worthwhile pursuit, in and of itself</li>
-</ul>
-<p>Frustrations:</p>
-<ul>
-<li>Lots to do, and not much time to do it in</li>
-<li>Too much preamble before the recipe, I&rsquo;ll go back and read that later.</li>
-<li>I want to understand, but this recipe is pretty complex and assumes a lot of knowledge. I&rsquo;m happy to research, but I might need some pointers</li>
-</ul>
-<h2 id="from-personas-to-design-ideas">From personas to design ideas</h2>
-<p>There are definitely some themes here, but I think the best way to represent the ideas that it generated for me are
+Not sure what the future holds, but things are pretty good at the moment.</p><p>Principles and values:</p><ul><li>Leave the world a better place than you found it</li><li>Good food with good friends is one of life&rsquo;s greatest joys</li><li>I&rsquo;m not sure what the future holds, but I&rsquo;m playing my part in steering it in a good direction</li></ul><p>Goals:</p><ul><li>Wants to cook and eat delicious things, and know where to learn more (even if I don&rsquo;t get around to it - life is busy)</li><li>Poke around some tech stuff if I can understand it.</li><li>Share things with friends, because this stuff is cool and I want others to know about it and pass on the favor of knowledge</li></ul><p>Motivations:</p><ul><li>Eating delicious things</li><li>Food and cooking are tied to identity. Not strongly, but more than anyone else in my circle.</li><li>Sharing information or cool links, because that&rsquo;s what we do in our circle.</li><li>Learning is a worthwhile pursuit, in and of itself</li></ul><p>Frustrations:</p><ul><li>Lots to do, and not much time to do it in</li><li>Too much preamble before the recipe, I&rsquo;ll go back and read that later.</li><li>I want to understand, but this recipe is pretty complex and assumes a lot of knowledge. I&rsquo;m happy to research, but I might need some pointers</li></ul><h2 id=from-personas-to-design-ideas>From personas to design ideas</h2><p>There are definitely some themes here, but I think the best way to represent the ideas that it generated for me are
 through the &lsquo;Discover&rsquo; phase of the design thinking double diamond.
-To make sure that I accurately represented each of my personas, I used the following method:</p>
-<ol>
-<li>Read one of the personas, trying to really internalise their feelings and thoughts.</li>
-<li>Spend 4 minutes brainstorming, trying to empathise with that persona</li>
-<li>Read the other persona, and repeat</li>
-<li>Finally, spend 4 minutes brainstorming without a persona, to see what else you can capture</li>
-</ol>
-<p>Here is what I came up with:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#discover-phase.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_800x0_resize_q75_box.jpg 800w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_1200x0_resize_q75_box.jpg 1200w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_1500x0_resize_q75_box.jpg 1500w 
-              '
-              
-                  src="/posts/skouf-dot-com-redesign-part-1/discover-phase.jpg"
-               alt="A left pointing triangle with many post it notes, each with a separate idea on them">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="discover-phase.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/skouf-dot-com-redesign-part-1/discover-phase.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    The &lsquo;discover&rsquo; phase of my design thinking
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>After this, I did some grouping into themes or ideas over in the &lsquo;Define&rsquo; section.
-Here&rsquo;s where I ended up:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#define-phase.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_800x0_resize_q75_box.jpg 800w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_1200x0_resize_q75_box.jpg 1200w
-              
-              
-                  , /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_1500x0_resize_q75_box.jpg 1500w 
-              '
-              
-                  src="/posts/skouf-dot-com-redesign-part-1/define-phase.jpg"
-               alt="A right pointing triangle with many post it notes, each with a separate idea on them">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="define-phase.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/skouf-dot-com-redesign-part-1/define-phase.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    The &lsquo;define&rsquo; phase of my design thinking
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p>Something interesting and worth noting here: while doing my brainstorming, there&rsquo;s a clearly missing persona from my
+To make sure that I accurately represented each of my personas, I used the following method:</p><ol><li>Read one of the personas, trying to really internalise their feelings and thoughts.</li><li>Spend 4 minutes brainstorming, trying to empathise with that persona</li><li>Read the other persona, and repeat</li><li>Finally, spend 4 minutes brainstorming without a persona, to see what else you can capture</li></ol><p>Here is what I came up with:</p><figure><a href=#discover-phase.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_500x0_resize_q75_box.jpg 500w
+, /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_800x0_resize_q75_box.jpg 800w
+, /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_1200x0_resize_q75_box.jpg 1200w
+, /posts/skouf-dot-com-redesign-part-1/discover-phase_hu80b3aaf7d49f162b28ce1b6d42eead19_753530_1500x0_resize_q75_box.jpg 1500w' src=/posts/skouf-dot-com-redesign-part-1/discover-phase.jpg alt="A left pointing triangle with many post it notes, each with a separate idea on them"></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=discover-phase.jpg><img class="block w-full h-full object-contain m-0" src=/posts/skouf-dot-com-redesign-part-1/discover-phase.jpg></a><figcaption><p>The &lsquo;discover&rsquo; phase of my design thinking</p></figcaption></figure><p>After this, I did some grouping into themes or ideas over in the &lsquo;Define&rsquo; section.
+Here&rsquo;s where I ended up:</p><figure><a href=#define-phase.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_500x0_resize_q75_box.jpg 500w
+, /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_800x0_resize_q75_box.jpg 800w
+, /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_1200x0_resize_q75_box.jpg 1200w
+, /posts/skouf-dot-com-redesign-part-1/define-phase_huc8dd876172758c362556d8267a682a8a_792681_1500x0_resize_q75_box.jpg 1500w' src=/posts/skouf-dot-com-redesign-part-1/define-phase.jpg alt="A right pointing triangle with many post it notes, each with a separate idea on them"></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=define-phase.jpg><img class="block w-full h-full object-contain m-0" src=/posts/skouf-dot-com-redesign-part-1/define-phase.jpg></a><figcaption><p>The &lsquo;define&rsquo; phase of my design thinking</p></figcaption></figure><p>Something interesting and worth noting here: while doing my brainstorming, there&rsquo;s a clearly missing persona from my
 thinking above.
 This persona is that of someone technical, who might have come across my site through Google or because someone else
 linked to it, and wants to have a bit of a look around.
 They probably don&rsquo;t care about any food stuff, and want to be guided to posts with similar topics to what they&rsquo;ve just
 read.
-This persona might be something like &lsquo;The Colleague&rsquo; or &lsquo;The Developer&rsquo; or something like that.</p>
-<p>I elected not to go back and create a persona around this, but I could have.
+This persona might be something like &lsquo;The Colleague&rsquo; or &lsquo;The Developer&rsquo; or something like that.</p><p>I elected not to go back and create a persona around this, but I could have.
 The point of doing all of this design stuff isn&rsquo;t necessarily that it is perfect, but that it&rsquo;s deliberate and you have
 some sort of plan.
 Missing a persona, but finding it naturally in the ideas that follow after you <em>did</em> create some personas is a good
-example of this.</p>
-<h2 id="broad-design-principles">Broad design principles</h2>
-<p>At this point, I feel like I&rsquo;m starting to get a bit of a feel for how I&rsquo;m going to design this website.</p>
-<p>To fill in some required detail here, I have a site at <code>skouf.com</code> which I figure is going to be the entry-point for
+example of this.</p><h2 id=broad-design-principles>Broad design principles</h2><p>At this point, I feel like I&rsquo;m starting to get a bit of a feel for how I&rsquo;m going to design this website.</p><p>To fill in some required detail here, I have a site at <code>skouf.com</code> which I figure is going to be the entry-point for
 lots of folks.
 It&rsquo;s easy to just point people there and be done with it.
-However, I also have a blog at <code>blog.skouf.com</code> which is a separate Hugo-based static site.</p>
-<p>With that context, some of the information below points clearly to things that need to be on the main <code>skouf.com</code> site.
+However, I also have a blog at <code>blog.skouf.com</code> which is a separate Hugo-based static site.</p><p>With that context, some of the information below points clearly to things that need to be on the main <code>skouf.com</code> site.
 This includes stuff like contact details, signposting stuff, probably employment things, and a bio.
 There&rsquo;s also things that are likely enhancements to the blog, but that may also warrant their own place on the main
-<code>skouf.com</code> site, likely as links off to <code>blog.skouf.com</code>.</p>
-<p>Here are some of the broad themes that will shape this re-design.</p>
-<h3 id="two-clear-types-of-users">Two clear &rsquo;types&rsquo; of users</h3>
-<p>It seems pretty clear to me that there are two clear &rsquo;types&rsquo; of users of my site:</p>
-<ul>
-<li>People looking to hire me for work</li>
-<li>People looking for content that I&rsquo;ve created</li>
-</ul>
-<p>These two groups have some shared needs, but also have pretty different interaction patterns.</p>
-<p>The people looking to hire me want to make a decision about whether I&rsquo;m worth their time to get in touch with, or to
+<code>skouf.com</code> site, likely as links off to <code>blog.skouf.com</code>.</p><p>Here are some of the broad themes that will shape this re-design.</p><h3 id=two-clear-types-of-users>Two clear &rsquo;types&rsquo; of users</h3><p>It seems pretty clear to me that there are two clear &rsquo;types&rsquo; of users of my site:</p><ul><li>People looking to hire me for work</li><li>People looking for content that I&rsquo;ve created</li></ul><p>These two groups have some shared needs, but also have pretty different interaction patterns.</p><p>The people looking to hire me want to make a decision about whether I&rsquo;m worth their time to get in touch with, or to
 progress to the next round of a hiring process.
 They need a bunch of things from me to do this, and they need to do it fast, because they&rsquo;re busy and I&rsquo;m just
 another candidate in a sea of developers.
 I need to stand out, but also, want to make their lives easy.
-This points to big, easy to find links to the stuff they want: resume, bio, contact info, what I&rsquo;m looking for in a job.</p>
-<p>The other people are either friends and family looking for food stuff, or general internet denizens looking for food
+This points to big, easy to find links to the stuff they want: resume, bio, contact info, what I&rsquo;m looking for in a job.</p><p>The other people are either friends and family looking for food stuff, or general internet denizens looking for food
 or tech info.
 These people have a different interaction mode.
 They&rsquo;re either looking for a specific thing because they&rsquo;ve heard me mention it.
 Or they&rsquo;re looking for information organised around a topic: either more of the same, or more by me on a slightly
-different topic.</p>
-<p>Given the large difference in these interaction modes, I&rsquo;m thinking about implementing something that I&rsquo;ve seen in the
+different topic.</p><p>Given the large difference in these interaction modes, I&rsquo;m thinking about implementing something that I&rsquo;ve seen in the
 past and enjoyed: the explicit &lsquo;switch&rsquo; to accommodate the two different types of users.
 This takes the form of some sort of literal &lsquo;switch&rsquo; UI element on the page, that changes the content and look-and-feel
 of the site depending on what the user selects.
 This is a fun way to separate the two different types of users.
 It provides a fun technical challenge (theming the site), as well as twice the opportunity to exercise my creativity
-in designing and laying out a website, while simultaneously optimising the experience for two quite different use cases.</p>
-<h3 id="topics-of-information-are-key-along-with-recency">Topics of information are key, along with recency</h3>
-<p>In particular, the friend/family/internet denizen use case likely wants to browse content by topic.
+in designing and laying out a website, while simultaneously optimising the experience for two quite different use cases.</p><h3 id=topics-of-information-are-key-along-with-recency>Topics of information are key, along with recency</h3><p>In particular, the friend/family/internet denizen use case likely wants to browse content by topic.
 These topics are probably somewhat varied, and run the gamut of being organized by subject, to being organized by
 intended audience.
-At this stage, topics should probably be along the lines of:</p>
-<ul>
-<li>Food</li>
-<li>Drinks</li>
-<li>Accessible tech stuff</li>
-<li>Kubernetes</li>
-<li>Product and design</li>
-<li>People and organisations</li>
-</ul>
-<p>Some of these topics are aspirational: they&rsquo;re things I spend time thinking about, but haven&rsquo;t written much about.
+At this stage, topics should probably be along the lines of:</p><ul><li>Food</li><li>Drinks</li><li>Accessible tech stuff</li><li>Kubernetes</li><li>Product and design</li><li>People and organisations</li></ul><p>Some of these topics are aspirational: they&rsquo;re things I spend time thinking about, but haven&rsquo;t written much about.
 This need for topics also underscores the need for my blog to get a bit more sophisticated.
-These topics should largely be driven from the blog, and skouf.com should just link to the blog topic pages.</p>
-<h3 id="the-recipes-probably-need-more-sophistication">The recipes probably need more sophistication</h3>
-<p>A theme is that if I&rsquo;m a friend or family member looking to recreate things, I would probably have the same wants and
+These topics should largely be driven from the blog, and skouf.com should just link to the blog topic pages.</p><h3 id=the-recipes-probably-need-more-sophistication>The recipes probably need more sophistication</h3><p>A theme is that if I&rsquo;m a friend or family member looking to recreate things, I would probably have the same wants and
 needs that I personally have out of recipes.
-Namely:</p>
-<ul>
-<li>Where do I find this obscure ingredient?</li>
-<li>What are recipes like this one?</li>
-<li>What drinks pair well with this food (or visa versa)?</li>
-<li>How do I share this to friends?</li>
-</ul>
-<p>This will probably entail some redesigning of the Hugo &lsquo;shortcode&rsquo; I use to generate recipe blocks, but that&rsquo;s a topic
-for another blog post.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>With some of the design principles out of the way, it&rsquo;s time to start building.
+Namely:</p><ul><li>Where do I find this obscure ingredient?</li><li>What are recipes like this one?</li><li>What drinks pair well with this food (or visa versa)?</li><li>How do I share this to friends?</li></ul><p>This will probably entail some redesigning of the Hugo &lsquo;shortcode&rsquo; I use to generate recipe blocks, but that&rsquo;s a topic
+for another blog post.</p><h2 id=conclusion>Conclusion</h2><p>With some of the design principles out of the way, it&rsquo;s time to start building.
 I&rsquo;m going to leave this blog post here, as it&rsquo;s long enough.
-Look out for a future post where I detail some of the technical choices, and get stuck in to building this thing.</p>
-<p><em>Read <a href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/">part 2</a> of this series</em>
-<em>Read <a href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/">part 3</a> of this series</em></p>
-
-        <hr/>
-      </div>
-    </article>
-    
-    
-<nav class="flex flex-col max-w-screen-sm mx-auto">
-  <div class="flex justify-between flex-wrap pb-4">
-    
-    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/">
-      <span>Next:</span>
-      <span class="underline">
-                Skouf.com redesign - part 2
-              </span>
-    </a>
-    
-    
-    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/">
-      <span>Previous:</span>
-      <span class="underline">
-                Enabling graceful node shutdown on EKS in Kubernetes 1.21
-              </span>
-    </a>
-    
-  </div>
-  <div class="flex justify-center pt-2">
-    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
-  </div>
-</nav>
-
-
-  </main>
-  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
-  <section class="max-w-screen-sm mx-auto px-4">
-    <h2 class="font-bold text-2xl m-4">Author</h2>
-    <img class="mx-auto rounded-full h-24 w-24"
-         src="/image/theme/author.jpg"
-         alt="A picture of the author">
-    <div class="mx-auto my-4">
-      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
-      <p class="tagline text-center">Software developer, food lover</p>
-    </div>
-    <div class="flex justify-center space-x-2 my-4">
-      
-        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
-          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
-        </a>
-      
-      
-        <a href="https://hachyderm.io/@niksko"
-           target="_blank"
-           aria-label="Link to my Mastodon profile"
-        >
-          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
-        </a>
-      
-    </div>
-  </section>
-  <small class="pt-4">© skouf.com</small>
-</footer>
-
-</div>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NNFJW25R4');
-</script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</body>
-</html>
+Look out for a future post where I detail some of the technical choices, and get stuck in to building this thing.</p><p><em>Read <a href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/>part 2</a> of this series</em>
+<em>Read <a href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/>part 3</a> of this series</em></p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-2/><span>Next:</span>
+<span class=underline>Skouf.com redesign - part 2</span></a>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/><span>Previous:</span>
+<span class=underline>Enabling graceful node shutdown on EKS in Kubernetes 1.21</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>

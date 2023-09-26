@@ -1,316 +1,100 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <title>Enabling graceful node shutdown on EKS in Kubernetes 1.21 - skouf.com</title>
-  <meta name="generator" content="Hugo 0.118.2">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Nik Skoufis">
-  
-  <meta name="description" content="Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.">
-  
-  <meta name="keywords" content="">
-  <meta property="og:site_name" content="skouf.com">
-  <meta property="og:title" content="Enabling graceful node shutdown on EKS in Kubernetes 1.21">
-  <meta property="og:url" content="https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/">
-  <meta property="og:image" content="https://www.skouf.com/swan.jpg">
-  
-  <meta property="og:description" content="Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS.">
-  
-  <meta property="og:type" content="blog">
-  <link rel="shortcut icon" href="/image/theme/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/syntax.css">
-  <link rel="alternate" href="https://www.skouf.com/index.xml" type="application/rss+xml" title="skouf.com">
-</head>
-
-<body class="text-dark-blue-grey bg-light-blue-grey">
-<div class="overflow-hidden">
-  <header class="py-2 md:py-8 text-center bg-hero-green">
-  <h1>
-    <a class="text-2xl md:text-4xl font-bold text-dark-green" href="https://www.skouf.com/">skouf.com</a></h1>
-  <p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p>
-</header>
-
-  <main class="my-0 mx-auto max-w-prose p-4">
-    
-    <article class="pb-12" itemscope itemtype="http://schema.org/BlogPosting">
-      <div class="py-2 md:py-6 mx-auto max-w-screen-sm">
-  <h1 class="text-3xl font-bold">Enabling graceful node shutdown on EKS in Kubernetes 1.21</h1>
-  <p class="text-dark-blue-grey/90 my-2 text-right">
-    <time itemprop="datePublished" datetime="2021-08-02T00:58:34Z">2021.08.02</time>
-  </p>
-</div>
-
-      <div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden">
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure>
-        <a href="#swan.jpg">
-        <img
-          sizes="(min-width: 35em) 1200px, 100vw"
-            srcset='
-              
-                /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_500x0_resize_q75_box.jpg 500w
-              
-              
-                  , /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_800x0_resize_q75_box.jpg 800w
-              
-              
-                  , /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_1200x0_resize_q75_box.jpg 1200w
-              
-              
-                  , /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_1500x0_resize_q75_box.jpg 1500w 
-              '
-              
-                  src="/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan.jpg"
-               alt="An image of a white swan swimming in a fairly calm body of water">
-            </a>
-            
-            
-            <a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"
-               href="#_" id="swan.jpg">
-              <img
-                class="block w-full h-full object-contain m-0"
-                src="/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan.jpg"
-              >
-            </a><figcaption>
-                
-                <p>
-                    Your cluster (hopefully) after enabling this feature. Photo by <a href="https://unsplash.com/@oliver_rowley?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Oliver Rowley</a> on <a href="https://unsplash.com/s/photos/swan?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a>
-                    
-                        
-                        </p>
-                
-            </figcaption></figure>
-
-<p><a href="https://kubernetes.io/blog/2021/04/08/kubernetes-1-21-release-announcement/">Kubernetes 1.21 was released in April</a>, and
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>Enabling graceful node shutdown on EKS in Kubernetes 1.21 - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS."><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="Enabling graceful node shutdown on EKS in Kubernetes 1.21"><meta property="og:url" content="https://www.skouf.com/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/"><meta property="og:image" content="https://www.skouf.com/swan.jpg"><meta property="og:description" content="Kubernetes 1.21 supports graceful node shutdown, for gracefully terminating pods when a node is shutting down. This post explains how to configure this feature on EKS."><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">Enabling graceful node shutdown on EKS in Kubernetes 1.21</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2021-08-02T00:58:34Z>2021.08.02</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><figure><a href=#swan.jpg><img sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_500x0_resize_q75_box.jpg 500w
+, /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_800x0_resize_q75_box.jpg 800w
+, /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_1200x0_resize_q75_box.jpg 1200w
+, /posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan_hue1f357e3370380187a1bfafdddb4d754_3644914_1500x0_resize_q75_box.jpg 1500w' src=/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan.jpg alt="An image of a white swan swimming in a fairly calm body of water"></a>
+<a class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80" href=#_ id=swan.jpg><img class="block w-full h-full object-contain m-0" src=/posts/enabling-graceful-node-shutdown-on-eks-in-kubernetes-1-21/swan.jpg></a><figcaption><p>Your cluster (hopefully) after enabling this feature. Photo by <a href="https://unsplash.com/@oliver_rowley?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Oliver Rowley</a> on <a href="https://unsplash.com/s/photos/swan?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p></figcaption></figure><p><a href=https://kubernetes.io/blog/2021/04/08/kubernetes-1-21-release-announcement/>Kubernetes 1.21 was released in April</a>, and
 with it, a new feature graduated to beta.
-<a href="https://kubernetes.io/docs/concepts/architecture/nodes/#graceful-node-shutdown">Graceful node shutdown</a> allows the
+<a href=https://kubernetes.io/docs/concepts/architecture/nodes/#graceful-node-shutdown>Graceful node shutdown</a> allows the
 kubelet to detect when the system is being shut down, and delays this shutdown by a small amount of time to ensure
-that all of the pods on the node can be terminated gracefully.</p>
-<p>This feature fills a gap in the current tooling when running Kubernetes in AWS.
-We have the <a href="https://github.com/aws/aws-node-termination-handler">Node Termination Handler</a> for detecting node shutdowns
+that all of the pods on the node can be terminated gracefully.</p><p>This feature fills a gap in the current tooling when running Kubernetes in AWS.
+We have the <a href=https://github.com/aws/aws-node-termination-handler>Node Termination Handler</a> for detecting node shutdowns
 based on EC2 events, but this won&rsquo;t handle the simple case of stopping or restarting a node outside of the node&rsquo;s
-normal lifecycle (e.g. lifecycle events related to being part of an ASG).</p>
-<p>With <a href="https://aws.amazon.com/blogs/containers/amazon-eks-1-21-released/">EKS now supporting Kubernetes 1.21</a>, you might
-think you get access to graceful node shutdown for free.</p>
-<p>Not quite.</p>
-<p>It requires a little bit of configuration, but it&rsquo;s a pretty simple fix for a lot of gain.</p>
-<p>This post is a bit of a journal of my process when figuring out how to configure this feature on EKS, with a section
-at the end that outlines the final set of steps to enable this feature.</p>
-<h2 id="process">Process</h2>
-<p>To start, we&rsquo;ll SSH/SSM to a node, and try and configure the feature manually.
-Once we&rsquo;ve got that working, we&rsquo;ll automate.</p>
-<p>My first thought was to just add the required configuration fields to the kubelet&rsquo;s configuration file, and see if
-that worked.</p>
-<p>The kubelet reads configuration from <code>/etc/kubernetes/kubelet/kubelet-config.json</code>, and the configuration API is
-documented at <a href="https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration">kubelet.config.k8s.io/v1beta1</a>.</p>
-<p>I tried adding the <code>shutdownGracePeriod</code> and <code>shutdownGracePeriodCriticalPods</code> fields.
-The format is the standard Golang duration format i.e. <code>3m30s</code> for 3 minutes and 30 seconds.</p>
-<p>On our cluster, from the time a pod first goes into <code>Pending</code>, to launching a new node and that pod being scheduled (with low priority)
+normal lifecycle (e.g. lifecycle events related to being part of an ASG).</p><p>With <a href=https://aws.amazon.com/blogs/containers/amazon-eks-1-21-released/>EKS now supporting Kubernetes 1.21</a>, you might
+think you get access to graceful node shutdown for free.</p><p>Not quite.</p><p>It requires a little bit of configuration, but it&rsquo;s a pretty simple fix for a lot of gain.</p><p>This post is a bit of a journal of my process when figuring out how to configure this feature on EKS, with a section
+at the end that outlines the final set of steps to enable this feature.</p><h2 id=process>Process</h2><p>To start, we&rsquo;ll SSH/SSM to a node, and try and configure the feature manually.
+Once we&rsquo;ve got that working, we&rsquo;ll automate.</p><p>My first thought was to just add the required configuration fields to the kubelet&rsquo;s configuration file, and see if
+that worked.</p><p>The kubelet reads configuration from <code>/etc/kubernetes/kubelet/kubelet-config.json</code>, and the configuration API is
+documented at <a href=https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration>kubelet.config.k8s.io/v1beta1</a>.</p><p>I tried adding the <code>shutdownGracePeriod</code> and <code>shutdownGracePeriodCriticalPods</code> fields.
+The format is the standard Golang duration format i.e. <code>3m30s</code> for 3 minutes and 30 seconds.</p><p>On our cluster, from the time a pod first goes into <code>Pending</code>, to launching a new node and that pod being scheduled (with low priority)
 is about 3m15s. So 4m feels like a good amount of time to wait for regular pods to be evicted, and then another 2m for system
-critical pods.</p>
-<p>In the end, my <code>KubeletConfiguration</code> looked like this</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;kind&#34;</span><span class="p">:</span> <span class="s2">&#34;KubeletConfiguration&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;apiVersion&#34;</span><span class="p">:</span> <span class="s2">&#34;kubelet.config.k8s.io/v1beta1&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="err">...</span>
-</span></span><span class="line"><span class="cl">  <span class="err">&lt;snip&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="err">...</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;maxPods&#34;</span><span class="p">:</span> <span class="mi">58</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;shutdownGracePeriod&#34;</span><span class="p">:</span> <span class="s2">&#34;6m&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;shutdownGracePeriodCriticalPods&#34;</span><span class="p">:</span> <span class="s2">&#34;2m&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>The two lines at the bottom are the new parts.</p>
-<p>Now, the kubelet should be configured, we need to restart the Systemd service so that the configuration takes effect.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl restart kubelet
-</span></span></code></pre></div><p>The graceful node shutdown feature uses <a href="https://www.freedesktop.org/wiki/Software/systemd/inhibit/">Systemd inhibitor locks</a>,
-so we should be able to check whether the kubelet has taken a lock:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo systemd-inhibit --list
-</span></span><span class="line"><span class="cl"><span class="m">0</span> inhibitors listed.
-</span></span></code></pre></div><p>However we find no inhibitors.</p>
-<p>Looking at the kubelet logs:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo journalctl -u kubelet <span class="p">|</span> grep shutdown
-</span></span><span class="line"><span class="cl">Jul <span class="m">29</span> 06:22:01 &lt;node-hostname&gt; kubelet<span class="o">[</span>20169<span class="o">]</span>: E0729 06:22:01.860159   <span class="m">20169</span> kubelet.go:1407<span class="o">]</span> <span class="s2">&#34;Failed to start node shutdown manager&#34;</span> <span class="nv">err</span><span class="o">=</span><span class="s2">&#34;failed reading InhibitDelayMaxUSec property from logind: Message recipient disconnected from message bus without replying&#34;</span>
-</span></span></code></pre></div><p>This indicates an issue with logind.</p>
-<p>Based on the <a href="https://www.freedesktop.org/software/systemd/man/logind.conf.html">logind man page</a>, the issue is probably
-that we haven&rsquo;t configured <code>InhibitDelayMaxSec</code>.</p>
-<p>We can check that by looking at <code>/etc/systemd/logind.conf</code> and seeing that the file has all of the options commented
+critical pods.</p><p>In the end, my <code>KubeletConfiguration</code> looked like this</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;kind&#34;</span><span class=p>:</span> <span class=s2>&#34;KubeletConfiguration&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;apiVersion&#34;</span><span class=p>:</span> <span class=s2>&#34;kubelet.config.k8s.io/v1beta1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;address&#34;</span><span class=p>:</span> <span class=s2>&#34;0.0.0.0&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=err>...</span>
+</span></span><span class=line><span class=cl>  <span class=err>&lt;snip&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=err>...</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;maxPods&#34;</span><span class=p>:</span> <span class=mi>58</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;shutdownGracePeriod&#34;</span><span class=p>:</span> <span class=s2>&#34;6m&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;shutdownGracePeriodCriticalPods&#34;</span><span class=p>:</span> <span class=s2>&#34;2m&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>The two lines at the bottom are the new parts.</p><p>Now, the kubelet should be configured, we need to restart the Systemd service so that the configuration takes effect.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo systemctl restart kubelet
+</span></span></code></pre></div><p>The graceful node shutdown feature uses <a href=https://www.freedesktop.org/wiki/Software/systemd/inhibit/>Systemd inhibitor locks</a>,
+so we should be able to check whether the kubelet has taken a lock:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo systemd-inhibit --list
+</span></span><span class=line><span class=cl><span class=m>0</span> inhibitors listed.
+</span></span></code></pre></div><p>However we find no inhibitors.</p><p>Looking at the kubelet logs:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo journalctl -u kubelet <span class=p>|</span> grep shutdown
+</span></span><span class=line><span class=cl>Jul <span class=m>29</span> 06:22:01 &lt;node-hostname&gt; kubelet<span class=o>[</span>20169<span class=o>]</span>: E0729 06:22:01.860159   <span class=m>20169</span> kubelet.go:1407<span class=o>]</span> <span class=s2>&#34;Failed to start node shutdown manager&#34;</span> <span class=nv>err</span><span class=o>=</span><span class=s2>&#34;failed reading InhibitDelayMaxUSec property from logind: Message recipient disconnected from message bus without replying&#34;</span>
+</span></span></code></pre></div><p>This indicates an issue with logind.</p><p>Based on the <a href=https://www.freedesktop.org/software/systemd/man/logind.conf.html>logind man page</a>, the issue is probably
+that we haven&rsquo;t configured <code>InhibitDelayMaxSec</code>.</p><p>We can check that by looking at <code>/etc/systemd/logind.conf</code> and seeing that the file has all of the options commented
 out.
 We&rsquo;re going to leave <code>/etc/systemd/logind.conf</code> alone, because this is where Amazon would configure any defaults they
 wanted to configure.
-Instead, we&rsquo;re going to create a file under <code>/etc/systemd/logind.conf.d/</code>.</p>
-<p>At this point, I discovered that there actually already was a file in this directory called <code>99-kubelet.conf</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat /etc/systemd/logind.conf.d/99-kubelet.conf
-</span></span><span class="line"><span class="cl"><span class="c1"># Kubelet logind override</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>Login<span class="o">]</span>
-</span></span><span class="line"><span class="cl"><span class="nv">InhibitDelayMaxSec</span><span class="o">=</span><span class="m">360</span>
-</span></span></code></pre></div><p>Seems like the kubelet attempts to configure logind for us if it can&rsquo;t make the graceful node shutdown feature work.</p>
-<p>So at this point, it seems like we should just be able to restart the <code>systemd-logind</code> service and then <code>kubelet</code>,
-and the feature should work. And we can:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo systemctl restart systemd-logind
-</span></span><span class="line"><span class="cl">$ sudo systemd-inhibit --list
-</span></span><span class="line"><span class="cl"><span class="m">0</span> inhibitors listed.
-</span></span><span class="line"><span class="cl">$ sudo systemctl restart kubelet
-</span></span><span class="line"><span class="cl">$ sudo systemd-inhibit --list
-</span></span><span class="line"><span class="cl">     Who: kubelet <span class="o">(</span>UID 0/root, PID 24485/kubelet<span class="o">)</span>
-</span></span><span class="line"><span class="cl">    What: shutdown
-</span></span><span class="line"><span class="cl">     Why: Kubelet needs <span class="nb">time</span> to handle node shutdown
-</span></span><span class="line"><span class="cl">    Mode: delay
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="m">1</span> inhibitors listed.
+Instead, we&rsquo;re going to create a file under <code>/etc/systemd/logind.conf.d/</code>.</p><p>At this point, I discovered that there actually already was a file in this directory called <code>99-kubelet.conf</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ cat /etc/systemd/logind.conf.d/99-kubelet.conf
+</span></span><span class=line><span class=cl><span class=c1># Kubelet logind override</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>Login<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>InhibitDelayMaxSec</span><span class=o>=</span><span class=m>360</span>
+</span></span></code></pre></div><p>Seems like the kubelet attempts to configure logind for us if it can&rsquo;t make the graceful node shutdown feature work.</p><p>So at this point, it seems like we should just be able to restart the <code>systemd-logind</code> service and then <code>kubelet</code>,
+and the feature should work. And we can:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo systemctl restart systemd-logind
+</span></span><span class=line><span class=cl>$ sudo systemd-inhibit --list
+</span></span><span class=line><span class=cl><span class=m>0</span> inhibitors listed.
+</span></span><span class=line><span class=cl>$ sudo systemctl restart kubelet
+</span></span><span class=line><span class=cl>$ sudo systemd-inhibit --list
+</span></span><span class=line><span class=cl>     Who: kubelet <span class=o>(</span>UID 0/root, PID 24485/kubelet<span class=o>)</span>
+</span></span><span class=line><span class=cl>    What: shutdown
+</span></span><span class=line><span class=cl>     Why: Kubelet needs <span class=nb>time</span> to handle node shutdown
+</span></span><span class=line><span class=cl>    Mode: delay
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> inhibitors listed.
 </span></span></code></pre></div><p>However relying on the kubelet to create configuration for us isn&rsquo;t ideal.
-Instead, we can create the required config ourselves.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir -p /etc/systemd/logind.conf.d
-</span></span><span class="line"><span class="cl">$ cat <span class="s">&lt;&lt; EOF &gt; 50-max-delay.conf
-</span></span></span><span class="line"><span class="cl"><span class="s">[Login]
-</span></span></span><span class="line"><span class="cl"><span class="s">InhibitDelayMaxSec=360
-</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
-</span></span><span class="line"><span class="cl">$ sudo mv 50-max-delay.conf /etc/systemd/logind.conf.d/
-</span></span><span class="line"><span class="cl">$ sudo systemctl restart systemd-logind
-</span></span><span class="line"><span class="cl">$ sudo systemctl restart kubelet
-</span></span><span class="line"><span class="cl">$ sudo systemd-inhibit --list
-</span></span><span class="line"><span class="cl">     Who: kubelet <span class="o">(</span>UID 0/root, PID 24485/kubelet<span class="o">)</span>
-</span></span><span class="line"><span class="cl">    What: shutdown
-</span></span><span class="line"><span class="cl">     Why: Kubelet needs <span class="nb">time</span> to handle node shutdown
-</span></span><span class="line"><span class="cl">    Mode: delay
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="m">1</span> inhibitors listed.
-</span></span></code></pre></div><p>Doing this on a fresh system shows no <code>99-kubelet.conf</code> this time, indicating that this file is only created if it&rsquo;s needed.</p>
-<h2 id="final-changes-to-enable-the-feature">Final changes to enable the feature</h2>
-<p>The above was fine for exploration, but now we need a concrete way of enabling this feature on our nodes at startup.</p>
-<p>The following userdata script will do this, with the grep-ing and sed-ing adapted from
-<a href="https://aws.amazon.com/premiumsupport/knowledge-center/eks-worker-nodes-image-cache/">an article from AWS on configuring node image caching</a></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Inject shutdownGracePeriod value unless it has already been set.</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> ! grep -q shutdownGracePeriod /etc/kubernetes/kubelet/kubelet-config.json<span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">then</span>
-</span></span><span class="line"><span class="cl">    sed -i <span class="s1">&#39;/&#34;apiVersion*/a \ \ &#34;shutdownGracePeriod&#34;: &#34;6m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Inject shutdownGracePeriodCriticalPods value unless it has already been set.</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> ! grep -q shutdownGracePeriodCriticalPods /etc/kubernetes/kubelet/kubelet-config.json<span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">then</span>
-</span></span><span class="line"><span class="cl">    sed -i <span class="s1">&#39;/&#34;shutdownGracePeriod*/a \ \ &#34;shutdownGracePeriodCriticalPods&#34;: &#34;2m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">mkdir -p /etc/systemd/logind.conf.d
-</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; /etc/systemd/logind.conf.d/50-max-delay.conf
-</span></span></span><span class="line"><span class="cl"><span class="s">[Login]
-</span></span></span><span class="line"><span class="cl"><span class="s">InhibitDelayMaxSec=360
-</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">sudo systemctl restart systemd-logind
-</span></span></code></pre></div><p>Adjust the times to suit your particular cluster. Enjoy!</p>
-
-        <hr/>
-      </div>
-    </article>
-    
-    
-<nav class="flex flex-col max-w-screen-sm mx-auto">
-  <div class="flex justify-between flex-wrap pb-4">
-    
-    <a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/">
-      <span>Next:</span>
-      <span class="underline">
-                Skouf.com redesign - part 1
-              </span>
-    </a>
-    
-    
-    <a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2"
-       href="https://www.skouf.com/posts/experiments-in-mushroom-garrum/">
-      <span>Previous:</span>
-      <span class="underline">
-                Experiments in mushroom garrum
-              </span>
-    </a>
-    
-  </div>
-  <div class="flex justify-center pt-2">
-    <a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href="/">Home</a>
-  </div>
-</nav>
-
-
-  </main>
-  <footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center">
-  <section class="max-w-screen-sm mx-auto px-4">
-    <h2 class="font-bold text-2xl m-4">Author</h2>
-    <img class="mx-auto rounded-full h-24 w-24"
-         src="/image/theme/author.jpg"
-         alt="A picture of the author">
-    <div class="mx-auto my-4">
-      <h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3>
-      <p class="tagline text-center">Software developer, food lover</p>
-    </div>
-    <div class="flex justify-center space-x-2 my-4">
-      
-        <a href="https://github.com/niksko" target="_blank" aria-label="Link to my GitHub profile">
-          <img class="h-8 w-8" src="/image/theme/github-logo.svg" alt="The GitHub logo">
-        </a>
-      
-      
-        <a href="https://hachyderm.io/@niksko"
-           target="_blank"
-           aria-label="Link to my Mastodon profile"
-        >
-          <img class="h-8 w-8" src="/image/theme/mastodon-logo.svg" alt="The Mastodon logo">
-        </a>
-      
-    </div>
-  </section>
-  <small class="pt-4">© skouf.com</small>
-</footer>
-
-</div>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NNFJW25R4');
-</script>
-
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-</body>
-</html>
+Instead, we can create the required config ourselves.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ mkdir -p /etc/systemd/logind.conf.d
+</span></span><span class=line><span class=cl>$ cat <span class=s>&lt;&lt; EOF &gt; 50-max-delay.conf
+</span></span></span><span class=line><span class=cl><span class=s>[Login]
+</span></span></span><span class=line><span class=cl><span class=s>InhibitDelayMaxSec=360
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>$ sudo mv 50-max-delay.conf /etc/systemd/logind.conf.d/
+</span></span><span class=line><span class=cl>$ sudo systemctl restart systemd-logind
+</span></span><span class=line><span class=cl>$ sudo systemctl restart kubelet
+</span></span><span class=line><span class=cl>$ sudo systemd-inhibit --list
+</span></span><span class=line><span class=cl>     Who: kubelet <span class=o>(</span>UID 0/root, PID 24485/kubelet<span class=o>)</span>
+</span></span><span class=line><span class=cl>    What: shutdown
+</span></span><span class=line><span class=cl>     Why: Kubelet needs <span class=nb>time</span> to handle node shutdown
+</span></span><span class=line><span class=cl>    Mode: delay
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> inhibitors listed.
+</span></span></code></pre></div><p>Doing this on a fresh system shows no <code>99-kubelet.conf</code> this time, indicating that this file is only created if it&rsquo;s needed.</p><h2 id=final-changes-to-enable-the-feature>Final changes to enable the feature</h2><p>The above was fine for exploration, but now we need a concrete way of enabling this feature on our nodes at startup.</p><p>The following userdata script will do this, with the grep-ing and sed-ing adapted from
+<a href=https://aws.amazon.com/premiumsupport/knowledge-center/eks-worker-nodes-image-cache/>an article from AWS on configuring node image caching</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Inject shutdownGracePeriod value unless it has already been set.</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> ! grep -q shutdownGracePeriod /etc/kubernetes/kubelet/kubelet-config.json<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>    sed -i <span class=s1>&#39;/&#34;apiVersion*/a \ \ &#34;shutdownGracePeriod&#34;: &#34;6m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Inject shutdownGracePeriodCriticalPods value unless it has already been set.</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> ! grep -q shutdownGracePeriodCriticalPods /etc/kubernetes/kubelet/kubelet-config.json<span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl>    sed -i <span class=s1>&#39;/&#34;shutdownGracePeriod*/a \ \ &#34;shutdownGracePeriodCriticalPods&#34;: &#34;2m&#34;,&#39;</span> /etc/kubernetes/kubelet/kubelet-config.json
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>mkdir -p /etc/systemd/logind.conf.d
+</span></span><span class=line><span class=cl>cat <span class=s>&lt;&lt; EOF &gt; /etc/systemd/logind.conf.d/50-max-delay.conf
+</span></span></span><span class=line><span class=cl><span class=s>[Login]
+</span></span></span><span class=line><span class=cl><span class=s>InhibitDelayMaxSec=360
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sudo systemctl restart systemd-logind
+</span></span></code></pre></div><p>Adjust the times to suit your particular cluster. Enjoy!</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><a class="w-full text-left md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-1/><span>Next:</span>
+<span class=underline>Skouf.com redesign - part 1</span></a>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/experiments-in-mushroom-garrum/><span>Previous:</span>
+<span class=underline>Experiments in mushroom garrum</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>
