@@ -9,6 +9,16 @@
   gtag('config', '{{ . }}');
 </script>
 {{ end }}
+<!-- This allows for showing and hiding a lightbox on click of images -->
+<script>
+  function showLightboxImage(target) {
+    const lightbox = target.nextElementSibling;
+    lightbox.style.display = "block";
+  }
+  function hideLightboxImage(target) {
+    target.style.display = "none";
+  }
+</script>
 <!-- TODO redo this with a different syntax highlighting library -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
