@@ -3,7 +3,11 @@
   <div class="pb-3/4 relative overflow-clip">
     <a
       class="absolute w-full h-full hover:opacity-50 hover:scale-[120%] duration-200"
-      href="{{ .Permalink }}">
+      {{ if .Params.isExternal }}
+      target="_blank"
+      href="{{ .Params.externalLink }}"
+      {{ else }}
+      href="{{ .Permalink }}"{{ end }}>
       <img class="object-cover w-full h-full"
            src="{{ if and (.Params.image) (ne .Params.image "") }}
       {{ ((.Resources.GetMatch .Params.image).Fit "600x300").RelPermalink }}
@@ -11,12 +15,18 @@
       alt="{{ if .Params.imageAlt }}{{ .Params.imageAlt }}{{ else }}A placeholder image, the word Skouf{{ end }}">
     </a>
   </div>
-  <a href="{{ .Permalink }}">
+  <a {{ if .Params.isExternal }}
+           target="_blank"
+           href="{{ .Params.externalLink }}"
+           {{ else }}
+           href="{{ .Permalink }}"{{ end }}>
     <h3 class="text-xl font-bold mb-2 mt-4">{{ .Title }}</h3>
   </a>
   <span class="my-2">
     <time datetime="{{ .Date.Format " 2006-01-02T15:04:05Z07:00" | safeHTML }}">{{ .Date.Format "2006.01.02" }}</time>
   </span>
-  <p class="text-dark-blue-grey/90 my-2">{{ if .IsPage }}{{ .Summary }}...{{ else }}{{ .Site.Params.description }}{{ end
-    }}</p>
+  <p class="text-dark-blue-grey/90 my-2">
+    {{ if .IsPage }}{{ .Summary }}...{{ else }}{{ .Site.Params.description }}{{ end }}
+    {{ if .Params.isExternal }} (external link, opens in a new tab) {{ end }}
+  </p>
 </article>

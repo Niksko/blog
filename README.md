@@ -96,6 +96,21 @@ Example:
 Code highlighting is enabled on code fences.
 We currently use a stylesheet embedded into the theme for our highlighting, see the stylesheet in question for details.
 
+### Linking to external blog posts
+
+Some of my posts (arguably, some of my best) are on the SEEK Medium blog.
+To facilitate this, adding
+
+```
+isExternal: true
+externalLink: <link to external content>
+```
+
+to the frontmatter will generate something that looks like a regular post, but actually links to an external source that opens in a new tab.
+
+It supports all of the same frontmatter stuff as usual, and will automatically append a
+`(external link, opens in a new tab)` to the post description.
+
 ## Theming
 
 ### Setup

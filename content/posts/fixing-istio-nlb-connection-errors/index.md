@@ -58,14 +58,12 @@ Connections are tracked, and presumably, when traffic makes it out of the target
 bound for the wrong destination, AWS rewrites the destination IP and ensures that it makes it to the NLB.
 The fact that this magic is part of the AWS internal network fabric is important, and will crop up later.
 
-<TODO diagram>
+{{< figure src="client-ip-preservation.jpg" caption="How NLB client IP preservation works, presumably" alt="A diagram of how NLB client IP preservation is presumed to work, showing the IP address translation that happens, and how this is reversed on the return path" >}}
 
 The other feature that NLB's support (as do other types of AWS loadbalancer) is cross-zone loadbalancing.
 To understand cross-zone loadbalancing, it's important to imagine an NLB not as a single physical entity that's
 sitting somewhere in your VPC, but instead as a single logical entity with multiple physical 'loadbalancer nodes',
 each of which sits inside one subnet per AWS availability zone (AZ).
-
-<TODO diagram>
 
 Cross-zone loadbalancing means that traffic from a client that arrives at once of these 'loadbalancer nodes' in, say,
 AZ `a` can be loadbalanced to a target in AZs `b` or `c`.
@@ -73,7 +71,7 @@ With cross-zone loadbalancing switched off, client traffic arriving at the node 
 a target in AZ `a`.
 If you have no healthy targets in AZ `a`, your traffic will be dropped.
 
-<TODO diagram>
+{{< figure src="cross-zone-loadbalancing.jpg" caption="When cross-zone loadbalancing is ON, traffic is routed to a server in any zone. When cross-zone loadbalancing is OFF, traffic is only routed to the AZ that the client connects to" alt="A diagram of how cross-zone loadbalancing works, comparing when it is ON and OFF" >}}
 
 In our clusters, we had both client IP preservation and cross-zone loadbalancing turned on.
 Why we had client IP preservation turned on I'm not completely sure, but you can see the merit behind switching on
@@ -111,6 +109,8 @@ cloud-provider loadbalancers and Kuberentes services, to route external traffic 
 This is exactly what we do in order to allow internet traffic to ingress into our Kubernetes clusters.
 There is a `NodePort` service that exposes a port on our nodes, and behind this service are our Istio ingress
 gateway pods that handle the traffic.
+
+{{< figure src="service-nat.jpg" caption="How traffic is routed via a `NodePort` service in Kubernetes." alt="A diagram of how traffic is routed from a client through an NLB to a `NodePort` on a server, at which point `iptables`takes over to route traffic to the workload" >}}
 
 It's worth noting that all of this iptables NATing is just that: NATing.
 There are no additional TCP connections being created here.
