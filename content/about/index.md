@@ -10,7 +10,7 @@ To get a feel for the work that I do and what I like to write about, the followi
 
 * [Beware of transit gateways bearing large packets (on Medium)](https://medium.com/seek-blog/beware-of-transit-gateways-bearing-large-packets-77702c4c1b20)
   is an interesting caper involving some of the finer points of AWS Transit Gateways, asymmetric routing and MSS clamping.
-* [So you want to turn something off?](https://medium.com/seek-blog/so-you-want-to-turn-something-off-cd7bc9c40362) is
+* [So you want to turn something off? (on Medium)](https://medium.com/seek-blog/so-you-want-to-turn-something-off-cd7bc9c40362) is
   a short guide on how to switch off systems at large organisations.
 * One of my many hobbies is fermentation.
   [Experiments in mushroom garrum](https://www.skouf.com/posts/experiments-in-mushroom-garrum/) talks a little about a
