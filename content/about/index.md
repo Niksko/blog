@@ -73,6 +73,6 @@ Maybe it just took a sport completely divorced from my home country and culture 
 My 3D printing is pretty rusty, but it's something I've tinkered with in the past and hope to again.
 
 I like taking photos, and they usually go straight from my camera to [Instagram](https://www.instagram.com/nskoufis/).
-This has been fantastic cure for my chronic inability to get around to editing RAWs.
+This has been a fantastic cure for my chronic inability to get around to editing RAWs.
 
 I have a cute black and white tuxedo cat named Sofia who I love very much ❤️
