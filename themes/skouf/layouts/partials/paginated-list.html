@@ -1,6 +1,6 @@
 <section>
   {{ $paginator := .Paginator 12 }}
-  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold text-center">{{ title .Page.Title }} posts
+  <h2 class="py-2 md:py-8 text-xl md:text-2xl font-bold text-center">{{ if eq (title .Page.Title) "Posts" }}All posts{{ else }}{{ title .Page.Title }} posts{{ end }}
     {{ if not (eq $paginator.PageNumber 1) }} - Page {{ $paginator.PageNumber }}{{ end }}</h2>
   <div class="py-2 grid grid-cols-6 gap-x-12 gap-y-6 md:gap-y-12">
     {{ range $paginator.Pages }}
