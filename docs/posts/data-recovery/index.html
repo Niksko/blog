@@ -1,0 +1,177 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>Recovering data from a failed drive using ddrescue - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="My first foray into data recovery has been both educational and, blissfully, not too stressful.
+You always hear tales of damaged hard drives and complete data loss and think &ldquo;that&rsquo;ll never happen to me&rdquo;.
+Well, it finally has happened to me, and thankfully the outcome has been pretty good (all things considered), and I&rsquo;ve
+learned a bit along the way."><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="Recovering data from a failed drive using ddrescue"><meta property="og:url" content="https://www.skouf.com/posts/data-recovery/"><meta property="og:image" content="https://www.skouf.com/hard-drive.jpg"><meta property="og:description" content="My first foray into data recovery has been both educational and, blissfully, not too stressful.
+You always hear tales of damaged hard drives and complete data loss and think &ldquo;that&rsquo;ll never happen to me&rdquo;.
+Well, it finally has happened to me, and thankfully the outcome has been pretty good (all things considered), and I&rsquo;ve
+learned a bit along the way."><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.d6304ed7a67ce303c1f52e11a8da46aba4daaea2bac2caaad0361d1fc0454013.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">Recovering data from a failed drive using ddrescue</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2023-12-06T02:09:52Z>2023.12.06</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><p>My first foray into data recovery has been both educational and, blissfully, not too stressful.
+You always hear tales of damaged hard drives and complete data loss and think &ldquo;that&rsquo;ll never happen to me&rdquo;.
+Well, it finally has happened to me, and thankfully the outcome has been pretty good (all things considered), and I&rsquo;ve
+learned a bit along the way.</p><figure><img onclick=showLightboxImage(this) sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/data-recovery/hard-drive_hu3d03a01dcc18bc5be0e67db3d8d209a6_1191739_500x0_resize_q75_box.jpg 500w
+, /posts/data-recovery/hard-drive_hu3d03a01dcc18bc5be0e67db3d8d209a6_1191739_800x0_resize_q75_box.jpg 800w
+, /posts/data-recovery/hard-drive_hu3d03a01dcc18bc5be0e67db3d8d209a6_1191739_1200x0_resize_q75_box.jpg 1200w
+, /posts/data-recovery/hard-drive_hu3d03a01dcc18bc5be0e67db3d8d209a6_1191739_1500x0_resize_q75_box.jpg 1500w' src=/posts/data-recovery/hard-drive.jpg alt="An image of a bare hard drive platter with the head and disk exposed."><div onclick=hideLightboxImage(this) class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"><img class="block w-full h-full object-contain m-0" src=/posts/data-recovery/hard-drive.jpg></div><figcaption><p>Photo by <a href=https://unsplash.com/@benjaminlehman>benjamin lehman</a> on <a href=https://unsplash.com/photos/black-and-silver-turntable-on-brown-wooden-table-GNyjCePVRs8>Unsplash</a>.</p></figcaption></figure><h1 id=background>Background</h1><p>The hard drive in question is really old.
+Like, 15 or so years old.
+I think it was the original hard drive I bought when I built my first computer that wasn&rsquo;t from scrounged parts from
+hand-me-down business PCs that my parents had gotten for cheap from their workplaces.
+At the time, 1TB seemed like a huge amount of storage, so that&rsquo;s what I got for my limited student budget.</p><p>If I remember correctly, this hard drive has actually been failing for a very long time, basically since I got it.
+Very early on there was a single remapped sector, but the consensus on the Internet seemed to be that a single bad sector
+that remained as the only bad sector for a long time shouldn&rsquo;t be much of a reason for concern.
+If the problem wasn&rsquo;t getting worse (i.e. more bad sectors over time), then I had simply gotten unlucky, but the problem
+wasn&rsquo;t indicative of an imminent failure.
+Eventually though, hard drives reach old age.</p><p>I got quite lucky this time, as this hard drive had clearly been failing for some time (a year or more?) without degrading particularly much.
+The symptoms should have been obvious in hindsight, but I was looking in the wrong place.
+When copying files off of an SD card to do backups, the backups were sometimes slow to complete, and seemed to have I/O errors.
+Similarly, when backing those files up to S3, the transfer would often grind to a halt, or at least go extremely slowly, and also show I/O errors.
+I&rsquo;m not sure why I ignored the file copy issues.
+But the S3 upload I attributed to the AWS CLI being slow, since others seemed to have similar problems.</p><p>Eventually though, perhaps based on some googling of the issue, I checked the SMART status and saw the signs of failure
+in a huge number of read errors, and various other signs of wear and tear.
+At this point I figured a new drive and some data recovery was in order.</p><h1 id=using-ddrescue-to-recover-data>Using <code>ddrescue</code> to recover data</h1><p><a href=https://www.gnu.org/software/ddrescue/>GNU <code>ddrescue</code></a> is a nice little utility which claims to have a special algorithm
+that will improve the chances of recovering data and minimizes wear on the drive.
+I&rsquo;ll leave the veracity of that to the experts, but it was fairly easy to use and seems to have worked well.</p><p>The command below is what I used to perform the recovery.
+The <code>-r3</code> flag says to retry bad sectors up to 3 times before giving up.
+Importantly, you want to pass that third positional argument to generate a logfile, which means you can resume recovery.</p><pre tabindex=0><code>$ sudo ddrescue -d -r3 /dev/sda /mnt/new-storage/sda-backup.img /mnt/new-storage/sda-backup.logfile
+GNU ddrescue 1.27
+Press Ctrl-C to interrupt
+Initial status (read from mapfile)
+rescued: 4176 MB, tried: 196608 B, bad-sector: 0 B, bad areas: 0
+
+Current status
+     ipos:    1000 GB, non-trimmed:    3145 kB,  current rate:  71761 kB/s
+     opos:    1000 GB, non-scraped:        0 B,  average rate:  14452 kB/s
+non-tried:  511377 kB,  bad-sector:        0 B,    error rate:       0 B/s
+  rescued:  999690 MB,   bad areas:        0,        run time: 19h  7m 58s
+pct rescued:   99.94%, read errors:       45,  remaining time:          8s
+                              time since last successful read:          0s
+Copying non-tried blocks... Pass 1 (forwards)
+     ipos:    2293 kB, non-trimmed:    4849 kB,  current rate:   2490 kB/s
+     opos:    2293 kB, non-scraped:        0 B,  average rate:  14405 kB/s
+non-tried:  114491 kB,  bad-sector:        0 B,    error rate:   16384 B/s
+  rescued:    1000 GB,   bad areas:        0,        run time: 19h 12m 16s
+pct rescued:   99.98%, read errors:       71,  remaining time:         43s
+                              time since last successful read:          0s
+Copying non-tried blocks... Pass 2 (backwards)
+     ipos:   60926 MB, non-trimmed:   17629 kB,  current rate:    305 kB/s
+     opos:   60926 MB, non-scraped:        0 B,  average rate:  14243 kB/s
+non-tried:        0 B,  bad-sector:        0 B,    error rate:   21845 B/s
+  rescued:    1000 GB,   bad areas:        0,        run time: 19h 25m 27s
+pct rescued:   99.99%, read errors:      266,  remaining time:         16m
+                              time since last successful read:          0s
+Copying non-tried blocks... Pass 5 (forwards)
+     ipos:  753007 MB, non-trimmed:        0 B,  current rate:   49664 B/s
+     opos:  753007 MB, non-scraped:    9629 kB,  average rate:  14113 kB/s
+non-tried:        0 B,  bad-sector:    89600 B,    error rate:       0 B/s
+  rescued:    1000 GB,   bad areas:      174,        run time: 19h 36m 10s
+pct rescued:   99.99%, read errors:      441,  remaining time:          7m
+                              time since last successful read:          0s
+Trimming failed blocks... (forwards)
+     ipos:   60926 MB, non-trimmed:        0 B,  current rate:       0 B/s
+     opos:   60926 MB, non-scraped:        0 B,  average rate:  10985 kB/s
+non-tried:        0 B,  bad-sector:    3078 kB,    error rate:     170 B/s
+  rescued:    1000 GB,   bad areas:     2321,        run time:  1d  1h 11m
+pct rescued:   99.99%, read errors:     6278,  remaining time:         36m
+                              time since last successful read:         18s
+Scraping failed blocks... (forwards)
+     ipos:   60926 MB, non-trimmed:        0 B,  current rate:       0 B/s
+     opos:   60926 MB, non-scraped:        0 B,  average rate:   9298 kB/s
+non-tried:        0 B,  bad-sector:    2663 kB,    error rate:     170 B/s
+  rescued:    1000 GB,   bad areas:     2036,        run time:  1d  5h 45m
+pct rescued:   99.99%, read errors:    11481,  remaining time:     13h 12m
+                              time since last successful read:          6s
+Retrying bad sectors... Retry 1 (forwards)
+     ipos:    2373 MB, non-trimmed:        0 B,  current rate:       0 B/s
+     opos:    2373 MB, non-scraped:        0 B,  average rate:   8171 kB/s
+non-tried:        0 B,  bad-sector:    2416 kB,    error rate:     170 B/s
+  rescued:    1000 GB,   bad areas:     1861,        run time:  1d  9h 51m
+pct rescued:   99.99%, read errors:    16200,  remaining time:         n/a
+                              time since last successful read:     28m 39s
+Retrying bad sectors... Retry 2 (backwards)
+     ipos:   60926 MB, non-trimmed:        0 B,  current rate:       0 B/s
+     opos:   60926 MB, non-scraped:        0 B,  average rate:   7337 kB/s
+non-tried:        0 B,  bad-sector:    2291 kB,    error rate:       0 B/s
+  rescued:    1000 GB,   bad areas:     1777,        run time:  1d 13h 42m
+pct rescued:   99.99%, read errors:    20675,  remaining time:     16h 19m
+                              time since last successful read:         31s
+Retrying bad sectors... Retry 3 (forwards)
+Finished
+</code></pre><p>As you can see, <code>ddrescue</code> took a long time to run - about a day and a half.
+However it recovered almost all of the files, minus a few megabytes of data.</p><p>I could have just stopped here, but I wanted to understand which files were actually corrupted/unrecoverable for posterity.
+I don&rsquo;t use my desktop a lot, I really just use it for backups these days.
+So the data on it is a) quite old, and I&rsquo;m unlikely to need it but also b) could be sentimental and maybe I&rsquo;ll want it someday?</p><p><code>ddrescue</code> writes a &lsquo;mapfile&rsquo;, which is how it is able to
+a) resume execution if you hit ctrl-c and
+b) know where the bad sectors are</p><p>My mapfile is human readable and mine looked like this:</p><pre tabindex=0><code># Mapfile. Created by GNU ddrescue version 1.27
+# Command line: ddrescue -d -r3 /dev/sda /mnt/new-storage/sda-backup.img /mnt/new-storage/sda-backup.logfile
+# Start time:   2023-12-04 18:16:29
+# Current time: 2023-12-06 07:58:46
+# Finished
+# current_pos  current_status  current_pass
+0xE2F832C00     +               3
+#      pos        size  status
+0x00000000  0x8D71C000  +
+0x8D71C000  0x00001000  -
+0x8D71D000  0x00113000  +
+0x8D830000  0x00000200  -
+0x8D830200  0xBAEF4600  +
+0x148724800  0x00000200  -
+0x148724A00  0x00000200  +
+0x148724C00  0x00000200  -
+0x148724E00  0x3B1D31200  +
+0x4FA456000  0x00001000  -
+0x4FA457000  0xFF4E4200  +
+...many more lines
+</code></pre><p>You can see it&rsquo;s got alternating <code>+</code> and <code>-</code> symbols on the right-hand status column.
+<code>+</code> indicates a good &lsquo;block&rsquo; (contiguous space on the disk), and <code>-</code> indicates an unrecoverable block.
+If we were to look at this mapfile during execution of dd rescue it would
+have some other symbols which <code>ddrescue</code> uses to track what phase of the recovery it is in.</p><h1 id=figuring-out-what-data-has-been-corrupted>Figuring out what data has been corrupted</h1><p>The final piece of the puzzle is to figure out roughly where in the disk those bad sectors are.
+Apparently since this is a disk image, <code>fdisk</code> is happy to treat it as if it is just a regular disk</p><pre tabindex=0><code>$ fdisk -l /mnt/new-storage/sda-backup.img
+Disk /mnt/new-storage/sda-backup.img: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x00014884
+
+Device                           Boot     Start        End    Sectors   Size Id Type
+/mnt/new-storage/sda-backup.img1           2048  205611007  205608960    98G 83 Linux
+/mnt/new-storage/sda-backup.img4      205613056 1953521663 1747908608 833.5G  5 Extended
+/mnt/new-storage/sda-backup.img5      205615998  716804095  511188098 243.8G 83 Linux
+/mnt/new-storage/sda-backup.img6      716806144 1953519615 1236713472 589.7G  7 HPFS/NTFS/exFAT
+</code></pre><p>Things to know about this data:</p><ul><li>The mapfile records data as bytes in hex</li><li><code>fdisk</code> records data as <em>sectors</em> in decimal</li></ul><p>So to compare apples to apples, you need to convert the hex mapfile values to decimal bytes, and convert the sector
+values to bytes by multiplying by the sector size, which is 512 bytes in this case.</p><p>Once I did that, I found something quite nice, which was that all of the bad sectors were located in that first 100GB Linux partition.
+This partition was an old <code>/home</code> partition.
+Not the ideal place to have corruption, but a lot of the stuff on this drive is just old junk and stuff I&rsquo;m very unlikely to ever need again.</p><p>Mounting the disk image to poke around is relatively straightforward.
+You don&rsquo;t want to mount the whole file, you want to mount from a particular offset in the file.
+The following will do the job, where the <code>1048576</code> magic number is the start sector in the <code>fdisk</code> output above,
+converted to bytes.</p><pre tabindex=0><code>sudo mount -o loop,offset=1048576 /mnt/new-storage/sda-backup.img /mnt/bad-partition
+</code></pre><p>I can now browse around the files and copy any off that I need, and I can do similar things for the other files
+in the other uncorrupted partitions.</p><p>As a final exercise, I was keen to see if I could determine exactly which files corresponded to the corrupted blocks
+that <code>ddrescue</code> was unable to restore.
+<a href=https://superuser.com/a/644744>This stackoverflow answer</a> was exactly what I was after.</p><p>As an example, the first bad block is at position <code>0x8D71C000</code>, which in decimal is <code>2373042176</code> bytes.
+We need to subtract the offset from the start of the partition which is <code>1048576</code> from before.
+Finally, we need to figure out which block it is in, giving us block <code>579100</code>.</p><pre tabindex=0><code>$ sudo debugfs -R &#34;icheck 579100&#34; /dev/loop0
+debugfs 1.47.0 (5-Feb-2023)
+Block   Inode number
+579100  190341
+
+$ sudo debugfs -R &#39;ncheck 190341&#39; /dev/loop0
+debugfs 1.47.0 (5-Feb-2023)
+Inode   Pathname
+190341  /niksko/.config/google-chrome-beta.old/Default/Service Worker/CacheStorage/a16b7f81b709d2f9fb59c9edf2948180127a7ed2/3844f5fe-3191-483c-bc64-770bc09dece0/b838fa97da012c82_0
+</code></pre><p>When <code>ddrescue</code> can&rsquo;t restore data, it just writes 0s instead.
+Just to make sure that I had done all of the math and searching right, I opened up the file in question in Vim, and used
+Vim&rsquo;s Hex mode using <code>:%!xxd</code>.
+I then searched for <code>/0000 0000</code> and sure enough:</p><pre tabindex=0><code>0003dfc0: 7428 6f2c 7b6b 6579 3a6e 2c6f 6e48 6964  t(o,{key:n,onHid
+0003dfd0: 653a 6675 6e63 7469 6f6e 2065 2829 7b72  e:function e(){r
+0003dfe0: 6574 7572 6e20 742e 6861 6e64 6c65 4869  eturn t.handleHi
+0003dff0: 6465 2872 297d 7d29 7d29 2929 7d2c 747d  de(r)}})})))},t}
+0003e000: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+0003e010: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+0003e020: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+...lots more zeros, then back to data
+</code></pre><p>The exercise of writing a script that parses a <code>ddrescue</code> mapfile and looks up the filenames of all of the bad files
+is left as an exercise to the reader :) (I don&rsquo;t care about the data enough at this stage to bother).</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><span></span>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/skouf-dot-com-redesign-part-3/><span>Previous:</span>
+<span class=underline>Skouf.com redesign - part 3</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script>function showLightboxImage(e){const t=e.nextElementSibling;t.style.display="block"}function hideLightboxImage(e){e.style.display="none"}</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>
