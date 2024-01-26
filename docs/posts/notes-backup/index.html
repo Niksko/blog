@@ -1,0 +1,131 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><title>My system for managing my notes - skouf.com</title><meta name=generator content="Hugo 0.118.2"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=author content="Nik Skoufis"><meta name=description content="How I manage my personal notes for maximum access and minimal data loss"><meta name=keywords content><meta property="og:site_name" content="skouf.com"><meta property="og:title" content="My system for managing my notes"><meta property="og:url" content="https://www.skouf.com/posts/notes-backup/"><meta property="og:image" content="https://www.skouf.com/notes.jpg"><meta property="og:description" content="How I manage my personal notes for maximum access and minimal data loss"><meta property="og:type" content="blog"><link rel="shortcut icon" href=/image/theme/favicon.ico><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel=stylesheet><link rel=stylesheet href=/css/style.min.e8613c62d527d8dc5a4ce150a77404299177affecca1d06cf72e73b5bac22f7d.css><link rel=stylesheet href=/css/syntax.min.786ee623d2964a9ec341cc6421d7b4bbdebeaf2215b5f5729d057ec27374de5f.css><link rel=alternate href=https://www.skouf.com/index.xml type=application/rss+xml title=skouf.com></head><body class="text-dark-blue-grey bg-light-blue-grey"><div class=overflow-hidden><header class="py-2 md:py-8 text-center bg-hero-green"><h1><a class="text-2xl md:text-4xl font-bold text-dark-green" href=https://www.skouf.com/>skouf.com</a></h1><p class="tagline text-sm md:text-base md:py-4 text-dark-green">The website of Nik Skoufis</p></header><main class="my-0 mx-auto max-w-prose p-4"><article class=pb-12 itemscope itemtype=http://schema.org/BlogPosting><div class="py-2 md:py-6 mx-auto max-w-screen-sm"><h1 class="text-3xl font-bold">My system for managing my notes</h1><p class="text-dark-blue-grey/90 my-2 text-right"><time itemprop=datePublished datetime=2024-01-26T01:30:18Z>2024.01.26</time></p></div><div class="prose prose-slate prose-code:before:hidden prose-code:after:hidden"><figure><img onclick=showLightboxImage(this) sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/notes-backup/notes_hu5459c0360c2b0cb7a147d2df0eb350ca_1312593_500x0_resize_q75_box.jpg 500w
+, /posts/notes-backup/notes_hu5459c0360c2b0cb7a147d2df0eb350ca_1312593_800x0_resize_q75_box.jpg 800w
+, /posts/notes-backup/notes_hu5459c0360c2b0cb7a147d2df0eb350ca_1312593_1200x0_resize_q75_box.jpg 1200w
+, /posts/notes-backup/notes_hu5459c0360c2b0cb7a147d2df0eb350ca_1312593_1500x0_resize_q75_box.jpg 1500w' src=/posts/notes-backup/notes.jpg alt="A shallow focus image of a notebook with a pencil on it."><div onclick=hideLightboxImage(this) class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"><img class="block w-full h-full object-contain m-0" src=/posts/notes-backup/notes.jpg></div><figcaption><p>Photo by <a href=https://unsplash.com/@runfilm>Jan Kahánek</a> on <a href=https://unsplash.com>Unsplash</a></p></figcaption></figure><p>This blog post serves as an overview of how I manage my personal notes.
+I delve a little into my preferences for notes and note taking software,
+discuss how I manage the data that underlies these notes for high-availability,
+and also jot down a few brief things that I&rsquo;d like to fix in the future.</p><p>I mainly wrote this to make it easier for me to remember how this is all set up
+for when I inevitably forget in the future.
+Over the years (as I&rsquo;ve noted in my other blog posts), I&rsquo;ve found it incredibly
+useful to have detailed records of how everything in my home tech setup works.
+Given how infrequently I tend to tinker with and maintain these systems, it&rsquo;s very easy
+to come back to a broken system or a no-longer fit for purpose system after a few years
+and be very puzzled as to how everything fits together.
+I&rsquo;ve used my own blog posts as a reference a few times now, and I hope that this
+will be a reference for me in the future.</p><h2 id=migrating-note-systems>Migrating note systems</h2><p>In the middle of 2023, I migrated my years worth of notes out of Google Keep, and into Obsidian.
+At that point in time I must have been the last person on Earth to figure out how cool
+Obsidian is, but I got there eventually.</p><p>For the two people out there who don&rsquo;t know what <a href=https://obsidian.md>Obsidian</a> is,
+it&rsquo;s a note taking app with a few key features that make it great for both more casual
+note takers (of which I <em>kind of</em> am) and true note taking nerds (you might not have
+expected that there was such a thing as a note-taking nerd, but there&rsquo;s a subculture
+for everything).</p><p>Obsidian stores everything as Markdown files in standard directories.
+This is big draw card because it means that to some extent (modulo a few Obsidian specific
+bits of syntax), your notes are effectively eternal.
+Markdown has been common enough and has gone unchanged enough for long enough that
+I think it&rsquo;s fairly safe to say that even in 50-100 years we&rsquo;ll still have applications
+that can read and write Markdown.
+And even if for some reason Markdown falls out of fashion, text files will not,
+and one of the <a href=https://daringfireball.net/projects/markdown/>design goals of Markdown</a>
+is that Markdown documents should be readable as text files without any additional rendering.
+That&rsquo;s all a long-winded way of saying that I can feel comfortable that the notes that I
+take in Obsidian will be around for a long time.</p><p>Obsidian&rsquo;s other big feature is how it organises notes.
+As with most things Obsidian, you definitely have flexibility in how you accomplish this.
+But for me:</p><ul><li>folders to split notes based on subject</li><li>links between notes to allow for referencing other notes and not repeating myself, and</li><li>the ability to have multiple &lsquo;vaults&rsquo; to completely separate (for me) my food and drink notes
+from my other general notes</li></ul><p>are the organisational features that I really need.</p><p>Obsidian has a million-and-one other features, a rich plugin ecosystem, and even some first-party
+hosted services (notes sync and public note hosting) which also contribute to it being
+everyone&rsquo;s favourite note-taking application.
+Oh, and did I mention that they <a href=https://obsidian.md/about>are 100% user funded, want to remain a small team, and have no outside investors</a>?
+Legendary!</p><p>The migration took me a few days of methodically going through a JSON export of
+all of my Google Keep notes, tidying them up and sorting them into Obsidian.
+That time was well worth it, and I now both take more notes and reference my notes more
+often because they&rsquo;re much easier to find and use.</p><h2 id=syncing-notes>Syncing notes</h2><p>One thing that is ubiquitous these days is cloud-syncing of data.
+This makes it very convenient to access notes in Google Keep across devices
+(like between my laptop and my phone), and was a draw-card of Google Keep in the
+first place.</p><p>As I mentioned above, Obsidian offer a paid sync service.
+For now, I&rsquo;ve chosen not to use it.
+I have a natural aversion (perhaps, irrationally) to ongoing fees, so thus far I&rsquo;ve
+opted for more of a home-rolled solution that relies on my own hardware.
+So-far so-good, though Obsidian&rsquo;s great ethos and user-funded model definitely
+would lower the barrier to me using their native sync service in the future if
+I decided I didn&rsquo;t like my home-grown solution.</p><p>My home-grown solution is simply <a href=https://syncthing.net/>Syncthing</a>.
+Syncthing is a peer-to-peer file synchronization daemon that also conveniently
+runs anywhere you&rsquo;d need it to.
+You point it at a folder on your filesystem and then share that folder to other
+devices, and every device uses a relay server and an encrypted connection to
+synchronize the files in each folder between devices.</p><p>I have Syncthing set up on my Pixel, on my Linux desktop, and on my TrueNAS server,
+and the plain files and folders that make up my Obsidian vaults are streamed between
+them to ensure that everything stays in sync.
+I&rsquo;ve noticed zero lag in replication, and had zero troubles with this setup from the day
+I set it up eight months ago.</p><p>My only word of warning: check your list of relay servers carefully before using
+Syncthing on corporate networks.
+It seems that the default list of relay servers includes some Tor exit nodes and
+some other probably-innocuous (given Syncthing&rsquo;s security model) servers that
+are likely to set off alarm bells within your organisations security operations
+centre.
+I think these can be disabled in favor of more reputable relays (at the expense of
+lower availability), but I just opted to remove Syncthing from my work device.</p><h2 id=backing-up-my-notes>Backing up my notes</h2><p>The other benefit of using a hosted synchronization service is that you likely
+get backups of your notes for free.
+Most cloud service will offer you the ability to restore notes or to otherwise
+contact support if your notes go missing.
+By home-rolling my sync setup, I don&rsquo;t get these niceties.</p><p>Instead, I decided to use my standard backup location: S3 Glacier Deep Archive.
+Storage costs are miniscule.
+They amount to a few USD per month, and 99% of that cost are backups of my holiday
+photos rather than the 40Mb of notes I&rsquo;ve got (much of which are photos for
+reference so that I can coach my Grandma through fixing her TV over the phone).</p><p>The other benefit of S3 is that it&rsquo;s ubiquitous, which means that my TrueNAS home
+server supports backing up to S3.
+This is how the backups are actually accomplished.
+Nightly, there is a job that snapshots the folder that Syncthing syncs to on the
+server and sends it to S3.
+I&rsquo;ve used versioned buckets in S3 so that I can go backwards in time and retrieve
+old versions of notes if need be, which is another useful feature.</p><p>So far the growth of these notes has been pretty modest, as you can see in the
+following graph:</p><figure><img onclick=showLightboxImage(this) sizes="(min-width: 35em) 1200px, 100vw" srcset='/posts/notes-backup/s3-growth_hu4caa565d945b103a50fa4e8d4167c05b_62590_500x0_resize_box_3.png 500w
+, /posts/notes-backup/s3-growth_hu4caa565d945b103a50fa4e8d4167c05b_62590_800x0_resize_box_3.png 800w
+, /posts/notes-backup/s3-growth_hu4caa565d945b103a50fa4e8d4167c05b_62590_1200x0_resize_box_3.png 1200w' src=/posts/notes-backup/s3-growth.png alt="A graph showing the growth of the number of objects and the total size of the objects in mb over the last 8 months. The object count has grown steadily from less than 200 objects to around 1500 objects, and the total size has grown from 0 to almost 40Mb, most of that growth in the first few months."><div onclick=hideLightboxImage(this) class="hidden fixed top-0 bottom-0 left-0 right-0 z-[999] target:block bg-[rgb(0,0,0)]/80"><img class="block w-full h-full object-contain m-0" src=/posts/notes-backup/s3-growth.png></div><figcaption><p>Growth of my notes S3 storage and object count over the last 8 months</p></figcaption></figure><h2 id=the-first-acid-test-of-my-backups---a-success>The first acid-test of my backups - a success!</h2><p>If you don&rsquo;t regularly test restoring from your backups, you don&rsquo;t really have any backups.
+So the old saying goes.
+My impetus to write this blog post was a situation that required some restoration, so that I
+could jot down the process for posterity.</p><p>At some point in the past few months, I used Android&rsquo;s &lsquo;file cleanup&rsquo; feature to make some
+space on my phone.
+It seems that this inadvertently cleaned up some photos that I had taken and attached to some
+of my Obsidian notes.
+This was probably just due to my inattention to what was being cleaned up, but if you&rsquo;re reading
+this Android team, a &lsquo;don&rsquo;t every clean up files in this directory&rsquo; option would be much
+appreciated!</p><p>The restoration process was very simple:</p><ol><li>Locate the files in S3 using the AWS web console.
+This requires using the &lsquo;Show versions&rsquo; toggle, since what I wanted to view
+were old versions of files.</li><li>Since these files have been deleted, we want to, ironically, delete the
+&lsquo;deletion markers&rsquo; that S3 uses to track that the files once existed but are
+now deleted.
+This should effectively &lsquo;un-delete&rsquo; these files.</li><li>Initiate the restoration process of the files, again by clicking through the AWS
+console.
+This takes about 12 hours on average for Glacier Deep Archive, and costs cents
+for what turned out to be 5 small jpegs.</li><li>Once the restoration has completed (you&rsquo;ll see a status message at the top of the
+file details page), you can download the files and put them in the right place
+on the filesystem.</li></ol><p>Everything back how it should be!</p><h2 id=still-todo>Still TODO</h2><p>While I&rsquo;m quite happy with my current setup, there are a few more tweaks that
+I&rsquo;d like to make in the near future.</p><p>Firstly, my backups are not resilient to my server being off, since this is
+where the nightly backups are performed.
+I have a tendency to turn my server off when I don&rsquo;t use it for a while,
+and it would be nice to have one of:</p><ul><li>A scheduled power on, do backups, power back off cycle e.g. once per week</li><li>A reminder when my backups haven&rsquo;t been executed in a while.
+Perhaps something triggered out of S3 when no changes have been made to my
+note backup bucket for over a week?</li><li>A backup method that works from my phone, which is the device that you can
+rely upon being online most often.</li></ul><p>Secondly, given that I now have a nice Markdown note-taking system on my phone,
+and this blog is also written in Markdown&mldr;
+Perhaps it would be nice to be able to author and publish blog posts from my
+phone?
+The thinking here is that it would greatly lower the barrier to entry for
+authoring blog posts, and hence, I might blog a bit more often.
+At the moment I do my blog-post authoring on my laptop, and the thought of
+getting up off the couch, going to my office and grabbing my laptop is usually
+enough for me to not bother.
+Or alternatively, for me to jot down some ideas in an Obsidian folder I have
+called &lsquo;blog ideas&rsquo;, and then never publish those ideas.</p><p>This would require me to set up some proper CI for my blog which I&rsquo;ve neglected
+to do, but shouldn&rsquo;t be too hard to set up with GitHub actions.
+It would also require a way of sending my notes from Obsidian over to the
+GitHub repo that hosts this blog.
+However as with everything Obsidian,
+<a href=https://github.com/denolehov/obsidian-git>there&rsquo;s a plugin for that</a>.
+And in fact, there&rsquo;s perhaps an argument that backing up my notes to GitHub
+might even be a better way of doing backups than S3.</p><hr></div></article><nav class="flex flex-col max-w-screen-sm mx-auto"><div class="flex justify-between flex-wrap pb-4"><span></span>
+<a class="w-full text-right md:w-1/2 text-lg text-light-ocean-blue visited:text-dark-ocean-blue py-2" href=https://www.skouf.com/posts/data-recovery/><span>Previous:</span>
+<span class=underline>Recovering data from a failed drive using ddrescue</span></a></div><div class="flex justify-center pt-2"><a class="py-2 px-4 bg-hero-green text-lg font-bold text-dark-green" href=/>Home</a></div></nav></main><footer class="bg-hero-green text-dark-green py-4 md:py-8 mt-8 md:mt-16 text-center"><section class="max-w-screen-sm mx-auto px-4"><h2 class="font-bold text-2xl m-4">Author</h2><img class="mx-auto rounded-full h-24 w-24" src=/image/theme/author.jpg alt="A picture of the author"><div class="mx-auto my-4"><h3 class="font-bold text-xl text-center pb-2">Nik Skoufis</h3><p class="tagline text-center">Software developer, food lover</p></div><div class="flex justify-center space-x-2 my-4"><a href=https://github.com/niksko target=_blank aria-label="Link to my GitHub profile"><img class="h-8 w-8" src=/image/theme/github-logo.svg alt="The GitHub logo"></a>
+<a href=https://hachyderm.io/@niksko target=_blank aria-label="Link to my Mastodon profile"><img class="h-8 w-8" src=/image/theme/mastodon-logo.svg alt="The Mastodon logo"></a></div></section><small class=pt-4>© skouf.com</small></footer></div><script async src="https://www.googletagmanager.com/gtag/js?id=G-9NNFJW25R4"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9NNFJW25R4")</script><script>function showLightboxImage(e){const t=e.nextElementSibling;t.style.display="block"}function hideLightboxImage(e){e.style.display="none"}</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script></body></html>
