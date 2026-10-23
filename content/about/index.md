@@ -38,8 +38,7 @@ direction very quickly when this happens.
 ## What I've worked on in the past
 
 In the past I've done a lot of Kubernetes wrangling, and I still try to keep up to date with the latest and greatest.
-I've written (and still write) Typescript, Golang, Python and C# professionally, and done small amounts of work in React here and there.
-I've written Typescript, Golang, Python and C# professionally, and done small amounts of work in React here and there.
+I've written Ruby, Typescript, Golang, Python, Java and C# professionally, and done small amounts of work in React here and there.
 I've done a bunch of teaching and mentoring of junior developers, and try to get involved with programs that let me
 share knowledge and help people understand new concepts wherever I can.
 I also studied mathematics in university, specializing in numerical methods for differential equations.
@@ -53,13 +52,14 @@ Food and drink is a big hobby, both eating and cooking.
 Some of my adventures are on my blog, but there's a lot more to be discussed.
 A short list of stuff I've done deep dives into:
 
-- Miso and shoyu (soy sauce) making
+- Mushroom foraging
+- Coffee
 - Cocktails
 - Carbonation
-- Coffee
-- Bread and milling your own flour
-- Lacto fermentation
+- Bread and milling my own flour
+- Fermentation (pickles, kimchi, vinegars, beer, kombucha)
 - Cured fish products (tuna bacon, gravlax, smoked salmon)
+- Miso and shoyu (soy sauce) making
 
 I never really was a sports guy, but now I try and watch Vancouver Canucks games.
 Maybe it just took a sport completely divorced from my home country and culture to get me interested?
